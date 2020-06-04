@@ -2,5 +2,13 @@
 
 # Prettier
 
+```
 npm install --global prettier
 prettier --write .
+```
+
+# Black
+
+```
+black --exclude .venv .
+```
