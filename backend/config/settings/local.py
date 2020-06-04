@@ -1,7 +1,6 @@
 from .base import *
+import os
 
-# Dummy value for development
-SECRET_KEY = "*m(r@4mdh*!zabwg&6tp%mgs_ezkprs9g+$@x@cdq-z_)dtf2i"
 
 DEBUG_TOOLBAR = False
 
@@ -29,6 +28,4 @@ if DEBUG_TOOLBAR:
     ]
 
     # Needed for django-debug-toolbar
-    INTERNAL_IPS = [
-        "127.0.0.1",
-    ]
+    INTERNAL_IPS = ["127.0.0.1", "localhost"]

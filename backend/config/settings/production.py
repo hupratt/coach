@@ -1,5 +1,6 @@
 import os
 from .base import *
+from .base import BASE_DIR
 from ..env_utils import get_env
 
 DEBUG = False
@@ -13,6 +14,8 @@ ALLOWED_HOSTS = get_env("DJANGO_ALLOWED_HOSTS").split(",")
 SILENCED_SYSTEM_CHECKS = [
     "security.W001",
 ]
+ALLOWED_HOSTS = []
+
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # DATABASES = {
@@ -27,12 +30,6 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # TODO: Add proper handlers
 LOGGING = {

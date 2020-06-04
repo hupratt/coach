@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
-import os
+import os, dotenv
 import sys
 
 
 def main():
+    if os.environ.get("DJANGO_DEVELOPMENT") == "true":
+        dotenv.read_dotenv(
+            os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env.development")
+        )
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
     try:
         from django.core.management import execute_from_command_line
