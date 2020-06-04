@@ -1,0 +1,38 @@
+{
+  "name": "coach",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.2.0",
+    "react-tooltip": "^4.2.6",
+    "uuid": "^3.3.3"
+  },
+  "engines": {
+    "node": "10.20.1"
+  },
+  "scripts": {
+    "lint": "lint-staged",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
