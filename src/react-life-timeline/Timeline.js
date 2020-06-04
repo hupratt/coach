@@ -19,14 +19,25 @@ export default class Timeline extends React.Component {
       {
         date_start: new Date("2017-02-01"),
         date_end: new Date("2017-02-20"),
-        title: "Sample prior event",
+        title: "Sample prior event #1",
         color: "#FC004C",
       },
       {
         date_start: new Date("2017-04-01"),
+        date_end: new Date("2018-02-20"),
+        title: "Sample prior event #2",
+        color: "#D7421B",
+      },
+      {
+        date_start: new Date("2020-04-01"),
         title: "Sample ongoing event",
         color: "#D7421B",
         ongoing: true,
+      },
+      {
+        date_start: new Date("2020-01-01"),
+        title: "Spot event",
+        color: "#D7421B",
       },
     ];
 
@@ -43,13 +54,13 @@ export default class Timeline extends React.Component {
         date_start: new Date("2017-02-01"),
         date_end: new Date("2017-02-20"),
         title: "Sample prior event",
-        color: "#FC004C",
+        color: "#95F268",
       },
       {
         date_start: future_start,
         date_end: future_end,
         title: "Sample future event",
-        color: "#FD691C",
+        color: "#D7421B",
       },
     ];
   }

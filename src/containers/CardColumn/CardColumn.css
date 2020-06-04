@@ -123,9 +123,6 @@ textarea {
   padding: 6px 8px 2px;
   flex-grow: 1;
   position: relative;
-  .card-edit: {
-    opacity: 0;
-  }
 }
 
 .card-edit {

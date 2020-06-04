@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <div className="navbar-wrapper">
       <div className="navbar">
-        <div className="icon">
+        <button className="icon">
           <img
             className="home-icon"
             src={homeIcon}
@@ -14,8 +14,8 @@ function Navbar() {
             heigh="20px"
             alt="Home"
           />
-        </div>
-        <div className="icon board-icon-wrapper">
+        </button>
+        <button className="icon board-icon-wrapper">
           <img
             className="board-icon"
             src={trelloIcon}
@@ -24,7 +24,7 @@ function Navbar() {
             alt="#"
           />
           <span> Boards</span>
-        </div>
+        </button>
         <div>
           <form>
             <input type="text" />
