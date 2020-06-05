@@ -4,6 +4,8 @@ import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Navbar from "./components/navbar/Navbar";
 import data from "./data";
+// import data from "./actions/columns";
+import { login } from "./actions/columns";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
 
@@ -225,6 +227,8 @@ function App() {
     };
     setColumns(newData);
   };
+  console.log("login", login());
+
   return (
     <div className="task-board">
       <Navbar />
