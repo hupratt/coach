@@ -17,7 +17,7 @@ const Modal = ({
   cardClicked,
   moveCard,
 }) => {
-  const { columnsData, columnOrder } = data;
+  const { columnsData } = data;
 
   const [val, setVal] = useState({
     col1: column.title,

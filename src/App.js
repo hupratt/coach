@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -8,11 +8,19 @@ import data from "./data";
 import { login } from "./actions/auth";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
+import { useSelector, useDispatch } from "react-redux";
+import { BASE } from "./constants";
 
 function App() {
   const [columns, setColumns] = useState(data);
   const [addColumn, setAddColumn] = useState(false);
   const [columnName, setColumnName] = useState({ column: "" });
+  const dispatch = useDispatch();
+  const _columns = useSelector((state) => state.column);
+
+  useEffect(() => {
+    fetch(`${BASE}/boards/2/`).then((res) => console.log(res));
+  });
 
   const editCard = (card) => {
     delete card.button;
@@ -227,7 +235,6 @@ function App() {
     };
     setColumns(newData);
   };
-  console.log("login", login());
 
   return (
     <div className="task-board">

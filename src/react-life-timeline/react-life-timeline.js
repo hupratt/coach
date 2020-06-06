@@ -17,14 +17,14 @@ export default class ReactLifeTimeline extends React.Component {
 
   componentDidMount() {
     if (this.props.events.length > 0) this.got_events(this.props.events);
-    else if (this.props.get_events != null)
+    else if (this.props.get_events !== null)
       this.props.get_events(this.got_events.bind(this));
   }
 
   componentWillReceiveProps(nextProps) {
     if (
-      this.props.get_events == null &&
-      nextProps.events.length != this.state.events.length
+      this.props.get_events === null &&
+      nextProps.events.length !== this.state.events.length
     )
       this.got_events(nextProps.events);
   }
@@ -82,7 +82,7 @@ export default class ReactLifeTimeline extends React.Component {
 
   single_event(e) {
     return (
-      (e.single || !e.date_end || e.date_start == e.date_end) && !e.ongoing
+      (e.single || !e.date_end || e.date_start === e.date_end) && !e.ongoing
     );
   }
 
@@ -109,11 +109,10 @@ export default class ReactLifeTimeline extends React.Component {
     if (birthday) {
       let age = 0;
       let bd_in_week = false;
-      let week_isos = [];
       while (week_start < week_end) {
         if (
-          week_start.getMonth() == birthday.getMonth() &&
-          week_start.getDate() == birthday.getDate()
+          week_start.getMonth() === birthday.getMonth() &&
+          week_start.getDate() === birthday.getDate()
         ) {
           bd_in_week = true;
           age = week_start.getFullYear() - birthday.getFullYear();
@@ -123,17 +122,16 @@ export default class ReactLifeTimeline extends React.Component {
       }
       if (bd_in_week) {
         color = this.props.birthday_color;
-        let me = subject_name == null;
+        let me = subject_name === null;
         let title;
         let subj = me ? "I" : subject_name;
-        if (age == 0) {
+        if (age === 0) {
           let verb = me ? "am" : "is";
           title = `${subj} ${verb} born!`;
         } else {
           let verb = me ? "turn" : "turns";
-          title = `${subj} ${verb} ${age} on ${
-            birthday.getMonth() + 1
-          }/${birthday.getDate()}`;
+          title = `${subj} ${verb} ${age} on ${birthday.getMonth() +
+            1}/${birthday.getDate()}`;
         }
         _events.push({ title: title, color: color });
       }
@@ -158,10 +156,8 @@ export default class ReactLifeTimeline extends React.Component {
 
   all_weeks(fn) {
     let { birthday } = this.props;
-    let { today } = this.state;
     let end = this.get_end();
     let cursor = new Date(birthday.getTime());
-    let weeks = [];
     while (cursor <= end) {
       let d = new Date(cursor.getTime());
       cursor.setDate(cursor.getDate() + 7);
@@ -177,9 +173,7 @@ export default class ReactLifeTimeline extends React.Component {
     let events = [];
     let color;
     let single = false;
-    if (res != null) {
-      ({ events, color, single } = res);
-    }
+    res && ({ events, color, single } = res);
     let future = date_start > today;
     let st = {};
     if (events.length > 0) st.backgroundColor = color || "#1AA9FF";
