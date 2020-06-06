@@ -4,8 +4,9 @@ import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Navbar from "./components/navbar/Navbar";
 import data from "./data";
-// import data from "./actions/columns";
 import { login } from "./actions/auth";
+// import data from "./actions/columns";
+import api from "./actions/api";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,7 +20,12 @@ function App() {
   const _columns = useSelector((state) => state.column);
 
   useEffect(() => {
-    fetch(`${BASE}/boards/2/`).then((res) => console.log(res));
+    login();
+  });
+  useEffect(() => {
+    api.get(`${BASE}/api/boards/2/`).then((res) => {
+      console.log("res", res.data);
+    });
   });
 
   const editCard = (card) => {

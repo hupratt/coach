@@ -1,23 +1,20 @@
+import _ from "lodash";
 import axios from "axios";
 
-// Config global defaults for axios/django
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.xsrfCookieName = "csrftoken";
+const api = {};
 
-export const setupInterceptors = (store) => {
-  axios.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      // Handle expired sessions
-      console.log("error", error);
-      if (error.response && error.response.status === 401) {
-        console.log("you's lost bro");
-        // store.dispatch(logout());
-      }
-      return Promise.reject(error);
+_.each(["get", "post", "put", "delete"], (method) => {
+  if (!localStorage.getItem("token")) return axios;
+  api[method] = (url, props, callbacks = {}) => {
+    axios.defaults.headers.common["Authorization"] =
+      "Token " + localStorage.getItem("token");
+    if (method == "get") {
+      return axios.get(url);
     }
-  );
-};
+  };
+});
+
+export default api;
 
 // Available endpoints
 export const API_LOGIN = "auth/login/";
@@ -34,5 +31,3 @@ export const API_SORT_COLUMNS = "api/sort/column/";
 export const API_SORT_TASKS = "api/sort/task/";
 export const API_USERS = "api/users/";
 export const API_SEARCH_USERS = "api/u/search/";
-
-export default axios;
