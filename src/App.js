@@ -4,20 +4,18 @@ import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Navbar from "./components/navbar/Navbar";
 import { login } from "./actions/auth";
-import { setColumns, addCard } from "./actions/columns";
+import { setColumns, setColumnName, setAddColumn } from "./actions/columns";
 import api from "./actions/api";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
 import { BASE } from "./constants";
-import data from "./data";
 
 function App() {
-  // let [columns, setColumns] = useState(data);
-  const [addColumn, setAddColumn] = useState(false);
-  const [columnName, setColumnName] = useState({ column: "" });
   const dispatch = useDispatch();
   const columns = useSelector((state) => state.columns.columns);
+  const addColumn = useSelector((state) => state.columns.addColumn);
+  const columnName = useSelector((state) => state.columns.columnName);
 
   useEffect(() => {
     login();
@@ -91,7 +89,7 @@ function App() {
         ...columns,
         columnOrder: newColumnOrder,
       };
-      setColumns(newState);
+      dispatch(setColumns(newState));
       return;
     }
 
@@ -201,16 +199,11 @@ function App() {
   };
 
   const addList = () => {
-    setAddColumn(!addColumn);
+    dispatch(setAddColumn(!addColumn));
   };
 
-  const addColumnName = (event) => {
-    // return (dispatch) => {
-    console.log("{ ...columns, [columns]: event.target.value }", {
-      ...columns,
-    });
-    // dispatch(setColumnName({ ...columns }));
-    // };
+  const handleColumnName = (event) => {
+    dispatch(setColumnName({ column: event.target.value }));
   };
 
   const addColumnDetails = (event) => {
@@ -221,8 +214,6 @@ function App() {
       title: columnName.column,
       taskIds: [],
     };
-    console.log("column", column);
-    dispatch(setColumnName({ column: "" }));
 
     const columnList = columns.columnOrder;
 
@@ -234,8 +225,7 @@ function App() {
       },
       columnOrder: [...columnList, column.id],
     };
-    setAddColumn(!addColumn);
-
+    dispatch(setAddColumn(!addColumn));
     dispatch(setColumns(newData));
   };
 
@@ -330,7 +320,7 @@ function App() {
                 dir="auto"
                 value={columnName.column}
                 maxLength="512"
-                onChange={(event) => addColumnName(event)}
+                onChange={handleColumnName}
               ></input>
               <button type="submit"> Add list</button>
             </form>

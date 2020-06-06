@@ -6,6 +6,8 @@ const initState = {
   loading: false,
   error: null,
   columns: data,
+  addColumn: false,
+  columnName: { column: "" },
 };
 
 const setColumns = (state, action) => {
@@ -13,34 +15,27 @@ const setColumns = (state, action) => {
     columns: action.data,
   });
 };
-const updateColumn = (state, action) => {
+
+const setColumnName = (state, action) => {
   return updateObject(state, {
-    columns: action.data,
+    columnName: action.data,
   });
 };
-const updateCard = (state, action) => {
+
+const setAddColumn = (state, action) => {
   return updateObject(state, {
-    columns: action.data,
+    addColumn: action.data,
   });
-};
-const addColumn = (state, action) => {
-  return updateObject(state, {
-    columns: action.data,
-  });
-};
-const addCard = (state, action) => {
-  console.log("state", action.data.name, action.data.id);
-  // return updateObject(state, {
-  //   [state.columns]: [...state.columns, ...action.data],
-  // });
 };
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.SET_COLUMNS:
       return setColumns(state, action);
-    case actionTypes.ADD_CARD:
-      return addCard(state, action);
+    case actionTypes.SET_COLUMN_NAME:
+      return setColumnName(state, action);
+    case actionTypes.SET_ADD_COLUMN:
+      return setAddColumn(state, action);
     default:
       return state;
   }

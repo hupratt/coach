@@ -12,11 +12,20 @@ export const setColumns = (data) => {
     });
   };
 };
-export const addCard = (data) => {
-  console.log("adding card");
+export const setColumnName = (data) => {
+  console.log("init a new column");
   return (dispatch) => {
     dispatch({
-      type: actionTypes.ADD_CARD,
+      type: actionTypes.SET_COLUMN_NAME,
+      data,
+    });
+  };
+};
+export const setAddColumn = (data) => {
+  console.log("set data in the column");
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.SET_ADD_COLUMN,
       data,
     });
   };
