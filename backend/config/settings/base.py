@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "dj_rest_auth",
-    "dj_rest_auth.registration",
+    "rest_auth",
+    "rest_auth.registration",
     "django_extensions",
     "corsheaders",
 ]
@@ -143,7 +143,7 @@ REST_FRAMEWORK = {
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
 
-REST_AUTH_SERIALIZERS = {"TOKEN_SERIALIZER": "accounts.serializers.TokenSerializer"}
+# REST_AUTH_SERIALIZERS = {"TOKEN_SERIALIZER": "accounts.serializers.TokenSerializer"}
 
 # For django.contrib.sites
 SITE_ID = 1

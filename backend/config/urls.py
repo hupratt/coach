@@ -43,8 +43,8 @@ urlpatterns = [
     path("api/sort/column/", SortColumn.as_view(), name="sort-column"),
     path("api/sort/task/", SortTask.as_view(), name="sort-task"),
     path("api-auth/", include("rest_framework.urls")),
-    path("auth/", include("dj_rest_auth.urls")),
-    path("auth/registration/", include("dj_rest_auth.registration.urls")),
+    path("auth/", include("rest_auth.urls")),
+    path("auth/registration/", include("rest_auth.registration.urls")),
     path("auth/guest/", GuestRegistration.as_view(), name="guest-registration"),
     path("backdoor/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

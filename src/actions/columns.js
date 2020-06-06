@@ -9,7 +9,7 @@
 //   };
 import axios from "axios";
 import { BASE } from "../constants";
-import { API_LOGIN } from "../api";
+import { API_LOGIN } from "./api";
 
 export const reoderColumns = () => {
   axios
@@ -21,7 +21,7 @@ export const reoderColumns = () => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: "Token " + localStorage.getItem("token"),
+          Authorization: `Token ${localStorage.getItem("token")}`,
         },
       }
     )
@@ -35,20 +35,8 @@ export const data = () => {
     .get(`${BASE}/boards/2/`, {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: "Token " + localStorage.getItem("token"),
+        Authorization: `Token ${localStorage.getItem("token")}`,
       },
-    })
-    .then((res) => {
-      console.log("res", res);
-    });
-};
-
-export const login = () => {
-  console.log("BASE", BASE);
-  axios
-    .get(`${BASE}/${API_LOGIN}`, {
-      username: "admin",
-      password: "admin",
     })
     .then((res) => {
       console.log("res", res);
