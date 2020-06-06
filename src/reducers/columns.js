@@ -8,6 +8,7 @@ const initState = {
   columns: data,
   addColumn: false,
   columnName: { column: "" },
+  transformed: [],
 };
 
 const setColumns = (state, action) => {

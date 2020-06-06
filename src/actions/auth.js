@@ -1,12 +1,12 @@
 import axios from "axios";
 import { BASE } from "../constants";
-import { API_LOGIN } from "./api";
+import api, { API_LOGIN } from "./api";
 
-export const login = () => {
+export const login = (username, password) => {
   axios
     .post(`${BASE}/${API_LOGIN}`, {
-      username: "admin",
-      password: "admin",
+      username,
+      password,
     })
     .then((res) => {
       const token = res.data.key;

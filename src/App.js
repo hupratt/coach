@@ -4,7 +4,13 @@ import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Navbar from "./components/navbar/Navbar";
 import { login } from "./actions/auth";
-import { setColumns, setColumnName, setAddColumn } from "./actions/columns";
+import { ETL } from "./actions/etl";
+import {
+  setColumns,
+  setColumnName,
+  setAddColumn,
+  initColumns,
+} from "./actions/columns";
 import api from "./actions/api";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
@@ -16,32 +22,32 @@ function App() {
   const columns = useSelector((state) => state.columns.columns);
   const addColumn = useSelector((state) => state.columns.addColumn);
   const columnName = useSelector((state) => state.columns.columnName);
+  const transformed = useSelector((state) => state.columns.transformed);
 
   useEffect(() => {
-    login();
+    login("admin", "admin");
   }, []);
   useEffect(() => {
-    api.get(`${BASE}/api/boards/2/`).then((res) => {
-      console.log("res", res.data);
-    });
+    initColumns();
   }, []);
-  useEffect(() => {
-    dispatch(
-      setColumns({
-        tasks: {
-          card1: { id: "card1", content: "bake cake" },
-        },
-        columnsData: {
-          column1: {
-            id: "column1",
-            title: "plan",
-            taskIds: ["card1"],
-          },
-        },
-        columnOrder: ["column1"],
-      })
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     setColumns({
+  //       tasks: {
+  //         card1: { id: "card1", content: "bake cake" },
+  //         card2: { id: "card2", content: "bake soda" },
+  //       },
+  //       columnsData: {
+  //         column1: {
+  //           id: "column1",
+  //           title: "plan",
+  //           taskIds: ["card1", "card2"],
+  //         },
+  //       },
+  //       columnOrder: ["column1"],
+  //     })
+  //   );
+  // }, []);
 
   const editCard = (card) => {
     const { id } = card;
@@ -65,6 +71,8 @@ function App() {
     data.columnsData[columnId].taskIds = data.columnsData[
       columnId
     ].taskIds.filter((cardId) => id !== cardId);
+    console.log("deleting card data", data.length);
+
     setColumns({ ...data });
   };
 
@@ -238,6 +246,7 @@ function App() {
       ...columns,
       columnOrder: [...newColumns],
     };
+    console.log("deleting column newData", newData);
 
     dispatch(setColumns(newData));
   };

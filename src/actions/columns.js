@@ -1,14 +1,29 @@
 import axios from "axios";
 import { BASE } from "../constants";
-import { API_LOGIN } from "./api";
+import api, { API_LOGIN } from "./api";
 import * as actionTypes from "../actions/actionTypes";
+import { ETL } from "./etl";
 
 export const setColumns = (data) => {
-  console.log("init grab data from server");
+  console.log("set columns");
   return (dispatch) => {
     dispatch({
       type: actionTypes.SET_COLUMNS,
       data,
+      transformed: ETL(data),
+    });
+  };
+};
+export const initColumns = () => {
+  console.log("init grab data from server");
+  return (dispatch) => {
+    api.get(`${BASE}/api/boards/2/`).then((res) => {
+      const { columns, labels, members, name, owner } = res.data;
+      dispatch({
+        type: actionTypes.SET_COLUMNS,
+        columns,
+        transformed: ETL(columns),
+      });
     });
   };
 };
@@ -44,19 +59,6 @@ export const reoderColumns = () => {
         },
       }
     )
-    .then((res) => {
-      console.log("res", res);
-    });
-};
-
-export const data = () => {
-  axios
-    .get(`${BASE}/boards/2/`, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Token ${localStorage.getItem("token")}`,
-      },
-    })
     .then((res) => {
       console.log("res", res);
     });
