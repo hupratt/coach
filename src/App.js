@@ -3,47 +3,62 @@ import "./App.css";
 import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Navbar from "./components/navbar/Navbar";
-import data from "./data";
 import { login } from "./actions/auth";
-// import data from "./actions/columns";
+import { setColumns, addCard } from "./actions/columns";
 import api from "./actions/api";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
 import { BASE } from "./constants";
+import data from "./data";
 
 function App() {
-  const [columns, setColumns] = useState(data);
+  // let [columns, setColumns] = useState(data);
   const [addColumn, setAddColumn] = useState(false);
   const [columnName, setColumnName] = useState({ column: "" });
   const dispatch = useDispatch();
-  const _columns = useSelector((state) => state.column);
+  const columns = useSelector((state) => state.columns.columns);
 
   useEffect(() => {
     login();
-  });
+  }, []);
   useEffect(() => {
     api.get(`${BASE}/api/boards/2/`).then((res) => {
       console.log("res", res.data);
     });
-  });
+  }, []);
+  useEffect(() => {
+    dispatch(
+      setColumns({
+        tasks: {
+          card1: { id: "card1", content: "bake cake" },
+        },
+        columnsData: {
+          column1: {
+            id: "column1",
+            title: "plan",
+            taskIds: ["card1"],
+          },
+        },
+        columnOrder: ["column1"],
+      })
+    );
+  }, []);
 
   const editCard = (card) => {
-    delete card.button;
-    delete card.focus;
     const { id } = card;
     const newColumns = {
       ...columns,
       tasks: { ...columns.tasks, [id]: card },
     };
-    setColumns({ ...newColumns });
+    dispatch(setColumns({ ...newColumns }));
   };
 
   const createCard = (name, card, id) => {
     const newColumns = columns;
     newColumns.tasks[name] = card;
     newColumns.columnsData[id].taskIds.push(name);
-    setColumns({ ...newColumns });
+    dispatch(setColumns({ ...newColumns }));
   };
 
   const removeCard = (card, columnId) => {
@@ -100,7 +115,7 @@ function App() {
           [newColumn.id]: newColumn,
         },
       };
-      setColumns(newData);
+      dispatch(setColumns(newData));
       return;
     }
 
@@ -127,7 +142,7 @@ function App() {
         [newFinish.id]: newFinish,
       },
     };
-    setColumns(newState);
+    dispatch(setColumns(newState));
   };
 
   const moveCard = (card, column, previousposition, previousColumn, val) => {
@@ -156,7 +171,7 @@ function App() {
           [newColumn.id]: newColumn,
         },
       };
-      setColumns(newData);
+      dispatch(setColumns(newData));
       return;
     }
     if (previousColumn !== val.col && previousposition !== val.pos) {
@@ -181,7 +196,7 @@ function App() {
           [newFinish.id]: newFinish,
         },
       };
-      setColumns(newState);
+      dispatch(setColumns(newState));
     }
   };
 
@@ -190,7 +205,12 @@ function App() {
   };
 
   const addColumnName = (event) => {
-    setColumnName({ ...columnName, column: event.target.value });
+    // return (dispatch) => {
+    console.log("{ ...columns, [columns]: event.target.value }", {
+      ...columns,
+    });
+    // dispatch(setColumnName({ ...columns }));
+    // };
   };
 
   const addColumnDetails = (event) => {
@@ -201,7 +221,8 @@ function App() {
       title: columnName.column,
       taskIds: [],
     };
-    setColumnName({ column: "" });
+    console.log("column", column);
+    dispatch(setColumnName({ column: "" }));
 
     const columnList = columns.columnOrder;
 
@@ -215,7 +236,7 @@ function App() {
     };
     setAddColumn(!addColumn);
 
-    setColumns(newData);
+    dispatch(setColumns(newData));
   };
 
   const deleteColumn = (columnid) => {
@@ -228,7 +249,7 @@ function App() {
       columnOrder: [...newColumns],
     };
 
-    setColumns(newData);
+    dispatch(setColumns(newData));
   };
 
   const editColumnTitle = (column) => {
@@ -239,7 +260,7 @@ function App() {
         [column.id]: column,
       },
     };
-    setColumns(newData);
+    dispatch(setColumns(newData));
   };
 
   return (
