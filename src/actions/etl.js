@@ -1,7 +1,8 @@
 const buildColumnOrder = (columns) => {
   let colOrder = [];
   columns.forEach((column) => {
-    const colId = column.id;
+    const colId = `column${column.id}`;
+    const colOrderId = `${column.column_order.toString()}`;
     let i = 0;
     if (colOrder.length > 0) {
       while (i < colOrder.length) {
@@ -11,28 +12,32 @@ const buildColumnOrder = (columns) => {
           console.log(
             `${column.column_order} < ${val} column.column_order < val so splicing the colOrder array at index ${i}`
           );
-          colOrder.splice(i, 0, { [colId]: column.column_order.toString() });
+          colOrder.splice(i, 0, {
+            [colId]: `${column.column_order.toString()}`,
+          });
         }
         if (column.column_order > val) {
           console.log(
             `${column.column_order} > ${val} column.column_order > val so pushing col to the end of the colOrder array`
           );
-          colOrder.push({ [colId]: column.column_order.toString() });
+          colOrder.push({
+            [colId]: `${column.column_order.toString()}`,
+          });
         }
         i++;
       }
     } else {
       console.log("colOrder is empty, adding the val", {
-        [colId]: column.column_order.toString(),
+        [colId]: `${column.column_order.toString()}`,
       });
-      colOrder.push({ [colId]: column.column_order.toString() });
+      colOrder.push({ [colId]: `${column.column_order.toString()}` });
     }
   });
   return colOrder;
 };
 const buildColumnsData = (column, taskArray) => {
   let colsData = {};
-  const colId = column.id;
+  const colId = `column${column.id}`;
   const colData = {
     id: column.id.toString(),
     title: column.title,
@@ -45,8 +50,11 @@ const buildTasks = (tasks) => {
   let taskArray = [];
   let taskHolder = {};
   tasks.map((task) => {
-    taskArray.push(task.id.toString());
-    taskHolder[task.id] = { id: task.id.toString(), content: task.title };
+    taskArray.push(`task${task.id}`);
+    taskHolder[`task${task.id}`] = {
+      id: task.id.toString(),
+      content: task.title,
+    };
   });
   return [taskArray, taskHolder];
 };
