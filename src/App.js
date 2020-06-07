@@ -285,15 +285,17 @@ function App() {
                   let column = {};
                   if (transformed.columnsData[columnValue]) {
                     column = transformed.columnsData[columnValue];
-                    column = column["columnsData"];
                   }
-                  const taskArray = column["tasksIds"];
+                  const taskArray = column.tasksIds;
                   let tasks = [];
                   if (taskArray) {
                     tasks = taskArray.map(
                       (taskId) => transformed.tasks[taskId]
                     );
                   }
+                  console.log(
+                    `printing col: ${column} with tasks: ${taskArray}`
+                  );
                   return (
                     <CardColumn
                       column={column}
