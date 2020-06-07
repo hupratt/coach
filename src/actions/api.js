@@ -8,7 +8,7 @@ _.each(["get", "post", "put", "delete"], (method) => {
   api[method] = (url, props, callbacks = {}) => {
     axios.defaults.headers.common["Authorization"] =
       "Token " + localStorage.getItem("token");
-    if (method == "get") {
+    if (method === "get") {
       return axios.get(url);
     }
   };

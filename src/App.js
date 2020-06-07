@@ -282,8 +282,9 @@ function App() {
               >
                 {transformed.columnOrder.map((columnValue, index) => {
                   let column = {};
-                  if (transformed.columnsData[columnValue]) {
-                    column = transformed.columnsData[columnValue];
+                  const colId = Object.keys(columnValue)[0];
+                  if (transformed.columnsData[colId]) {
+                    column = transformed.columnsData[colId];
                   }
                   const taskArray = column.tasksIds;
                   let tasks = [];
@@ -292,8 +293,6 @@ function App() {
                       (taskId) => transformed.tasks[taskId]
                     );
                   }
-                  console.log("column", column);
-                  console.log("tasks", tasks);
                   return (
                     <CardColumn
                       column={column}
