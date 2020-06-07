@@ -21,7 +21,7 @@ export const initColumns = () => {
       const { columns, labels, members, name, owner } = res.data;
       dispatch({
         type: actionTypes.SET_COLUMNS,
-        columns,
+        columns: columns,
         transformed: ETL(columns),
       });
     });

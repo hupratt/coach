@@ -23,12 +23,14 @@ function App() {
   const addColumn = useSelector((state) => state.columns.addColumn);
   const columnName = useSelector((state) => state.columns.columnName);
   const transformed = useSelector((state) => state.columns.transformed);
+  console.log("columns", columns);
+  console.log("transformed", transformed);
 
   useEffect(() => {
     login("admin", "admin");
   }, []);
   useEffect(() => {
-    initColumns();
+    dispatch(initColumns());
   }, []);
   // useEffect(() => {
   //   dispatch(
@@ -279,11 +281,19 @@ function App() {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {columns.columnOrder.map((columnValue, index) => {
-                  const column = columns.columnsData[columnValue];
-                  const tasks = column.taskIds.map(
-                    (taskId) => columns.tasks[taskId]
-                  );
+                {transformed.columnOrder.map((columnValue, index) => {
+                  let column = {};
+                  if (transformed.columnsData[columnValue]) {
+                    column = transformed.columnsData[columnValue];
+                    column = column["columnsData"];
+                  }
+                  const taskArray = column["tasksIds"];
+                  let tasks = [];
+                  if (taskArray) {
+                    tasks = taskArray.map(
+                      (taskId) => transformed.tasks[taskId]
+                    );
+                  }
                   return (
                     <CardColumn
                       column={column}
@@ -293,7 +303,7 @@ function App() {
                       createCard={createCard}
                       removeCard={removeCard}
                       editCard={editCard}
-                      data={columns}
+                      data={transformed}
                       moveCard={moveCard}
                       deleteColumn={deleteColumn}
                       editColumnTitle={editColumnTitle}

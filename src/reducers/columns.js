@@ -8,12 +8,17 @@ const initState = {
   columns: data,
   addColumn: false,
   columnName: { column: "" },
-  transformed: [],
+  transformed: {
+    columnOrder: [],
+    columnsData: { id: "", title: "", taskIds: [] },
+    tasks: { id: "", content: "" },
+  },
 };
 
 const setColumns = (state, action) => {
   return updateObject(state, {
-    columns: action.data,
+    columns: action.columns,
+    transformed: action.transformed,
   });
 };
 

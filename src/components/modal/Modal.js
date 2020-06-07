@@ -27,7 +27,9 @@ const Modal = ({
   });
 
   useEffect(() => {
-    setVal({ ...val, pos: column.taskIds.indexOf(openCard) + 1 });
+    if (column.taskIds) {
+      setVal({ ...val, pos: column.taskIds.indexOf(openCard) + 1 });
+    }
   }, [openCard]);
 
   const handleVal = (event, field, option) => {
@@ -38,22 +40,26 @@ const Modal = ({
   const displayColumn = data.columnOrder.map((columnItem) => {
     // const selected = columnsData[column].title === column.title;
     return (
-      <option
-        value={columnsData[columnItem].title}
-        key={columnsData[columnItem].id}
-      >
-        {columnsData[columnItem].title}
-      </option>
+      columnsData[columnItem] && (
+        <option
+          value={columnsData[columnItem].title}
+          key={columnsData[columnItem].id}
+        >
+          {columnsData[columnItem].title}
+        </option>
+      )
     );
   });
-
-  const displayPosition = column.taskIds.map((cardPosition, index) => {
-    return (
-      <option value={index + 1} key={cardPosition}>
-        {index + 1}
-      </option>
-    );
-  });
+  let displayPosition = <React.Fragment></React.Fragment>;
+  if (column.taskIds) {
+    displayPosition = column.taskIds.map((cardPosition, index) => {
+      return (
+        <option value={index + 1} key={cardPosition}>
+          {index + 1}
+        </option>
+      );
+    });
+  }
 
   const handleCardMove = (
     card,
