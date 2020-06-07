@@ -4,7 +4,6 @@ import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Navbar from "./components/navbar/Navbar";
 import { login } from "./actions/auth";
-import { ETL } from "./actions/etl";
 import {
   setColumns,
   setColumnName,
@@ -293,9 +292,8 @@ function App() {
                       (taskId) => transformed.tasks[taskId]
                     );
                   }
-                  console.log(
-                    `printing col: ${column} with tasks: ${taskArray}`
-                  );
+                  console.log("column", column);
+                  console.log("tasks", tasks);
                   return (
                     <CardColumn
                       column={column}

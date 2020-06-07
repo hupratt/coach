@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE } from "../constants";
 import api, { API_LOGIN } from "./api";
 import * as actionTypes from "../actions/actionTypes";
-import { ETL } from "./etl";
+import { transform } from "./etl";
 
 export const setColumns = (data) => {
   console.log("set columns");
@@ -10,7 +10,7 @@ export const setColumns = (data) => {
     dispatch({
       type: actionTypes.SET_COLUMNS,
       data,
-      transformed: ETL(data),
+      transformed: transform(data),
     });
   };
 };
@@ -22,7 +22,7 @@ export const initColumns = () => {
       dispatch({
         type: actionTypes.SET_COLUMNS,
         columns: columns,
-        transformed: ETL(columns),
+        transformed: transform(columns),
       });
     });
   };
