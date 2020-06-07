@@ -1,7 +1,32 @@
 const buildColumnOrder = (columns) => {
   let colOrder = [];
   columns.forEach((column) => {
-    colOrder.push(column.column_order.toString());
+    const colId = column.id;
+    let i = 0;
+    if (colOrder.length > 0) {
+      while (i < colOrder.length) {
+        const lastOrderedObj = Object.keys(colOrder)[colOrder.length - 1];
+        const val = Object.values(colOrder[lastOrderedObj])[0];
+        if (column.column_order < val) {
+          console.log(
+            `${column.column_order} < ${val} column.column_order < val so splicing the colOrder array at index ${i}`
+          );
+          colOrder.splice(i, 0, { [colId]: column.column_order.toString() });
+        }
+        if (column.column_order > val) {
+          console.log(
+            `${column.column_order} > ${val} column.column_order > val so pushing col to the end of the colOrder array`
+          );
+          colOrder.push({ [colId]: column.column_order.toString() });
+        }
+        i++;
+      }
+    } else {
+      console.log("colOrder is empty, adding the val", {
+        [colId]: column.column_order.toString(),
+      });
+      colOrder.push({ [colId]: column.column_order.toString() });
+    }
   });
   return colOrder;
 };
@@ -31,7 +56,7 @@ const buildColsAndTasksHolder = (columns) => {
   let colsData = {};
   columns.forEach((column) => {
     const [taskArray, taskHolderObj] = buildTasks(column.tasks);
-    tasksHolder = { ...taskHolderObj, ...tasksHolder };
+    tasksHolder = { ...tasksHolder, ...taskHolderObj };
 
     const [colData, colsDataObj] = buildColumnsData(column, taskArray);
     colsData = { ...colsData, ...colsDataObj };
