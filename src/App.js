@@ -55,6 +55,7 @@ function App() {
   };
 
   const onDragEnd = (results) => {
+    console.log("onDragEnd is triggered");
     const { destination, source, draggableId, type } = results;
     if (!destination) {
       return;
@@ -68,8 +69,11 @@ function App() {
 
     if (type === "column") {
       const newColumnOrder = Array.from(columns.columnOrder);
-      newColumnOrder.splice(source.index, 1);
-      newColumnOrder.splice(destination.index, 0, draggableId);
+      const sourceIndex = source.index;
+      newColumnOrder.splice(sourceIndex, 1);
+      newColumnOrder.splice(destination.index, 0, {
+        [draggableId]: columns.columnOrder[sourceIndex][draggableId],
+      });
 
       const newState = {
         ...columns,
@@ -130,6 +134,7 @@ function App() {
   };
 
   const moveCard = (card, column, previousposition, previousColumn, val) => {
+    console.log("moving card");
     val.pos = parseInt(val.pos - 1);
     if (previousposition === val.pos && previousColumn === val.col) return;
     let finishid = columns.columnOrder.filter(
