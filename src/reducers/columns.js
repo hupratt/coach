@@ -1,14 +1,12 @@
 import { updateObject } from "./utility";
 import * as actionTypes from "../actions/actionTypes";
-import data from "../data";
 
 const initState = {
   loading: false,
   error: null,
-  columns: data,
   addColumn: false,
   columnName: { column: "" },
-  transformed: {
+  columns: {
     columnOrder: [],
     columnsData: { id: "", title: "", taskIds: [] },
     tasks: { id: "", content: "" },
@@ -18,7 +16,6 @@ const initState = {
 const setColumns = (state, action) => {
   return updateObject(state, {
     columns: action.columns,
-    transformed: action.transformed,
   });
 };
 

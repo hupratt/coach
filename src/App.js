@@ -10,20 +10,15 @@ import {
   setAddColumn,
   initColumns,
 } from "./actions/columns";
-import api from "./actions/api";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
-import { BASE } from "./constants";
 
 function App() {
   const dispatch = useDispatch();
   const columns = useSelector((state) => state.columns.columns);
   const addColumn = useSelector((state) => state.columns.addColumn);
   const columnName = useSelector((state) => state.columns.columnName);
-  const transformed = useSelector((state) => state.columns.transformed);
-  console.log("columns", columns);
-  console.log("transformed", transformed);
 
   useEffect(() => {
     login("admin", "admin");
@@ -31,24 +26,6 @@ function App() {
   useEffect(() => {
     dispatch(initColumns());
   }, []);
-  // useEffect(() => {
-  //   dispatch(
-  //     setColumns({
-  //       tasks: {
-  //         card1: { id: "card1", content: "bake cake" },
-  //         card2: { id: "card2", content: "bake soda" },
-  //       },
-  //       columnsData: {
-  //         column1: {
-  //           id: "column1",
-  //           title: "plan",
-  //           taskIds: ["card1", "card2"],
-  //         },
-  //       },
-  //       columnOrder: ["column1"],
-  //     })
-  //   );
-  // }, []);
 
   const editCard = (card) => {
     const { id } = card;
@@ -280,18 +257,16 @@ function App() {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {transformed.columnOrder.map((columnValue, index) => {
+                {columns.columnOrder.map((columnValue, index) => {
                   let column = {};
                   const colId = Object.keys(columnValue)[0];
-                  if (transformed.columnsData[colId]) {
-                    column = transformed.columnsData[colId];
+                  if (columns.columnsData[colId]) {
+                    column = columns.columnsData[colId];
                   }
-                  const taskArray = column.tasksIds;
+                  const taskArray = column.taskIds;
                   let tasks = [];
                   if (taskArray) {
-                    tasks = taskArray.map(
-                      (taskId) => transformed.tasks[taskId]
-                    );
+                    tasks = taskArray.map((taskId) => columns.tasks[taskId]);
                   }
                   return (
                     <CardColumn
@@ -302,7 +277,7 @@ function App() {
                       createCard={createCard}
                       removeCard={removeCard}
                       editCard={editCard}
-                      data={transformed}
+                      data={columns}
                       moveCard={moveCard}
                       deleteColumn={deleteColumn}
                       editColumnTitle={editColumnTitle}

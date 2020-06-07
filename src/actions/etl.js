@@ -36,7 +36,7 @@ const buildColumnsData = (column, taskArray) => {
   const colData = {
     id: column.id.toString(),
     title: column.title,
-    tasksIds: taskArray,
+    taskIds: taskArray,
   };
   colsData[[colId]] = colData;
   return [colData, colsData];
@@ -66,6 +66,11 @@ const buildColsAndTasksHolder = (columns) => {
 export const transform = (columns) => {
   if (columns.length > 0) {
     const [tasksHolder, colsData] = buildColsAndTasksHolder(columns);
+    console.log("return", {
+      tasks: tasksHolder,
+      columnOrder: buildColumnOrder(columns),
+      columnsData: colsData,
+    });
     return {
       tasks: tasksHolder,
       columnOrder: buildColumnOrder(columns),

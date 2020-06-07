@@ -4,13 +4,12 @@ import api, { API_LOGIN } from "./api";
 import * as actionTypes from "../actions/actionTypes";
 import { transform } from "./etl";
 
-export const setColumns = (data) => {
-  console.log("set columns");
+export const setColumns = (columns) => {
+  console.log("set column data");
   return (dispatch) => {
     dispatch({
       type: actionTypes.SET_COLUMNS,
-      data,
-      transformed: transform(data),
+      columns,
     });
   };
 };
@@ -19,11 +18,7 @@ export const initColumns = () => {
   return (dispatch) => {
     api.get(`${BASE}/api/boards/2/`).then((res) => {
       const { columns, labels, members, name, owner } = res.data;
-      dispatch({
-        type: actionTypes.SET_COLUMNS,
-        columns: columns,
-        transformed: transform(columns),
-      });
+      dispatch(setColumns(transform(columns)));
     });
   };
 };
