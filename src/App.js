@@ -37,9 +37,9 @@ function App() {
   };
 
   const createCard = (name, card, id) => {
-    const newColumns = columns;
+    let newColumns = columns;
     newColumns.tasks[name] = card;
-    newColumns.columnsData[id].taskIds.push(name);
+    newColumns.columnsData["column" + id].taskIds.push(name);
     dispatch(setColumns({ ...newColumns }));
   };
 
@@ -61,8 +61,8 @@ function App() {
       return;
     }
     if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
+      destination.droppableId == source.droppableId &&
+      destination.index == source.index
     ) {
       return;
     }
@@ -72,7 +72,9 @@ function App() {
       const sourceIndex = source.index;
       newColumnOrder.splice(sourceIndex, 1);
       newColumnOrder.splice(destination.index, 0, {
-        [draggableId]: columns.columnOrder[sourceIndex][draggableId],
+        ["column" + draggableId]: columns.columnOrder[sourceIndex][
+          "column" + draggableId
+        ],
       });
 
       const newState = {
@@ -83,14 +85,13 @@ function App() {
       return;
     }
 
-    const start = columns.columnsData[source.droppableId];
-    const finish = columns.columnsData[destination.droppableId];
+    const start = columns.columnsData["column" + source.droppableId];
+    const finish = columns.columnsData["column" + destination.droppableId];
 
-    if (start === finish) {
+    if (start == finish) {
       const newTaskIds = Array.from(start.taskIds);
-
       newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
+      newTaskIds.splice(destination.index, 0, "column" + draggableId);
       const newColumn = {
         ...start,
         taskIds: newTaskIds,
@@ -100,7 +101,7 @@ function App() {
 
         columnsData: {
           ...columns.columnsData,
-          [newColumn.id]: newColumn,
+          ["column" + newColumn.id]: newColumn,
         },
       };
       dispatch(setColumns(newData));
@@ -108,28 +109,32 @@ function App() {
     }
 
     const startTaskIds = Array.from(start.taskIds);
+    console.log("startTaskIds", startTaskIds);
     startTaskIds.splice(source.index, 1);
+    console.log("startTaskIds", startTaskIds);
     const newStart = {
       ...start,
       taskIds: startTaskIds,
     };
 
     const finishTaskIds = Array.from(finish.taskIds);
-    finishTaskIds.splice(destination.index, 0, draggableId);
-
+    console.log("finishTaskIds", finishTaskIds);
+    finishTaskIds.splice(destination.index, 0, "task" + draggableId);
+    console.log("finishTaskIds", finishTaskIds);
     const newFinish = {
       ...finish,
       taskIds: finishTaskIds,
     };
-
+    console.log("newState", columns);
     const newState = {
       ...columns,
       columnsData: {
         ...columns.columnsData,
-        [newStart.id]: newStart,
-        [newFinish.id]: newFinish,
+        ["column" + newStart.id]: newStart,
+        ["column" + newFinish.id]: newFinish,
       },
     };
+    console.log("newState", newState);
     dispatch(setColumns(newState));
   };
 
@@ -146,9 +151,11 @@ function App() {
 
     if (previousColumn === val.col && previousposition !== val.pos) {
       const newTaskIds = Array.from(start.taskIds);
+      console.log("newTaskIds", newTaskIds);
       const index = newTaskIds.indexOf(card.id);
       newTaskIds.splice(index, 1);
       newTaskIds.splice(val.pos, 0, card.id);
+      console.log("newTaskIds", newTaskIds);
       const newColumn = {
         ...start,
         taskIds: newTaskIds,
@@ -165,8 +172,10 @@ function App() {
     }
     if (previousColumn !== val.col && previousposition !== val.pos) {
       const startTaskIds = Array.from(start.taskIds);
+      console.log("startTaskIds", startTaskIds);
       const index = startTaskIds.indexOf(card.id);
       startTaskIds.splice(index, 1);
+      console.log("startTaskIds", startTaskIds);
       const newStart = {
         ...start,
         taskIds: startTaskIds,
