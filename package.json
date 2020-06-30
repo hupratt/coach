@@ -19,7 +19,7 @@
     "uuid": "^3.3.3"
   },
   "engines": {
-    "node": "10.20.1"
+    "node": "10.21.0"
   },
   "scripts": {
     "lint": "lint-staged",

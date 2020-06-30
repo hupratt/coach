@@ -207,6 +207,7 @@ function App() {
     };
 
     const columnList = columns.columnOrder;
+    const maxOrderId = columns.maxOrderId;
 
     const newData = {
       ...columns,
@@ -214,8 +215,15 @@ function App() {
         ...columns.columnsData,
         [column.id]: column,
       },
-      columnOrder: [...columnList, column.id],
+      maxOrderId: maxOrderId + 1,
+      columnOrder: {
+        ...columnList,
+        [columns.columnOrder.length]: {
+          [column.id]: Number(maxOrderId + 1).toString(),
+        },
+      },
     };
+    console.log("herreeeeee", newData);
     dispatch(setAddColumn(!addColumn));
     dispatch(setColumns(newData));
   };
@@ -242,9 +250,10 @@ function App() {
         [column.id]: column,
       },
     };
+    console.log("newData", newData);
     dispatch(setColumns(newData));
   };
-
+  console.log("columns.columnOrder", columns.columnOrder);
   return (
     <div className="task-board">
       <Navbar />

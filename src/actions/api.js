@@ -1,7 +1,7 @@
 import _ from "lodash";
 import axios from "axios";
 
-const api = {};
+export const api = {};
 
 _.each(["get", "post", "put", "delete"], (method) => {
   if (!localStorage.getItem("token")) return axios;
@@ -13,8 +13,6 @@ _.each(["get", "post", "put", "delete"], (method) => {
     }
   };
 });
-
-export default api;
 
 // Available endpoints
 export const API_LOGIN = "auth/login/";

@@ -1,5 +1,6 @@
 const buildColumnOrder = (columns) => {
   let colOrder = [];
+  let maxOrderId;
   columns.forEach((column) => {
     const colId = `column${column.id}`;
     const colOrderId = `${column.column_order.toString()}`;
@@ -13,27 +14,30 @@ const buildColumnOrder = (columns) => {
             `${column.column_order} < ${val} column.column_order < val so splicing the colOrder array at index ${i}`
           );
           colOrder.splice(i, 0, {
-            [colId]: `${column.column_order.toString()}`,
+            [colId]: colOrderId,
           });
+          maxOrderId = colOrderId;
         }
         if (column.column_order > val) {
           console.log(
             `${column.column_order} > ${val} column.column_order > val so pushing col to the end of the colOrder array`
           );
           colOrder.push({
-            [colId]: `${column.column_order.toString()}`,
+            [colId]: colOrderId,
           });
+          maxOrderId = colOrderId;
         }
         i++;
       }
     } else {
       console.log("colOrder is empty, adding the val", {
-        [colId]: `${column.column_order.toString()}`,
+        [colId]: colOrderId,
       });
-      colOrder.push({ [colId]: `${column.column_order.toString()}` });
+      colOrder.push({ [colId]: colOrderId });
+      maxOrderId = colOrderId;
     }
   });
-  return colOrder;
+  return [colOrder, maxOrderId];
 };
 const buildColumnsData = (column, taskArray) => {
   let colsData = {};
@@ -74,15 +78,18 @@ const buildColsAndTasksHolder = (columns) => {
 export const transform = (columns) => {
   if (columns.length > 0) {
     const [tasksHolder, colsData] = buildColsAndTasksHolder(columns);
+    const [colOrder, maxOrderId] = buildColumnOrder(columns);
     console.log("return", {
       tasks: tasksHolder,
-      columnOrder: buildColumnOrder(columns),
+      columnOrder: colOrder,
       columnsData: colsData,
+      maxOrderId: Number(maxOrderId),
     });
     return {
       tasks: tasksHolder,
-      columnOrder: buildColumnOrder(columns),
+      columnOrder: colOrder,
       columnsData: colsData,
+      maxOrderId: Number(maxOrderId),
     };
   }
   return {};
