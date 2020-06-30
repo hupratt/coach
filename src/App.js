@@ -29,16 +29,20 @@ function App() {
 
   const editCard = (card) => {
     const { id } = card;
+    console.log("card", card);
     const newColumns = {
       ...columns,
-      tasks: { ...columns.tasks, [id]: card },
+      tasks: { ...columns.tasks, ["task" + id]: card },
     };
+    console.log("newColumns", newColumns);
     dispatch(setColumns({ ...newColumns }));
   };
 
   const createCard = (name, card, id) => {
     let newColumns = columns;
     newColumns.tasks[name] = card;
+    console.log("name", name);
+    console.log("id", id);
     newColumns.columnsData["column" + id].taskIds.push(name);
     dispatch(setColumns({ ...newColumns }));
   };
@@ -46,8 +50,8 @@ function App() {
   const removeCard = (card, columnId) => {
     const { id } = card;
     const data = columns;
-    data.columnsData[columnId].taskIds = data.columnsData[
-      columnId
+    data.columnsData["column" + columnId].taskIds = data.columnsData[
+      "column" + columnId
     ].taskIds.filter((cardId) => id !== cardId);
     console.log("deleting card data", data.length);
 
@@ -209,28 +213,25 @@ function App() {
   const addColumnDetails = (event) => {
     event.preventDefault();
     const columnid = uuidv4();
+    const columnList = columns.columnOrder;
+    const maxOrderId = columns.maxOrderId;
     const column = {
-      id: `column${columnid}`,
+      id: `${maxOrderId}`,
       title: columnName.column,
       taskIds: [],
     };
 
-    const columnList = columns.columnOrder;
-    const maxOrderId = columns.maxOrderId;
-
+    const newObj = {
+      ["column" + maxOrderId]: Number(maxOrderId + 1).toString(),
+    };
     const newData = {
       ...columns,
       columnsData: {
         ...columns.columnsData,
-        [column.id]: column,
+        ["column" + maxOrderId]: column,
       },
       maxOrderId: maxOrderId + 1,
-      columnOrder: {
-        ...columnList,
-        [columns.columnOrder.length]: {
-          [column.id]: Number(maxOrderId + 1).toString(),
-        },
-      },
+      columnOrder: [...columnList, newObj],
     };
     console.log("herreeeeee", newData);
     dispatch(setAddColumn(!addColumn));

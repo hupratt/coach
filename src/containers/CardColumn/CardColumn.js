@@ -26,14 +26,15 @@ function CardColumn({
   const [showInputTitle, setShowInputTitle] = useState(false);
 
   const handleclick = (id) => {
-    const cardid = uuidv4();
+    // how to set max id?
+    const maxOrderId = tasks.length + 1;
     const card = {
-      id: `card${cardid}`,
+      id: `${maxOrderId}`,
       content: "",
       focus: true,
       button: "Add Card",
     };
-    createCard(`card${cardid}`, card, id);
+    createCard(`task${maxOrderId}`, card, id);
   };
 
   const showDelete = () => {
@@ -105,21 +106,18 @@ function CardColumn({
               >
                 <ul className="row-cards">
                   {tasks.length > 0 &&
-                    tasks.map(
-                      (task, index) =>
-                        task && (
-                          <Card
-                            task={task}
-                            key={task.id}
-                            index={index}
-                            removeCard={removeCard}
-                            column={column}
-                            editCard={editCard}
-                            data={data}
-                            moveCard={moveCard}
-                          />
-                        )
-                    )}
+                    tasks.map((task, index) => (
+                      <Card
+                        task={task}
+                        key={task.id}
+                        index={index}
+                        removeCard={removeCard}
+                        column={column}
+                        editCard={editCard}
+                        data={data}
+                        moveCard={moveCard}
+                      />
+                    ))}
                   {provided.placeholder}
                 </ul>
               </div>
