@@ -27,6 +27,7 @@ function CardColumn({
 
   const handleclick = (id) => {
     // how to set max id?
+    console.log("setting");
     const maxOrderId = tasks.length + 1;
     const card = {
       id: `${maxOrderId}`,
@@ -106,18 +107,21 @@ function CardColumn({
               >
                 <ul className="row-cards">
                   {tasks.length > 0 &&
-                    tasks.map((task, index) => (
-                      <Card
-                        task={task}
-                        key={task.id}
-                        index={index}
-                        removeCard={removeCard}
-                        column={column}
-                        editCard={editCard}
-                        data={data}
-                        moveCard={moveCard}
-                      />
-                    ))}
+                    tasks.map(
+                      (task, index) =>
+                        task && (
+                          <Card
+                            task={task}
+                            key={task.id}
+                            index={index}
+                            removeCard={removeCard}
+                            column={column}
+                            editCard={editCard}
+                            data={data}
+                            moveCard={moveCard}
+                          />
+                        )
+                    )}
                   {provided.placeholder}
                 </ul>
               </div>

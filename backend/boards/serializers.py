@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.validators import ValidationError
 
 from accounts.serializers import BoardMemberSerializer
-from .models import Board, Task, Column, Label
+from .models import Board, Task, Column, Label, Event
 
 User = get_user_model()
 
@@ -103,6 +103,12 @@ class LabelSerializer(BoardModelSerializer):
     class Meta:
         model = Label
         fields = ["id", "name", "color", "board"]
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ["id", "period"]
 
 
 class BoardDetailSerializer(serializers.ModelSerializer):

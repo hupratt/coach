@@ -27,6 +27,7 @@ from boards.api import (
     TaskViewSet,
     SortColumn,
     SortTask,
+    EventViewSet,
 )
 
 router = routers.DefaultRouter()
@@ -35,6 +36,7 @@ router.register(r"users", UserViewSet)
 router.register(r"boards", BoardViewSet)
 router.register(r"columns", ColumnViewSet)
 router.register(r"labels", LabelViewSet)
+router.register(r"events", EventViewSet)
 router.register(r"tasks", TaskViewSet)
 
 urlpatterns = [

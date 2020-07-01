@@ -61,6 +61,19 @@ class Priority(models.TextChoices):
     LOW = "L", "Low"
 
 
+class Period(models.TextChoices):
+    WORKDAY = "WD", "WorkDay"
+    WEEKEND = "WE", "WeekEnd"
+    HOLIDAY = "HO", "Holiday"
+
+
+class Event(TimeStampedModel):
+    period = models.CharField(
+        max_length=2, choices=Period.choices, default=Period.WORKDAY
+    )
+    # task = SortableForeignKey(Column, related_name="tasks", on_delete=models.CASCADE)
+
+
 class Task(SortableMixin, TimeStampedModel):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
