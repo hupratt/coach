@@ -67,13 +67,6 @@ class Period(models.TextChoices):
     HOLIDAY = "HO", "Holiday"
 
 
-class Event(TimeStampedModel):
-    period = models.CharField(
-        max_length=2, choices=Period.choices, default=Period.WORKDAY
-    )
-    # task = SortableForeignKey(Column, related_name="tasks", on_delete=models.CASCADE)
-
-
 class Task(SortableMixin, TimeStampedModel):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -90,3 +83,12 @@ class Task(SortableMixin, TimeStampedModel):
 
     class Meta:
         ordering = ["task_order"]
+
+
+class Event(TimeStampedModel):
+    period = models.CharField(
+        max_length=2, choices=Period.choices, default=Period.WORKDAY
+    )
+    task = SortableForeignKey(
+        Task, related_name="event_tasks", on_delete=models.CASCADE, blank=True
+    )

@@ -106,9 +106,13 @@ class LabelSerializer(BoardModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
+    task = serializers.PrimaryKeyRelatedField(
+        queryset=Task.objects.all(), required=False
+    )
+
     class Meta:
         model = Event
-        fields = ["id", "period"]
+        fields = ["id", "period", "task"]
 
 
 class BoardDetailSerializer(serializers.ModelSerializer):

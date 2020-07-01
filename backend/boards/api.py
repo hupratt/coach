@@ -96,7 +96,7 @@ class BoardViewSet(
         return Response(data=BoardMemberSerializer(instance=member).data)
 
 
-class TaskViewSet(ModelDetailViewSet):
+class TaskViewSet(ModelDetailViewSet, mixins.ListModelMixin):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
@@ -106,7 +106,7 @@ class TaskViewSet(ModelDetailViewSet):
         return super().get_queryset().filter(column__board__members=user)
 
 
-class ColumnViewSet(ModelDetailViewSet):
+class ColumnViewSet(ModelDetailViewSet, mixins.ListModelMixin):
     queryset = Column.objects.all()
     serializer_class = ColumnSerializer
     permission_classes = [IsAuthenticated]
@@ -126,14 +126,16 @@ class LabelViewSet(ModelDetailViewSet):
         return super().get_queryset().filter(board__members=user)
 
 
-class EventViewSet(ModelDetailViewSet):
+class EventViewSet(
+    ModelDetailViewSet, mixins.ListModelMixin,
+):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        user = self.request.user
-        return super().get_queryset().filter(board__members=user)
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return super().get_queryset().filter(board__members=user)
 
 
 class SortColumn(APIView):

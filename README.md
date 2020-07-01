@@ -1,5 +1,13 @@
 # Coach: time tracking with React
 
+# Local development
+
+```
+yarn
+yarn start
+python backend/manage.py runserver
+```
+
 # Prettier
 
 ```

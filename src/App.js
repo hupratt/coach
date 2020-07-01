@@ -9,6 +9,7 @@ import {
   setColumnName,
   setAddColumn,
   initColumns,
+  deleteColumnById,
 } from "./actions/columns";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
@@ -253,7 +254,7 @@ function App() {
     };
     console.log("deleting column newData", newData);
 
-    dispatch(setColumns(newData));
+    dispatch(deleteColumnById(columnid));
   };
 
   const editColumnTitle = (column) => {

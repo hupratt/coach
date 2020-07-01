@@ -11,6 +11,9 @@ _.each(["get", "post", "put", "delete"], (method) => {
     if (method === "get") {
       return axios.get(url);
     }
+    if (method === "delete") {
+      return axios.delete(url);
+    }
   };
 });
 
@@ -21,9 +24,9 @@ export const API_REGISTER = "auth/registration/";
 export const API_GUEST_REGISTER = "auth/guest/";
 
 export const API_AVATARS = "api/avatars/";
-export const API_BOARDS = "api/boards/";
-export const API_COLUMNS = "api/columns/";
-export const API_TASKS = "api/tasks/";
+export const API_BOARDS = "api/boards";
+export const API_COLUMNS = "api/columns";
+export const API_TASKS = "api/tasks";
 export const API_LABELS = "api/labels/";
 export const API_SORT_COLUMNS = "api/sort/column/";
 export const API_SORT_TASKS = "api/sort/task/";
