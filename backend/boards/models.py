@@ -85,6 +85,11 @@ class Task(SortableMixin, TimeStampedModel):
     period = models.CharField(
         max_length=2, choices=Period.choices, default=Period.WORKDAY
     )
+    color = models.CharField(max_length=7, default="#D7421B")
+    created = models.DateTimeField(
+        auto_now_add=True, help_text="(automatic) created date"
+    )
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
         return f"{self.id} - {self.title}"
