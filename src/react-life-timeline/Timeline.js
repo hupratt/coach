@@ -3,6 +3,10 @@ import React from "react";
 import ReactLifeTimeline from "./react-life-timeline";
 import "./react-life-timeline.min.css";
 
+const getDateOfWeek=(w, y) => {
+  var d = (1 + (w - 1) * 7); // 1st of January + 7 days for each week
+  return new Date(y, 0, d);
+}
 export default class Timeline extends React.Component {
   constructor(props) {
     super(props);
@@ -25,37 +29,16 @@ export default class Timeline extends React.Component {
     console.log("future_start", future_start);
     console.log("future_end", future_end);
     console.log('new Date("2020-09-01")', new Date("2020-09-01"));
+    console.log('getDateOfWeek(26,2020)', getDateOfWeek(26,2020));
     this.EVENTS = [
       {
-        date_start: new Date("2020-02-01"),
-        date_end: new Date("2020-02-20"),
-        title: "Sample prior event #1",
-        color: "#FC004C",
-      },
-      {
-        date_start: new Date("2020-04-01"),
-        date_end: new Date("2020-02-20"),
-        title: "Sample prior event #2",
-        color: "#D7421B",
-      },
-      {
-        date_start: new Date("2020-04-01"),
-        title: "Sample ongoing event",
-        color: "#D7421B",
-        ongoing: true,
-      },
-      {
-        date_start: new Date("2020-09-01"),
+        date_start: getDateOfWeek(24,2020),
+        date_end: getDateOfWeek(24,2020),
         title: "Spot event",
         color: "#D7421B",
       },
-      {
-        date_start: future_start,
-        date_end: future_end,
-        title: "Sample future event",
-        color: "#D7421B",
-      },
     ];
+    console.log('EVENTS', this.EVENTS);
   }
 
   generate_events(cb) {

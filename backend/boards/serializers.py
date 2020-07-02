@@ -110,11 +110,25 @@ class EventSerializer(serializers.ModelSerializer):
     task = serializers.PrimaryKeyRelatedField(
         queryset=Task.objects.all(), required=False
     )
+    date_start = serializers.SerializerMethodField()
+    date_end = serializers.SerializerMethodField()
 
     class Meta:
         model = Event
-        fields = ["id", "status", "task"]
+        fields = ["id", "status", "task", "date_start", "date_end"]
 
+    def get_date_start(self, obj):
+        return obj.created
+
+    def get_date_end(self, obj):
+        return obj.created
+
+# {
+#         date_start: getDateOfWeek(24,2020),
+#         date_end: getDateOfWeek(24,2020),
+#         title: "Spot event",
+#         color: "#D7421B",
+#       },
 
 class BoardDetailSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(read_only=True)

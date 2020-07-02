@@ -34,7 +34,7 @@ event3.save()
 Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
 
 # <QuerySet [
-# {'task': 1, 'week': 27, 'clocked': 1},
-# {'task': 2, 'week': 27, 'clocked': 3},
-# {'task': 4, 'week': 27, 'clocked': 1}
+# {'task': 3, 'week': 25, 'clocked': 1, 'task__period': '5'},
+# {'task': 3, 'week': 27, 'clocked': 1, 'task__period': '5'},
+# {'task': 4, 'week': 27, 'clocked': 1, 'task__period': '5'}
 # ]>
