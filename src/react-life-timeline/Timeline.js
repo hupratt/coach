@@ -2,7 +2,7 @@
 import React from "react";
 import ReactLifeTimeline from "./react-life-timeline";
 import "./react-life-timeline.min.css";
-import { API_LOGIN, api, API_BOARDS, API_TASKS, API_COLUMNS, API_EVENTS } from "../actions/api"
+import { api, API_EVENTS } from "../actions/api"
 import { BASE } from "../constants";
 
 
@@ -42,14 +42,7 @@ export default class Timeline extends React.Component {
     cb(this.EVENTS);
   }
 
-  componentDidMount() {
-    this.setState((prevState) => {
-      return {
-          ...prevState,
-          events: this.EVENTS,
-      }
-    }, ()=>console.log('EVENTS', this.state.events));
-  }
+  componentDidMount() {}
 
   add_incremental_event(force_index) {
     let { events_added } = this.state;
