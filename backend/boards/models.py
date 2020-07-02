@@ -67,6 +67,11 @@ class Period(models.TextChoices):
     HOLIDAY = "HO", "Holiday"
 
 
+class Status(models.TextChoices):
+    DONE = "DONE", "Done"
+    TODO = "TODO", "To-do"
+
+
 class Task(SortableMixin, TimeStampedModel):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -77,6 +82,9 @@ class Task(SortableMixin, TimeStampedModel):
     assignees = models.ManyToManyField(User, related_name="tasks")
     column = SortableForeignKey(Column, related_name="tasks", on_delete=models.CASCADE)
     task_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    period = models.CharField(
+        max_length=2, choices=Period.choices, default=Period.WORKDAY
+    )
 
     def __str__(self):
         return f"{self.id} - {self.title}"
@@ -86,9 +94,7 @@ class Task(SortableMixin, TimeStampedModel):
 
 
 class Event(TimeStampedModel):
-    period = models.CharField(
-        max_length=2, choices=Period.choices, default=Period.WORKDAY
-    )
+    status = models.CharField(max_length=4, choices=Status.choices, default=Status.TODO)
     task = SortableForeignKey(
         Task, related_name="event_tasks", on_delete=models.CASCADE, blank=True
     )

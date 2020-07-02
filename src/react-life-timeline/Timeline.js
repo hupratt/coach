@@ -14,17 +14,27 @@ export default class Timeline extends React.Component {
       events_added: 0,
       timeout_id: null,
     };
-    this.EVENTS = [];
-    this.EVENTS_WITH_ONGOING = [
+    let today = new Date();
+    let future_start = new Date(
+      today.getFullYear() + 1,
+      today.getMonth(),
+      today.getDate()
+    );
+    let future_end = new Date(future_start.getTime());
+    future_end.setDate(future_end.getDate() + 7);
+    console.log("future_start", future_start);
+    console.log("future_end", future_end);
+    console.log('new Date("2020-09-01")', new Date("2020-09-01"));
+    this.EVENTS = [
       {
-        date_start: new Date("2017-02-01"),
-        date_end: new Date("2017-02-20"),
+        date_start: new Date("2020-02-01"),
+        date_end: new Date("2020-02-20"),
         title: "Sample prior event #1",
         color: "#FC004C",
       },
       {
-        date_start: new Date("2017-04-01"),
-        date_end: new Date("2018-02-20"),
+        date_start: new Date("2020-04-01"),
+        date_end: new Date("2020-02-20"),
         title: "Sample prior event #2",
         color: "#D7421B",
       },
@@ -35,26 +45,9 @@ export default class Timeline extends React.Component {
         ongoing: true,
       },
       {
-        date_start: new Date("2020-01-01"),
+        date_start: new Date("2020-09-01"),
         title: "Spot event",
         color: "#D7421B",
-      },
-    ];
-
-    let today = new Date();
-    let future_start = new Date(
-      today.getFullYear() + 1,
-      today.getMonth(),
-      today.getDate()
-    );
-    let future_end = new Date(future_start.getTime());
-    future_end.setDate(future_end.getDate() + 7);
-    this.EVENTS_WITH_FUTURE = [
-      {
-        date_start: new Date("2017-02-01"),
-        date_end: new Date("2017-02-20"),
-        title: "Sample prior event",
-        color: "#95F268",
       },
       {
         date_start: future_start,
@@ -98,20 +91,12 @@ export default class Timeline extends React.Component {
   render() {
     return (
       <div>
-        <h2>With Ongoing Event</h2>
+        <h2>Calendar</h2>
 
         <ReactLifeTimeline
           subject_name="John"
-          birthday={new Date("2017-01-01")}
-          events={this.EVENTS_WITH_ONGOING}
-        />
-
-        <h2>With Future Event</h2>
-
-        <ReactLifeTimeline
-          subject_name="John"
-          birthday={new Date("2017-01-01")}
-          events={this.EVENTS_WITH_FUTURE}
+          birthday={new Date("2020-04-17")}
+          events={this.EVENTS}
         />
       </div>
     );

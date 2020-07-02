@@ -5,7 +5,7 @@ import * as actionTypes from "../actions/actionTypes";
 import { transform } from "./etl";
 
 export const setColumns = (columns) => {
-  console.log("set column data");
+  console.log("set column action");
   return (dispatch) => {
     dispatch({
       type: actionTypes.SET_COLUMNS,
@@ -16,19 +16,19 @@ export const setColumns = (columns) => {
 export const deleteColumnById = (id) => {
   console.log("deleting column action");
   return (dispatch) => {
-    api.delete(`${BASE}/${API_COLUMNS}/${id}/`).then(
-      api.get(`${BASE}/${API_BOARDS}/2/`).then((res) => {
+    api.delete(`${BASE}/${API_COLUMNS}/${id}/`).then((res) => {
+      api.get(`${BASE}/${API_BOARDS}/1/`).then((res) => {
         const { columns, labels, members, name, owner } = res.data;
         console.log("res.data", res.data);
         dispatch(setColumns(transform(columns)));
-      })
-    );
+      });
+    });
   };
 };
 export const initColumns = () => {
   console.log("init grab data from server");
   return (dispatch) => {
-    api.get(`${BASE}/${API_BOARDS}/2/`).then((res) => {
+    api.get(`${BASE}/${API_BOARDS}/1/`).then((res) => {
       const { columns, labels, members, name, owner } = res.data;
       dispatch(setColumns(transform(columns)));
     });

@@ -149,6 +149,7 @@ export default class ReactLifeTimeline extends React.Component {
 
   get_end() {
     let { last_event_date } = this.state;
+    console.log("last_event_date", last_event_date);
     let projected_end = new Date(last_event_date.getTime());
     projected_end.setDate(projected_end.getDate() + this.props.project_days);
     return projected_end;
@@ -157,7 +158,8 @@ export default class ReactLifeTimeline extends React.Component {
   all_weeks(fn) {
     let { birthday } = this.props;
     let end = this.get_end();
-    let cursor = new Date(birthday.getTime());
+    // start date of the calendar
+    let cursor = new Date(2019, 12, 1);
     while (cursor <= end) {
       let d = new Date(cursor.getTime());
       cursor.setDate(cursor.getDate() + 7);

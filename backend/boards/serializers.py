@@ -79,6 +79,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "assignees",
             "task_order",
             "column",
+            "period",
         ]
 
 
@@ -112,7 +113,7 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ["id", "period", "task"]
+        fields = ["id", "status", "task"]
 
 
 class BoardDetailSerializer(serializers.ModelSerializer):
