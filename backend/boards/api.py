@@ -9,7 +9,15 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.generics import (
+    RetrieveAPIView,
+)
 
+
+from django.db.models.functions.datetime import Extract, ExtractWeek
+from django.db.models import Q, Count
+from django.http import JsonResponse, HttpResponse
+from django.core import serializers
 from .models import Board, Task, Column, Label, Event
 from .permissions import IsOwner, IsOwnerForDangerousMethods
 from .serializers import (
@@ -126,16 +134,14 @@ class LabelViewSet(ModelDetailViewSet):
         return super().get_queryset().filter(board__members=user)
 
 
-class EventViewSet(
-    ModelDetailViewSet, mixins.ListModelMixin,
-):
-    queryset = Event.objects.all()
-    serializer_class = EventSerializer
-    permission_classes = [IsAuthenticated]
 
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return super().get_queryset().filter(board__members=user)
+
+class EventView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, *args, **kwargs):
+        qs = Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
+        return JsonResponse({"data": list(qs)})
+
 
 
 class SortColumn(APIView):

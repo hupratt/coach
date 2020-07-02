@@ -27,7 +27,7 @@ from boards.api import (
     TaskViewSet,
     SortColumn,
     SortTask,
-    EventViewSet,
+    EventView,
 )
 
 router = routers.DefaultRouter()
@@ -36,12 +36,12 @@ router.register(r"users", UserViewSet)
 router.register(r"boards", BoardViewSet)
 router.register(r"columns", ColumnViewSet)
 router.register(r"labels", LabelViewSet)
-router.register(r"events", EventViewSet)
 router.register(r"tasks", TaskViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
     path("api/u/search/", UserSearchView.as_view(), name="user-search"),
+    path("api/events/", EventView.as_view(), name="event-list"),
     path("api/sort/column/", SortColumn.as_view(), name="sort-column"),
     path("api/sort/task/", SortTask.as_view(), name="sort-task"),
     path("api-auth/", include("rest_framework.urls")),

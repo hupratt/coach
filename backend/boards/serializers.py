@@ -6,6 +6,11 @@ from rest_framework.validators import ValidationError
 from accounts.serializers import BoardMemberSerializer
 from .models import Board, Task, Column, Label, Event
 
+from django.http import JsonResponse
+
+from django.db.models.functions.datetime import Extract, ExtractWeek
+from django.db.models import Q, Count
+
 User = get_user_model()
 
 
@@ -106,22 +111,19 @@ class LabelSerializer(BoardModelSerializer):
         fields = ["id", "name", "color", "board"]
 
 
-class EventSerializer(serializers.ModelSerializer):
-    task = serializers.PrimaryKeyRelatedField(
-        queryset=Task.objects.all(), required=False
-    )
-    date_start = serializers.SerializerMethodField()
-    date_end = serializers.SerializerMethodField()
+# def EventSerializer(*args, **kwargs):
+#     qs = Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
+#     return qs.values()
+
+class EventSerializer(serializers.Serializer):
+    data = serializers.SerializerMethodField()
 
     class Meta:
-        model = Event
-        fields = ["id", "status", "task", "date_start", "date_end"]
+        fields = ["data"]
 
-    def get_date_start(self, obj):
-        return obj.created
-
-    def get_date_end(self, obj):
-        return obj.created
+    def get_data(self, obj):
+        qs = Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
+        return qs.values()
 
 # {
 #         date_start: getDateOfWeek(24,2020),
