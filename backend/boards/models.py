@@ -61,10 +61,10 @@ class Priority(models.TextChoices):
     LOW = "L", "Low"
 
 
-class Period(models.TextChoices):
-    WORKDAY = "WD", "WorkDay"
-    WEEKEND = "WE", "WeekEnd"
-    HOLIDAY = "HO", "Holiday"
+class Period(models.IntegerChoices):
+    WORKDAY = 5
+    EVERYDAY = 7
+    HOLIDAY = 1
 
 
 class Status(models.TextChoices):
@@ -102,4 +102,7 @@ class Event(TimeStampedModel):
     status = models.CharField(max_length=4, choices=Status.choices, default=Status.TODO)
     task = SortableForeignKey(
         Task, related_name="event_tasks", on_delete=models.CASCADE, blank=True
+    )
+    created = models.DateTimeField(
+        auto_now_add=True, help_text="(automatic) created date"
     )
