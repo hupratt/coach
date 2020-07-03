@@ -13,30 +13,46 @@ another_date = tz.localize(datetime(2020, 5, 21))
 another_date2 = tz.localize(datetime(2020, 5, 1))
 
 board, _ = Board.objects.get_or_create(owner_id=1)
-column1, _ = Column.objects.get_or_create(title="In Progress", board=board)
-column2, _ = Column.objects.get_or_create(title="To do", board=board)
-task1, _ = Task.objects.get_or_create(title="A title", column=column1)
-task2, _ = Task.objects.get_or_create(title="A second title", column=column1)
+column1, _ = Column.objects.get_or_create(title="To do", board=board)
+column2, _ = Column.objects.get_or_create(title="Done", board=board)
+task1, _ = Task.objects.get_or_create(title="Do push-ups", column=column1)
+task2, _ = Task.objects.get_or_create(title="Wake up @8:00", column=column1)
 
-event1, _ = Event.objects.get_or_create(task=task1, status="TODO")
-event1.created = today
-event1.save()
+e = Event.objects.create(task=task1, status="DONE")
+e.created = another_date
+e.save()
+e = Event.objects.create(task=task1, status="DONE")
+e.created = another_date
+e.save()
+e = Event.objects.create(task=task1, status="DONE")
+e.created = another_date
+e.save()
+e = Event.objects.create(task=task1, status="DONE")
+e.created = another_date
+e.save()
 
-event2, _ = Event.objects.get_or_create(task=task1, status="TODO")
-event2.created = another_date
-event2.save()
+e = Event.objects.create(task=task2, status="DONE")
+e.created = another_date2
+e.save()
+e = Event.objects.create(task=task2, status="DONE")
+e.created = another_date2
+e.save()
+e = Event.objects.create(task=task2, status="DONE")
+e.created = another_date2
+e.save()
 
-event3, _ = Event.objects.get_or_create(task=task2, status="DONE")
-event3.created = another_date2
-event3.save()
+e = Event.objects.create(task=task2, status="TODO")
+e.created = today
+e.save()
 
 
 Event.objects.annotate(week=ExtractWeek("created")).values(
     "week", "task", "task__period"
 ).annotate(clocked=Count("created"))
 
+
 # <QuerySet [
-# {'task': 3, 'week': 25, 'clocked': 1, 'task__period': '5'},
-# {'task': 3, 'week': 27, 'clocked': 1, 'task__period': '5'},
-# {'task': 4, 'week': 27, 'clocked': 1, 'task__period': '5'}
+# {'task': 1, 'task__period': '5', 'week': 21, 'clocked': 4},
+# {'task': 2, 'task__period': '5', 'week': 18, 'clocked': 3},
+# {'task': 2, 'task__period': '5', 'week': 27, 'clocked': 1}
 # ]>
