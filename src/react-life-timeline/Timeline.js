@@ -7,6 +7,9 @@ import { BASE } from "../constants";
 import _ from "lodash";
 
 const COMPLETION = {
+  /* Shades of Green 
+  https://colorswall.com/palette/16/
+  */
   100: "#388e3c",
   80: "#4caf50",
   60: "#81c784",
@@ -58,11 +61,6 @@ export default class Timeline extends React.Component {
           task__title,
           year,
         } = element;
-        console.log("clocked / task__period", clocked / task__period);
-        console.log(
-          "getColorFromRate(clocked / task__period)",
-          getColorFromRate(clocked / task__period)
-        );
         this.EVENTS.push({
           date_start: getDatefromYearAndWeek(week, year),
           date_end: getDatefromYearAndWeek(week, year),
@@ -119,7 +117,7 @@ export default class Timeline extends React.Component {
 
 ReactLifeTimeline.defaultProps = {
   birthday: null, // Date object
-  birthday_color: "#F89542",
+  birthday_color: "white",
   events: [],
   project_days: 365, // Days into future to project,
   subject_name: null, // Person's name (otherwise 'I')
