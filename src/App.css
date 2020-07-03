@@ -79,4 +79,5 @@ body {
 .container {
   width: 70vw;
   margin: 0 auto;
+  text-align: center;
 }

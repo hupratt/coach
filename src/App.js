@@ -14,6 +14,7 @@ import {
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
+import Background from "./components/background";
 
 function App() {
   const dispatch = useDispatch();
@@ -270,86 +271,92 @@ function App() {
   };
   console.log("columns.columnOrder", columns.columnOrder);
   return (
-    <div className="task-board">
-      <Navbar />
-      <Timeline />
-      <div className="board">
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable
-            droppableId="all-columns"
-            direction="horizontal"
-            type="column"
-          >
-            {(provided) => (
-              <div
-                className="sub-board"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
+    <React.Fragment>
+      <Background>
+        <div className="task-board">
+          <Navbar />
+          <Timeline />
+          <div className="board">
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable
+                droppableId="all-columns"
+                direction="horizontal"
+                type="column"
               >
-                {columns.columnOrder.map((columnValue, index) => {
-                  let column = {};
-                  const colId = Object.keys(columnValue)[0];
-                  if (columns.columnsData[colId]) {
-                    column = columns.columnsData[colId];
-                  }
-                  const taskArray = column.taskIds;
-                  let tasks = [];
-                  if (taskArray) {
-                    tasks = taskArray.map((taskId) => columns.tasks[taskId]);
-                  }
-                  return (
-                    <CardColumn
-                      column={column}
-                      key={column.id}
-                      tasks={tasks}
-                      index={index}
-                      createCard={createCard}
-                      removeCard={removeCard}
-                      editCard={editCard}
-                      data={columns}
-                      moveCard={moveCard}
-                      deleteColumn={deleteColumn}
-                      editColumnTitle={editColumnTitle}
-                    />
-                  );
-                })}
-                {provided.placeholder}
+                {(provided) => (
+                  <div
+                    className="sub-board"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {columns.columnOrder.map((columnValue, index) => {
+                      let column = {};
+                      const colId = Object.keys(columnValue)[0];
+                      if (columns.columnsData[colId]) {
+                        column = columns.columnsData[colId];
+                      }
+                      const taskArray = column.taskIds;
+                      let tasks = [];
+                      if (taskArray) {
+                        tasks = taskArray.map(
+                          (taskId) => columns.tasks[taskId]
+                        );
+                      }
+                      return (
+                        <CardColumn
+                          column={column}
+                          key={column.id}
+                          tasks={tasks}
+                          index={index}
+                          createCard={createCard}
+                          removeCard={removeCard}
+                          editCard={editCard}
+                          data={columns}
+                          moveCard={moveCard}
+                          deleteColumn={deleteColumn}
+                          editColumnTitle={editColumnTitle}
+                        />
+                      );
+                    })}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+            <div className="add-another-list">
+              <div
+                className="add-list add-board"
+                onClick={addList}
+                style={{ display: !addColumn ? "inline-block" : "none" }}
+              >
+                <span className="plus-icon">+</span>
+                <span>Add Another list</span>
               </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-        <div className="add-another-list">
-          <div
-            className="add-list add-board"
-            onClick={addList}
-            style={{ display: !addColumn ? "inline-block" : "none" }}
-          >
-            <span className="plus-icon">+</span>
-            <span>Add Another list</span>
-          </div>
-          <div
-            className="textArea-add-list"
-            style={{ display: addColumn ? "inline-block" : "none" }}
-          >
-            <form onSubmit={(event) => addColumnDetails(event)}>
-              <input
-                id="add-list-textarea"
-                className="list-name-input"
-                type="text"
-                name="name"
-                placeholder="Enter list title..."
-                autoComplete="off"
-                dir="auto"
-                value={columnName.column}
-                maxLength="512"
-                onChange={handleColumnName}
-              ></input>
-              <button type="submit"> Add list</button>
-            </form>
+              <div
+                className="textArea-add-list"
+                style={{ display: addColumn ? "inline-block" : "none" }}
+              >
+                <form onSubmit={(event) => addColumnDetails(event)}>
+                  <input
+                    id="add-list-textarea"
+                    className="list-name-input"
+                    type="text"
+                    name="name"
+                    placeholder="Enter list title..."
+                    autoComplete="off"
+                    dir="auto"
+                    value={columnName.column}
+                    maxLength="512"
+                    onChange={handleColumnName}
+                  ></input>
+                  <button type="submit"> Add list</button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </Background>
+    </React.Fragment>
   );
 }
 export default App;
