@@ -204,10 +204,10 @@ export default class ReactLifeTimeline extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <ReactTooltip place="top" effect="solid" />
         <div className="LifeTimeline">{this.render_all_weeks()}</div>
-      </div>
+      </>
     );
   }
 }

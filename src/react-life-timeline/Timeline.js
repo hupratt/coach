@@ -103,8 +103,8 @@ export default class Timeline extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>Calendar</h2>
+      <div className="container">
+        <h2>Calendar - 2020</h2>
         <ReactLifeTimeline
           subject_name="John"
           birthday={new Date("2020-04-17")}
