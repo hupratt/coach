@@ -139,8 +139,9 @@ class LabelViewSet(ModelDetailViewSet):
 class EventView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
-        qs = Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
-        return JsonResponse({"data": list(qs)})
+        qs_events = Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
+        qs_tasks = Task.objects.all().values()
+        return JsonResponse({"data": list(qs_events), "tasks": list(qs_tasks)})
 
 
 

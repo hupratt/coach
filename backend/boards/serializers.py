@@ -117,9 +117,10 @@ class LabelSerializer(BoardModelSerializer):
 
 class EventSerializer(serializers.Serializer):
     data = serializers.SerializerMethodField()
+    tasks = TaskSerializer(many=True, read_only=True)
 
     class Meta:
-        fields = ["data"]
+        fields = ["data", "tasks"]
 
     def get_data(self, obj):
         qs = Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
