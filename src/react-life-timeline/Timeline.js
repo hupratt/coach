@@ -26,12 +26,12 @@ export default class Timeline extends React.Component {
     api.get(`${BASE}/${API_EVENTS}/`).then((res) => {
       const { data } = res.data;
       data.forEach(element => {
-        const {task, task__period, week, clocked } = element
+        const { task, task__period, week, clocked, task__color, task__title, year } = element
         this.EVENTS.push({
-          date_start: getDateOfWeek(week,2020),
-          date_end: getDateOfWeek(week,2020),
-          title: "Spot event",
-          color: "#D7421B",
+          date_start: getDateOfWeek(week, year),
+          date_end: getDateOfWeek(week, year),
+          title: task__title,
+          color: task__color,
         })
       });
       

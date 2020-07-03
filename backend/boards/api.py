@@ -14,7 +14,7 @@ from rest_framework.generics import (
 )
 
 
-from django.db.models.functions.datetime import Extract, ExtractWeek
+from django.db.models.functions.datetime import Extract, ExtractWeek, ExtractYear
 from django.db.models import Q, Count
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
@@ -139,9 +139,8 @@ class LabelViewSet(ModelDetailViewSet):
 class EventView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
-        qs_events = Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
-        qs_tasks = Task.objects.all().values()
-        return JsonResponse({"data": list(qs_events), "tasks": list(qs_tasks)})
+        qs_events = Event.objects.annotate(week=ExtractWeek("created")).annotate(year=ExtractYear("created")).values("year", "week", "task", "task__period", "task__color", "task__title").annotate(clocked=Count("created"))
+        return JsonResponse({"data": list(qs_events)})
 
 
 

@@ -8,7 +8,7 @@ from .models import Board, Task, Column, Label, Event
 
 from django.http import JsonResponse
 
-from django.db.models.functions.datetime import Extract, ExtractWeek
+from django.db.models.functions.datetime import Extract, ExtractWeek, ExtractYear
 from django.db.models import Q, Count
 
 User = get_user_model()
@@ -116,15 +116,16 @@ class LabelSerializer(BoardModelSerializer):
 #     return qs.values()
 
 class EventSerializer(serializers.Serializer):
-    data = serializers.SerializerMethodField()
-    tasks = TaskSerializer(many=True, read_only=True)
+    pass
+    # data = serializers.SerializerMethodField()
+    # tasks = TaskSerializer(many=True, read_only=True)
 
-    class Meta:
-        fields = ["data", "tasks"]
+    # class Meta:
+    #     fields = ["data", "tasks"]
 
-    def get_data(self, obj):
-        qs = Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
-        return qs.values()
+    # def get_data(self, obj):
+    #     qs = Event.objects.annotate(week=ExtractWeek("created")).annotate(year=ExtractYear("created")).values("year", "week", "task", "task__period").annotate(clocked=Count("created"))
+    #     return qs.values()
 
 # {
 #         date_start: getDateOfWeek(24,2020),
