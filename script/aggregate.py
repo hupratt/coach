@@ -10,7 +10,7 @@ import pytz
 tz = pytz.timezone("Europe/Luxembourg")
 today = tz.localize(datetime.now())
 another_date = tz.localize(datetime(2020, 5, 21))
-another_date2 = tz.localize(datetime(2020, 5, 1))
+another_date2 = tz.localize(datetime(2020, 8, 1))
 
 board, _ = Board.objects.get_or_create(owner_id=1)
 column1, _ = Column.objects.get_or_create(title="To do", board=board)
@@ -31,13 +31,13 @@ e = Event.objects.create(task=task1, status="DONE")
 e.created = another_date
 e.save()
 
-e = Event.objects.create(task=task2, status="DONE")
+e = Event.objects.create(task=task2, status="TODO")
 e.created = another_date2
 e.save()
-e = Event.objects.create(task=task2, status="DONE")
+e = Event.objects.create(task=task2, status="TODO")
 e.created = another_date2
 e.save()
-e = Event.objects.create(task=task2, status="DONE")
+e = Event.objects.create(task=task2, status="TODO")
 e.created = another_date2
 e.save()
 

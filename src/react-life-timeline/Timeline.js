@@ -77,13 +77,16 @@ export default class Timeline extends React.Component {
           clocked,
           task__title,
           year,
+          status,
         } = element;
-        this.EVENTS.push({
-          date_start: getDatefromYearAndWeek(week, year),
-          date_end: getDatefromYearAndWeek(week, year),
-          title: task__title,
-          color: getColorFromRate(clocked / task__period),
-        });
+        if (status == "DONE") {
+          this.EVENTS.push({
+            date_start: getDatefromYearAndWeek(week, year),
+            date_end: getDatefromYearAndWeek(week, year),
+            title: task__title,
+            color: getColorFromRate(clocked / task__period),
+          });
+        }
       });
     });
   }
