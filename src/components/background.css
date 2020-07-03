@@ -18,68 +18,8 @@ body {
   --color-info: #e93f3b;
   color: var(--color-text);
   background-color: var(--color-bg);
-  font-family: ltc-bodoni-175, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.demo-2 {
-  --color-link-hover: #53c2c6;
-  --color-alt: #53c2c6;
-  --color-info: #ff5f73;
-}
-
-.demo-3 {
-  --color-link-hover: #dfd98a;
-  --color-alt: #dfd98a;
-  --color-info: #a90519;
-}
-
-.demo-4 {
-  --color-info: #d856bf;
-}
-
-.demo-5 {
-  --color-link-hover: #334bf7;
-  --color-alt: #334bf7;
-  --color-info: #dc5b20;
-}
-
-.demo-6 {
-  --color-info: #ff322f;
-}
-
-.demo-7 {
-  --color-link-hover: #7686bf;
-  --color-alt: #7686bf;
-  --color-info: #e2173c;
-}
-
-/* Page Loader */
-.js .loading::before,
-.js .loading::after {
-  content: "";
-  position: fixed;
-  z-index: 1000;
-}
-
-.js .loading::before {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--color-bg);
-}
-
-.js .loading::after {
-  top: 50%;
-  left: 50%;
-  width: 60px;
-  height: 60px;
-  margin: -30px 0 0 -30px;
-  opacity: 0.4;
-  background: var(--color-link);
-  animation: loaderAnim 0.7s linear infinite alternate forwards;
 }
 
 @keyframes loaderAnim {
@@ -162,7 +102,7 @@ a:focus {
 .content__title-wrap {
   position: relative;
   text-align: center;
-  pointer-events: none;
+  /* pointer-events: none; */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;

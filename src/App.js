@@ -272,9 +272,9 @@ function App() {
   console.log("columns.columnOrder", columns.columnOrder);
   return (
     <React.Fragment>
+      <Navbar />
       <Background>
         <div className="task-board">
-          <Navbar />
           <Timeline />
           <div className="board">
             <DragDropContext onDragEnd={onDragEnd}>

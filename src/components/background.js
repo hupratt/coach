@@ -7,12 +7,12 @@ const heroArea = (children) => {
       <div className="content">
         <div id="app"></div>
         <div className="content__title-wrap">
-          <span className="content__pretitle">CWS Investment</span>
+          {/* <span className="content__pretitle">CWS Investment</span> */}
 
           <h2 className="content__title">Ascendency</h2>
-          <a className="content__link" href="#">
+          {/* <a className="content__link" href="#">
             Learn more
-          </a>
+          </a> */}
           {children}
         </div>
       </div>
