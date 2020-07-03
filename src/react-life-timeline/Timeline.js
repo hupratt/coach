@@ -18,6 +18,16 @@ const COMPLETION = {
   0: "#e8f5e9",
 };
 
+const diffDays = (date1, date2) => {
+  const diffTime = Math.abs(date2 - date1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+};
+
+const daysLeftEndOfYear = (date1, date2) => {
+  return 365 - diffDays(date1, date2);
+};
+
 const getColorFromRate = (rate) => {
   if (rate == 1) {
     return COMPLETION[100];
@@ -104,11 +114,12 @@ export default class Timeline extends React.Component {
   render() {
     return (
       <div className="container">
-        <h2>Calendar - 2020</h2>
+        <h2>2020</h2>
         <ReactLifeTimeline
-          subject_name="John"
-          birthday={new Date("2020-04-17")}
+          subject_name="Hugo"
+          birthday={new Date("1990-04-17")}
           events={this.EVENTS}
+          project_days={daysLeftEndOfYear(new Date("2020-01-01"), new Date())}
         />
       </div>
     );
