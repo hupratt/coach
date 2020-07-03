@@ -4,30 +4,30 @@ import ReactLifeTimeline from "./react-life-timeline";
 import "./react-life-timeline.min.css";
 import { api, API_EVENTS } from "../actions/api";
 import { BASE } from "../constants";
+import _ from "lodash";
 
 const COMPLETION = {
-  100: " #388e3c",
-  80: " #4caf50 ",
-  60: " #81c784 ",
-  40: " #a5d6a7 ",
-  20: " #c8e6c9 ",
-  0: " #e8f5e9 ",
+  100: "#388e3c",
+  80: "#4caf50",
+  60: "#81c784",
+  40: "#a5d6a7",
+  20: "#c8e6c9",
+  0: "#e8f5e9",
 };
 
 const getColorFromRate = (rate) => {
-  switch (rate) {
-    case rate == 1:
-      return COMPLETION["100"];
-    case rate >= 0.8:
-      return COMPLETION["80"];
-    case rate >= 0.6:
-      return COMPLETION["60"];
-    case rate >= 0.4:
-      return COMPLETION["40"];
-    case rate >= 0.2:
-      return COMPLETION["20"];
-    default:
-      return COMPLETION["0"];
+  if (rate == 1) {
+    return COMPLETION[100];
+  } else if (_.inRange(rate, 0.8, 1)) {
+    return COMPLETION[80];
+  } else if (_.inRange(rate, 0.6, 0.8)) {
+    return COMPLETION[60];
+  } else if (_.inRange(rate, 0.4, 6)) {
+    return COMPLETION[40];
+  } else if (_.inRange(rate, 0.2, 0.4)) {
+    return COMPLETION[20];
+  } else if (_.inRange(rate, 0, 0.2)) {
+    return COMPLETION[0];
   }
 };
 
@@ -58,6 +58,11 @@ export default class Timeline extends React.Component {
           task__title,
           year,
         } = element;
+        console.log("clocked / task__period", clocked / task__period);
+        console.log(
+          "getColorFromRate(clocked / task__period)",
+          getColorFromRate(clocked / task__period)
+        );
         this.EVENTS.push({
           date_start: getDatefromYearAndWeek(week, year),
           date_end: getDatefromYearAndWeek(week, year),
@@ -102,7 +107,6 @@ export default class Timeline extends React.Component {
     return (
       <div>
         <h2>Calendar</h2>
-
         <ReactLifeTimeline
           subject_name="John"
           birthday={new Date("2020-04-17")}

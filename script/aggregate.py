@@ -9,8 +9,8 @@ import pytz
 
 tz = pytz.timezone("Europe/Luxembourg")
 today = tz.localize(datetime.now())
-another_date = tz.localize(datetime(2020, 6, 21))
-another_date2 = tz.localize(datetime(2020, 7, 1))
+another_date = tz.localize(datetime(2020, 5, 21))
+another_date2 = tz.localize(datetime(2020, 5, 1))
 
 board, _ = Board.objects.get_or_create(owner_id=1)
 column1, _ = Column.objects.get_or_create(title="In Progress", board=board)
@@ -31,7 +31,9 @@ event3.created = another_date2
 event3.save()
 
 
-Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
+Event.objects.annotate(week=ExtractWeek("created")).values(
+    "week", "task", "task__period"
+).annotate(clocked=Count("created"))
 
 # <QuerySet [
 # {'task': 3, 'week': 25, 'clocked': 1, 'task__period': '5'},

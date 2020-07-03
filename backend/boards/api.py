@@ -139,7 +139,7 @@ class EventView(APIView):
         qs_events = (
             Event.objects.annotate(week=ExtractWeek("created"))
             .annotate(year=ExtractYear("created"))
-            .values("year", "week", "task", "task__period", "task__title")
+            .values("year", "week", "task", "task__period", "task__title", "status")
             .annotate(clocked=Count("created"))
         )
         return JsonResponse({"data": list(qs_events)})
