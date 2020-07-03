@@ -9,9 +9,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.generics import (
-    RetrieveAPIView,
-)
+from rest_framework.generics import RetrieveAPIView
 
 
 from django.db.models.functions.datetime import Extract, ExtractWeek, ExtractYear
@@ -134,14 +132,17 @@ class LabelViewSet(ModelDetailViewSet):
         return super().get_queryset().filter(board__members=user)
 
 
-
-
 class EventView(APIView):
     permission_classes = [IsAuthenticated]
-    def get(self, *args, **kwargs):
-        qs_events = Event.objects.annotate(week=ExtractWeek("created")).annotate(year=ExtractYear("created")).values("year", "week", "task", "task__period", "task__color", "task__title").annotate(clocked=Count("created"))
-        return JsonResponse({"data": list(qs_events)})
 
+    def get(self, *args, **kwargs):
+        qs_events = (
+            Event.objects.annotate(week=ExtractWeek("created"))
+            .annotate(year=ExtractYear("created"))
+            .values("year", "week", "task", "task__period", "task__title")
+            .annotate(clocked=Count("created"))
+        )
+        return JsonResponse({"data": list(qs_events)})
 
 
 class SortColumn(APIView):

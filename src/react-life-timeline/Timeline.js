@@ -2,15 +2,39 @@
 import React from "react";
 import ReactLifeTimeline from "./react-life-timeline";
 import "./react-life-timeline.min.css";
-import { api, API_EVENTS } from "../actions/api"
+import { api, API_EVENTS } from "../actions/api";
 import { BASE } from "../constants";
 
+const COMPLETION = {
+  100: " #388e3c",
+  80: " #4caf50 ",
+  60: " #81c784 ",
+  40: " #a5d6a7 ",
+  20: " #c8e6c9 ",
+  0: " #e8f5e9 ",
+};
 
+const getColorFromRate = (rate) => {
+  switch (rate) {
+    case rate == 1:
+      return COMPLETION["100"];
+    case rate >= 0.8:
+      return COMPLETION["80"];
+    case rate >= 0.6:
+      return COMPLETION["60"];
+    case rate >= 0.4:
+      return COMPLETION["40"];
+    case rate >= 0.2:
+      return COMPLETION["20"];
+    default:
+      return COMPLETION["0"];
+  }
+};
 
-const getDateOfWeek=(w, y) => {
-  var d = (1 + (w - 1) * 7); // 1st of January + 7 days for each week
+const getDatefromYearAndWeek = (w, y) => {
+  var d = 1 + (w - 1) * 7; // 1st of January + 7 days for each week
   return new Date(y, 0, d);
-}
+};
 export default class Timeline extends React.Component {
   constructor(props) {
     super(props);
@@ -22,19 +46,25 @@ export default class Timeline extends React.Component {
       events_added: 0,
       timeout_id: null,
     };
-    this.EVENTS = []
+    this.EVENTS = [];
     api.get(`${BASE}/${API_EVENTS}/`).then((res) => {
       const { data } = res.data;
-      data.forEach(element => {
-        const { task, task__period, week, clocked, task__color, task__title, year } = element
+      data.forEach((element) => {
+        const {
+          task,
+          task__period,
+          week,
+          clocked,
+          task__title,
+          year,
+        } = element;
         this.EVENTS.push({
-          date_start: getDateOfWeek(week, year),
-          date_end: getDateOfWeek(week, year),
+          date_start: getDatefromYearAndWeek(week, year),
+          date_end: getDatefromYearAndWeek(week, year),
           title: task__title,
-          color: task__color,
-        })
+          color: getColorFromRate(clocked / task__period),
+        });
       });
-      
     });
   }
 
@@ -87,7 +117,7 @@ ReactLifeTimeline.defaultProps = {
   birthday: null, // Date object
   birthday_color: "#F89542",
   events: [],
-  project_days: 200, // Days into future to project,
+  project_days: 365, // Days into future to project,
   subject_name: null, // Person's name (otherwise 'I')
   get_events: null, // Function to get events (e.g. via API resource)
 };

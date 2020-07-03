@@ -111,28 +111,9 @@ class LabelSerializer(BoardModelSerializer):
         fields = ["id", "name", "color", "board"]
 
 
-# def EventSerializer(*args, **kwargs):
-#     qs = Event.objects.annotate(week=ExtractWeek("created")).values("week", "task", "task__period").annotate(clocked=Count("created"))
-#     return qs.values()
-
 class EventSerializer(serializers.Serializer):
     pass
-    # data = serializers.SerializerMethodField()
-    # tasks = TaskSerializer(many=True, read_only=True)
 
-    # class Meta:
-    #     fields = ["data", "tasks"]
-
-    # def get_data(self, obj):
-    #     qs = Event.objects.annotate(week=ExtractWeek("created")).annotate(year=ExtractYear("created")).values("year", "week", "task", "task__period").annotate(clocked=Count("created"))
-    #     return qs.values()
-
-# {
-#         date_start: getDateOfWeek(24,2020),
-#         date_end: getDateOfWeek(24,2020),
-#         title: "Spot event",
-#         color: "#D7421B",
-#       },
 
 class BoardDetailSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(read_only=True)
