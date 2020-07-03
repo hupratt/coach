@@ -60,6 +60,13 @@ export default class Timeline extends React.Component {
       timeout_id: null,
     };
     this.EVENTS = [];
+  }
+
+  generate_events(cb) {
+    cb(this.EVENTS);
+  }
+
+  componentDidMount() {
     api.get(`${BASE}/${API_EVENTS}/`).then((res) => {
       const { data } = res.data;
       data.forEach((element) => {
@@ -80,12 +87,6 @@ export default class Timeline extends React.Component {
       });
     });
   }
-
-  generate_events(cb) {
-    cb(this.EVENTS);
-  }
-
-  componentDidMount() {}
 
   add_incremental_event(force_index) {
     let { events_added } = this.state;
