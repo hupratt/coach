@@ -1,5 +1,6 @@
 import { api, API_BOARDS, BASE } from "./api";
 import { transform } from "./etl";
+import { setColumns } from "./columns";
 
 export const initBoard = () => {
   console.log("init grab data from server");

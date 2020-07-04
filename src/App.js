@@ -34,12 +34,10 @@ function App() {
 
   const editCard = (card) => {
     const { id } = card;
-    console.log("card", card);
     const newColumns = {
       ...columns,
       tasks: { ...columns.tasks, ["task" + id]: card },
     };
-    console.log("newColumns", newColumns);
     dispatch(setColumns({ ...newColumns }));
   };
 
@@ -110,23 +108,20 @@ function App() {
     }
 
     const startTaskIds = Array.from(start.taskIds);
-    console.log("startTaskIds", startTaskIds);
     startTaskIds.splice(source.index, 1);
-    console.log("startTaskIds", startTaskIds);
     const newStart = {
       ...start,
       taskIds: startTaskIds,
     };
 
     const finishTaskIds = Array.from(finish.taskIds);
-    console.log("finishTaskIds", finishTaskIds);
     finishTaskIds.splice(destination.index, 0, "task" + draggableId);
-    console.log("finishTaskIds", finishTaskIds);
     const newFinish = {
       ...finish,
       taskIds: finishTaskIds,
     };
-    console.log("newState", columns);
+    console.log("start: from column", newStart);
+    console.log("end: to column", newFinish);
     const newState = {
       ...columns,
       columnsData: {
@@ -135,7 +130,6 @@ function App() {
         ["column" + newFinish.id]: newFinish,
       },
     };
-    console.log("newState", newState);
     dispatch(setColumns(newState));
   };
 
