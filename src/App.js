@@ -241,9 +241,10 @@ function App() {
       columnOrder: [...columnList, newObj],
     };
     console.log("herreeeeee", newData);
-    dispatch(apiColumnCreate(newData));
-    dispatch(setAddColumn(!addColumn));
+    console.log("columnName.column", columnName.column);
     dispatch(setColumns(newData));
+    dispatch(apiColumnCreate(columnName.column));
+    dispatch(setAddColumn(!addColumn));
   };
 
   const deleteColumn = (columnid) => {

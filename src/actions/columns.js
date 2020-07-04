@@ -46,8 +46,8 @@ export const apiColumnCreate = (data) => {
   console.log("init a new column");
   return (dispatch) => {
     let formData = new FormData();
-    formData.append("title", data);
     console.log("data", data);
+    formData.append("title", data);
     formData.append("board", 1);
     api.post(`${BASE}/${API_COLUMNS}/`, formData).then((res) => {
       console.log("res", res);

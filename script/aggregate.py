@@ -31,17 +31,17 @@ e = Event.objects.create(task=task1, status="DONE")
 e.created = another_date
 e.save()
 
-e = Event.objects.create(task=task2, status="TODO")
+e = Event.objects.create(task=task2, status="DONE")
 e.created = another_date2
 e.save()
-e = Event.objects.create(task=task2, status="TODO")
+e = Event.objects.create(task=task2, status="DONE")
 e.created = another_date2
 e.save()
-e = Event.objects.create(task=task2, status="TODO")
+e = Event.objects.create(task=task2, status="DONE")
 e.created = another_date2
 e.save()
 
-e = Event.objects.create(task=task2, status="TODO")
+e = Event.objects.create(task=task2, status="DONE")
 e.created = today
 e.save()
 

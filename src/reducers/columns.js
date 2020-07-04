@@ -5,7 +5,7 @@ const initState = {
   loading: false,
   error: null,
   addColumn: false,
-  columnName: {},
+  columnName: { column: "" },
   columns: {
     columnOrder: [],
     columnsData: { id: "", title: "", taskIds: [] },
