@@ -6,8 +6,10 @@ export const api = {};
 _.each(["get", "post", "put", "delete"], (method) => {
   if (!localStorage.getItem("token")) return axios;
   api[method] = (url, props, callbacks = {}) => {
-    axios.defaults.headers.common["Authorization"] =
-      "Token " + localStorage.getItem("token");
+    if (localStorage.getItem("token")) {
+      axios.defaults.headers.common["Authorization"] =
+        "Token " + localStorage.getItem("token");
+    }
     if (method === "get") {
       return axios.get(url);
     } else if (method === "delete") {

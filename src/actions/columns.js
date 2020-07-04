@@ -13,6 +13,7 @@ export const setColumns = (columns) => {
     });
   };
 };
+
 export const deleteColumnById = (id) => {
   console.log("deleting column action");
   return (dispatch) => {
