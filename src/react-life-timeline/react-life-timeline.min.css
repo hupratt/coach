@@ -1,9 +1,9 @@
 .LifeTimeline {
   display: block;
-}
-.LifeTimeline > .week {
   padding-left: 40px;
   padding-right: 40px;
+}
+.LifeTimeline > .week {
   display: inline-block;
   width: 15px;
   height: 15px;

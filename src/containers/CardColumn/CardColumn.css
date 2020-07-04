@@ -9,6 +9,9 @@
   flex-direction: column;
 }
 
+.list-header h2 {
+  color: black;
+}
 .list-header {
   height: 3.6875rem;
   line-height: 3.6875rem;
