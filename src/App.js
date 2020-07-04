@@ -12,6 +12,7 @@ import {
   deleteColumnById,
   apiColumnCreate,
   apiTaskCreate,
+  apiTaskDelete,
 } from "./actions/columns";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
@@ -51,13 +52,7 @@ function App() {
 
   const removeCard = (card, columnId) => {
     const { id } = card;
-    const data = columns;
-    data.columnsData["column" + columnId].taskIds = data.columnsData[
-      "column" + columnId
-    ].taskIds.filter((cardId) => id !== cardId);
-    console.log("deleting card data", data.length);
-
-    setColumns({ ...data });
+    dispatch(apiTaskDelete(id));
   };
 
   const onDragEnd = (results) => {

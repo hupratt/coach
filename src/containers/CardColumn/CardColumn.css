@@ -133,6 +133,7 @@ textarea {
   top: 1px;
   right: 1px;
   opacity: 0;
+  color: var(--color-link);
 }
 
 .card:hover .card-edit {

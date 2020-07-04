@@ -82,6 +82,18 @@ export const apiTaskCreate = (data, id) => {
     });
   };
 };
+export const apiTaskDelete = (id) => {
+  console.log("delete a new card");
+  return (dispatch) => {
+    api.delete(`${BASE}/${API_TASKS}/${id}`).then((res) => {
+      api.get(`${BASE}/${API_BOARDS}/1/`).then((res) => {
+        const { columns, labels, members, name, owner } = res.data;
+        console.log("res.data", res.data);
+        dispatch(setColumns(transform(columns)));
+      });
+    });
+  };
+};
 export const setAddColumn = (data) => {
   console.log("set data in the column");
   return (dispatch) => {
