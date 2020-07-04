@@ -30,9 +30,9 @@ function App() {
   useEffect(() => {
     dispatch(initColumns());
   }, []);
-  // useEffect(() => {
-  //   dispatch(grabQuoteOfTheDay());
-  // }, []);
+  useEffect(() => {
+    dispatch(grabQuoteOfTheDay());
+  }, []);
 
   const editCard = (card) => {
     const { id } = card;

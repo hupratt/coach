@@ -1,18 +1,14 @@
-import { QUOTE } from "../constants";
 import * as actionTypes from "../actions/actionTypes";
+import json from "../data.json";
 
 export const grabQuoteOfTheDay = () => {
   return (dispatch) => {
-    fetch(`${QUOTE}`, {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-      },
-    }).then((res) => {
-      console.log("res", res);
-      dispatch({
-        type: actionTypes.GRAB_QUOTE,
-      });
+    const rand = Math.floor(Math.random() * 501) + 1;
+    const { quote, author } = json.data[rand];
+    dispatch({
+      type: actionTypes.GRAB_QUOTE,
+      quote,
+      author,
     });
   };
 };
