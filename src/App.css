@@ -80,4 +80,8 @@ body {
   width: 70vw;
   margin: 0 auto;
   text-align: center;
+  background: #ffffff2b;
+  border-radius: 15px;
+  padding-bottom: 30px;
+  padding-top: 10px;
 }
