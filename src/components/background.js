@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./background.css";
 
 const heroArea = (children) => {
@@ -20,33 +20,28 @@ const heroArea = (children) => {
   );
 };
 
-class Background extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { heroArea: null, scriptLoaded: false, heroLoaded: false };
-  }
+const useDidUpdate = (callback, deps) => {
+  const hasMount = useRef(false);
 
-  componentDidUpdate() {
-    if (!this.props.loading && !this.state.scriptLoaded) {
-      this.setState(
-        {
-          heroArea: heroArea(this.props.children),
-          scriptLoaded: true,
-        },
-        () => {
-          setTimeout(() => {
-            const script = document.createElement("script");
-            script.async = false;
-            script.src = "/js/init.js";
-            document.body.appendChild(script);
-          }, 1000);
-        }
-      );
+  useEffect(() => {
+    if (hasMount.current) {
+      callback();
+    } else {
+      hasMount.current = true;
     }
-  }
-  render() {
-    return <React.Fragment>{this.state.heroArea}</React.Fragment>;
-  }
-}
+  }, deps);
+};
+
+const Background = (props) => {
+  useDidUpdate(() => {
+    setTimeout(() => {
+      const script = document.createElement("script");
+      script.async = false;
+      script.src = "/js/init.js";
+      document.body.appendChild(script);
+    }, 1000);
+  });
+  return heroArea(props.children);
+};
 
 export default Background;
