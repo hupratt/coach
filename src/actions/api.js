@@ -16,6 +16,8 @@ _.each(["get", "post", "put", "delete"], (method) => {
       return axios.delete(url);
     } else if (method === "post") {
       return axios.post(url, props);
+    } else if (method === "put") {
+      return axios.put(url, props);
     }
   };
 });

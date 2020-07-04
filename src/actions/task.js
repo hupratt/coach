@@ -20,6 +20,20 @@ export const apiTaskCreate = (data, id) => {
     });
   };
 };
+
+export const apiTaskStatusUpdate = (taskId, newColumnId) => {
+  console.log("update task status");
+  return (dispatch) => {
+    let formData = new FormData();
+    formData.append("column", newColumnId);
+    api.put(`${BASE}/${API_TASKS}/${taskId}/`, formData).then((res) => {
+      api.get(`${BASE}/${API_BOARDS}/1/`).then((res) => {
+        const { columns, labels, members, name, owner } = res.data;
+        dispatch(setColumns(transform(columns)));
+      });
+    });
+  };
+};
 export const apiTaskDelete = (id) => {
   console.log("delete a new card");
   return (dispatch) => {

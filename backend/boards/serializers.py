@@ -31,6 +31,7 @@ class BoardSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     column = serializers.PrimaryKeyRelatedField(queryset=Column.objects.all())
+    title = serializers.CharField(required=False)
     labels = serializers.PrimaryKeyRelatedField(
         queryset=Label.objects.all(), many=True, required=False
     )

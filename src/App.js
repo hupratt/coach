@@ -12,7 +12,7 @@ import {
   apiColumnCreate,
 } from "./actions/columns";
 import uuidv4 from "uuid/v4";
-import { apiTaskDelete } from "./actions/task";
+import { apiTaskDelete, apiTaskStatusUpdate } from "./actions/task";
 import { initBoard } from "./actions/board";
 
 import Timeline from "./react-life-timeline/Timeline";
@@ -130,7 +130,7 @@ function App() {
         ["column" + newFinish.id]: newFinish,
       },
     };
-    dispatch(setColumns(newState));
+    dispatch(apiTaskStatusUpdate(draggableId, newFinish.id));
   };
 
   const moveCard = (card, column, previousposition, previousColumn, val) => {
