@@ -10,9 +10,10 @@ _.each(["get", "post", "put", "delete"], (method) => {
       "Token " + localStorage.getItem("token");
     if (method === "get") {
       return axios.get(url);
-    }
-    if (method === "delete") {
+    } else if (method === "delete") {
       return axios.delete(url);
+    } else if (method === "post") {
+      return axios.post(url, props);
     }
   };
 });

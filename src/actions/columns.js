@@ -35,11 +35,26 @@ export const initColumns = () => {
   };
 };
 export const setColumnName = (data) => {
-  console.log("init a new column");
   return (dispatch) => {
     dispatch({
       type: actionTypes.SET_COLUMN_NAME,
       data,
+    });
+  };
+};
+export const apiColumnCreate = (data) => {
+  console.log("init a new column");
+  return (dispatch) => {
+    let formData = new FormData();
+    formData.append("title", data);
+    console.log("data", data);
+    formData.append("board", 1);
+    api.post(`${BASE}/${API_COLUMNS}/`, formData).then((res) => {
+      console.log("res", res);
+      dispatch({
+        type: actionTypes.SET_COLUMN_NAME,
+        data,
+      });
     });
   };
 };

@@ -10,6 +10,7 @@ import {
   setAddColumn,
   initColumns,
   deleteColumnById,
+  apiColumnCreate,
 } from "./actions/columns";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
@@ -240,6 +241,7 @@ function App() {
       columnOrder: [...columnList, newObj],
     };
     console.log("herreeeeee", newData);
+    dispatch(apiColumnCreate(newData));
     dispatch(setAddColumn(!addColumn));
     dispatch(setColumns(newData));
   };

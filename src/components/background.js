@@ -33,13 +33,17 @@ const useDidUpdate = (callback, deps) => {
 };
 
 const Background = (props) => {
+  const [didMount, setDidMount] = useState(false);
   useDidUpdate(() => {
-    setTimeout(() => {
-      const script = document.createElement("script");
-      script.async = false;
-      script.src = "/js/init.js";
-      document.body.appendChild(script);
-    }, 1000);
+    if (didMount) {
+      setTimeout(() => {
+        const script = document.createElement("script");
+        script.async = false;
+        script.src = "/js/init.js";
+        document.body.appendChild(script);
+        setDidMount(true);
+      }, 1000);
+    }
   });
   return heroArea(props.children);
 };

@@ -5,7 +5,7 @@ const initState = {
   loading: false,
   error: null,
   addColumn: false,
-  columnName: { column: "" },
+  columnName: {},
   columns: {
     columnOrder: [],
     columnsData: { id: "", title: "", taskIds: [] },
@@ -20,6 +20,7 @@ const setColumns = (state, action) => {
 };
 
 const setColumnName = (state, action) => {
+  console.log("state", state);
   return updateObject(state, {
     columnName: action.data,
   });
