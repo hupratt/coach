@@ -116,8 +116,9 @@ a:focus {
 }
 
 .content__pretitle {
-  color: var(--color-alt);
+  color: var(--color-text);
   font-size: 1.35rem;
+  margin: 0.5rem 0 1.5rem;
 }
 
 .content__title {
