@@ -275,7 +275,7 @@ function App() {
   console.log("columns.columnOrder", columns.columnOrder);
   return (
     <React.Fragment>
-      <Navbar />
+      {/* <Navbar /> */}
       <Background>
         <div className="task-board">
           <Timeline />

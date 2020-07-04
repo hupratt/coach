@@ -13,9 +13,11 @@ const heroArea = (children, author, quote) => {
           {/* <span className="content__pretitle">CWS Investment</span> */}
 
           <h2 className="content__title">Ascendency</h2>
-          <span className="content__pretitle">
-            {quote} - {author}
-          </span>
+          <div className="container">
+            <span className="content__pretitle">
+              {quote} - {author}
+            </span>
+          </div>
           {/* <a className="content__link" href="#">
             Learn more
           </a> */}

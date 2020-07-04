@@ -117,7 +117,7 @@ export default class Timeline extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container see-through">
         <h2>2020</h2>
         <ReactLifeTimeline
           subject_name="Hugo"

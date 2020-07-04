@@ -76,10 +76,18 @@ body {
   border-radius: 2px;
 }
 
+.see-through {
+  background: #ffffff2b;
+}
 .container {
   width: 70vw;
   margin: 0 auto;
   text-align: center;
-  background: #ffffff2b;
   border-radius: 15px;
+  padding-top: 1px;
+  padding-bottom: 30px;
+}
+
+.task-board {
+  padding: 30px;
 }
