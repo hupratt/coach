@@ -1,7 +1,10 @@
+import { useSelector, useDispatch } from "react-redux";
 import React, { useRef, useEffect, useState } from "react";
+import { grabQuoteOfTheDay } from "../actions/quote";
+
 import "./background.css";
 
-const heroArea = (children) => {
+const heroArea = (children, author, quote) => {
   return (
     <React.Fragment>
       <div className="content">
@@ -10,6 +13,9 @@ const heroArea = (children) => {
           {/* <span className="content__pretitle">CWS Investment</span> */}
 
           <h2 className="content__title">Ascendency</h2>
+          <span className="content__pretitle">
+            {quote} - {author}
+          </span>
           {/* <a className="content__link" href="#">
             Learn more
           </a> */}
@@ -32,8 +38,15 @@ const useDidUpdate = (callback, deps) => {
   }, deps);
 };
 
-const Background = (props) => {
+function Background(props) {
+  const dispatch = useDispatch();
+
   const [didMount, setDidMount] = useState(false);
+  const author = useSelector((state) => state.quote.author);
+  const quote = useSelector((state) => state.quote.quote);
+  useEffect(() => {
+    dispatch(grabQuoteOfTheDay());
+  }, []);
   useDidUpdate(() => {
     if (didMount) {
       setTimeout(() => {
@@ -45,7 +58,7 @@ const Background = (props) => {
       }, 1000);
     }
   });
-  return heroArea(props.children);
-};
+  return heroArea(props.children, author, quote);
+}
 
 export default Background;

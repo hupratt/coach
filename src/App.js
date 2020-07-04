@@ -12,7 +12,6 @@ import {
   deleteColumnById,
   apiColumnCreate,
 } from "./actions/columns";
-import { grabQuoteOfTheDay } from "./actions/quote";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,9 +28,6 @@ function App() {
   }, []);
   useEffect(() => {
     dispatch(initColumns());
-  }, []);
-  useEffect(() => {
-    dispatch(grabQuoteOfTheDay());
   }, []);
 
   const editCard = (card) => {

@@ -9,8 +9,8 @@ const initState = {
 const setAuthorAndQuote = (state, action) => {
   console.log("state", state);
   return updateObject(state, {
-    author: action.data.author,
-    quote: action.data.quote,
+    author: action.author,
+    quote: action.quote,
   });
 };
 
