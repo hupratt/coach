@@ -1,0 +1,34 @@
+import { api, API_BOARDS, API_TASKS, BASE } from "./api";
+import * as actionTypes from "../actions/actionTypes";
+import { transform } from "./etl";
+import { setColumns } from "./columns";
+
+export const apiTaskCreate = (data, id) => {
+  console.log("init a new card");
+  return (dispatch) => {
+    let formData = new FormData();
+    formData.append("title", data.content);
+    formData.append("description", data.content);
+    formData.append("column", id);
+    // formData.append("period", data.content);
+    api.post(`${BASE}/${API_TASKS}/`, formData).then((res) => {
+      console.log("res", res);
+      dispatch({
+        type: actionTypes.SET_TASK_NAME,
+        data: data.content,
+      });
+    });
+  };
+};
+export const apiTaskDelete = (id) => {
+  console.log("delete a new card");
+  return (dispatch) => {
+    api.delete(`${BASE}/${API_TASKS}/${id}`).then((res) => {
+      api.get(`${BASE}/${API_BOARDS}/1/`).then((res) => {
+        const { columns, labels, members, name, owner } = res.data;
+        console.log("res.data", res.data);
+        dispatch(setColumns(transform(columns)));
+      });
+    });
+  };
+};

@@ -8,13 +8,13 @@ import {
   setColumns,
   setColumnName,
   setAddColumn,
-  initColumns,
   deleteColumnById,
   apiColumnCreate,
-  apiTaskCreate,
-  apiTaskDelete,
 } from "./actions/columns";
 import uuidv4 from "uuid/v4";
+import { apiTaskDelete } from "./actions/task";
+import { initBoard } from "./actions/board";
+
 import Timeline from "./react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
 import Background from "./components/background";
@@ -29,7 +29,7 @@ function App() {
     login("admin", "admin");
   }, []);
   useEffect(() => {
-    dispatch(initColumns());
+    dispatch(initBoard());
   }, []);
 
   const editCard = (card) => {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import GetCard from "../displayCard/displayCard";
 import { useSelector, useDispatch } from "react-redux";
-import { apiTaskCreate } from "../../actions/columns";
+import { apiTaskCreate } from "../../actions/task";
 
 function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   const [values, setValues] = useState({
