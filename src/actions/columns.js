@@ -65,6 +65,23 @@ export const apiColumnCreate = (data) => {
     });
   };
 };
+export const apiTaskCreate = (data, id) => {
+  console.log("init a new card");
+  return (dispatch) => {
+    let formData = new FormData();
+    formData.append("title", data.content);
+    formData.append("description", data.content);
+    formData.append("column", id);
+    // formData.append("period", data.content);
+    api.post(`${BASE}/${API_TASKS}/`, formData).then((res) => {
+      console.log("res", res);
+      dispatch({
+        type: actionTypes.SET_TASK_NAME,
+        data: data.content,
+      });
+    });
+  };
+};
 export const setAddColumn = (data) => {
   console.log("set data in the column");
   return (dispatch) => {

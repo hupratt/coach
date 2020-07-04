@@ -11,6 +11,7 @@ import {
   initColumns,
   deleteColumnById,
   apiColumnCreate,
+  apiTaskCreate,
 } from "./actions/columns";
 import uuidv4 from "uuid/v4";
 import Timeline from "./react-life-timeline/Timeline";
@@ -43,14 +44,8 @@ function App() {
 
   const createCard = (name, card, id) => {
     let newColumns = columns;
-    console.log("focus", !card.focus);
-    const newCard = { ...card, focus: !card.focus };
-    console.log("card", { ...card, focus: !card.focus });
     newColumns.tasks[name] = card;
-    console.log("name", name);
-    console.log("id", id);
     newColumns.columnsData["column" + id].taskIds.push(name);
-    console.log("newColumns", newColumns);
     dispatch(setColumns({ ...newColumns }));
   };
 

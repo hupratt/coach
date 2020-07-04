@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import GetCard from "../displayCard/displayCard";
+import { useSelector, useDispatch } from "react-redux";
+import { apiTaskCreate } from "../../actions/columns";
 
 function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   const [values, setValues] = useState({
     content: "",
   });
+  const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isMove, setIsMove] = useState(false);
@@ -23,8 +26,10 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
       event.target.id === "add-card-button"
     ) {
       editCard(values, column.id);
+      console.log("values, column.id", values, column.id);
       setValues({ content: "" });
       if (isOpen) setIsOpen(false);
+      dispatch(apiTaskCreate(values, column.id));
     }
   };
 
