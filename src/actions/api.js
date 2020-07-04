@@ -20,6 +20,8 @@ _.each(["get", "post", "put", "delete"], (method) => {
   };
 });
 
+export const BASE = process.env.REACT_APP_BASE_URL;
+
 // Available endpoints
 export const API_LOGIN = "auth/login/";
 export const API_LOGOUT = "auth/logout/";
@@ -36,3 +38,4 @@ export const API_SORT_COLUMNS = "api/sort/column/";
 export const API_SORT_TASKS = "api/sort/task/";
 export const API_USERS = "api/users/";
 export const API_SEARCH_USERS = "api/u/search/";
+export const API_QUOTE = "static/quotes/quotedata.json";

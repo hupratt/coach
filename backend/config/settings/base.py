@@ -69,7 +69,6 @@ CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:8000",
-    "https://quotes.rest",
 )
 
 ROOT_URLCONF = "config.urls"
@@ -130,8 +129,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-STATIC_URL = os.environ.get("DJANGO_STATIC_URL", "/django-static/")
-STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", "./django-static/")
+STATIC_URL = os.environ.get("DJANGO_STATIC_URL", "/static/")
+STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", "./static/")
 
 # Media files
 MEDIA_ROOT = "./media"

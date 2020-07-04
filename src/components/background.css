@@ -117,6 +117,7 @@ a:focus {
 
 .content__pretitle {
   color: var(--color-text);
+  font-style: italic;
   font-size: 1.35rem;
 }
 

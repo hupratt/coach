@@ -1,6 +1,12 @@
 import axios from "axios";
-import { BASE } from "../constants";
-import { API_LOGIN, api, API_BOARDS, API_TASKS, API_COLUMNS } from "./api";
+import {
+  API_LOGIN,
+  api,
+  API_BOARDS,
+  API_TASKS,
+  API_COLUMNS,
+  BASE,
+} from "./api";
 import * as actionTypes from "../actions/actionTypes";
 import { transform } from "./etl";
 

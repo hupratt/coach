@@ -2,8 +2,7 @@
 import React from "react";
 import ReactLifeTimeline from "./react-life-timeline";
 import "./react-life-timeline.min.css";
-import { api, API_EVENTS } from "../actions/api";
-import { BASE } from "../constants";
+import { api, API_EVENTS, BASE } from "../actions/api";
 import _ from "lodash";
 
 const COMPLETION = {
