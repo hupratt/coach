@@ -50,7 +50,7 @@ function Background(props) {
     dispatch(grabQuoteOfTheDay());
   }, []);
   useDidUpdate(() => {
-    if (!didMount) {
+    if (didMount) {
       setDidMount(true);
       setTimeout(() => {
         const script = document.createElement("script");

@@ -19,6 +19,11 @@ const Fail = (state, action) => {
     loading: false,
   });
 };
+const resetErrorOnFail = (state, action) => {
+  return updateObject(state, {
+    error: null,
+  });
+};
 
 const setColumns = (state, action) => {
   return updateObject(state, {
@@ -49,6 +54,8 @@ const reducer = (state = initState, action) => {
       return setAddColumn(state, action);
     case actionTypes.FAIL:
       return Fail(state, action);
+    case actionTypes.RESET_FAIL:
+      return resetErrorOnFail(state, action);
     default:
       return state;
   }
