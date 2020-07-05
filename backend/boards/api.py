@@ -111,6 +111,9 @@ class TaskViewSet(ModelDetailViewSet, mixins.ListModelMixin):
         user = self.request.user
         return super().get_queryset().filter(column__board__members=user)
 
+    def put(self, *args):
+        print("running through the api view")
+
 
 class ColumnViewSet(ModelDetailViewSet, mixins.ListModelMixin):
     queryset = Column.objects.all()

@@ -23,7 +23,6 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   const handleSubmit = (event) => {
     if (event.target.id === "add-card-button") {
       editCard(values, column.id);
-      console.log("values, column.id", values, column.id);
       setValues({ content: "" });
       if (isOpen) setIsOpen(false);
       dispatch(apiTaskCreate(values, column.id));
@@ -35,7 +34,6 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
 
   const handleChange = (event, card) => {
     event.persist();
-    console.log("values, card", values, card);
     setValues({ ...values, ...card, content: event.target.value });
   };
 

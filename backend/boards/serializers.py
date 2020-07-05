@@ -59,6 +59,9 @@ class TaskSerializer(serializers.ModelSerializer):
         labels = validated_data.get("labels")
         assignees = validated_data.get("assignees")
         board = instance.column.board
+        # create an event for the task for today
+        if validated_data["column"].title == "Done":
+            e, _ = Event.objects.get_or_create(task=instance, status="DONE")
         self.extra_validation(board=board, labels=labels, assignees=assignees)
         return super().update(instance, validated_data)
 
