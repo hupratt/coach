@@ -20,6 +20,12 @@ export const setColumns = (columns) => {
   };
 };
 
+export const resetError = () => {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.RESET_FAIL });
+  };
+};
+
 export const deleteColumnById = (id) => {
   console.log("deleting column action");
   return (dispatch) => {
