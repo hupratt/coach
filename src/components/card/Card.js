@@ -21,11 +21,14 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   };
 
   const handleSubmit = (event) => {
-    if (event.target.id === "add-card-button") {
+    if (
+      event.target.id === "add-card-button" ||
+      (openCard == "" && event.keyCode === 13 && event.shiftKey === false)
+    ) {
+      dispatch(apiTaskCreate(values, column.id));
       editCard(values, column.id);
       setValues({ content: "" });
       if (isOpen) setIsOpen(false);
-      dispatch(apiTaskCreate(values, column.id));
     } else if (event.keyCode === 13 && event.shiftKey === false) {
       dispatch(apiTaskContentUpdate(values, openCard, column.id));
       if (isOpen) setIsOpen(false);
