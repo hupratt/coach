@@ -41,7 +41,6 @@
 }
 
 .row-cards {
-  box-sizing: border-box;
   width: 100%;
   padding: 0 1rem 1rem 1rem;
   margin: 0;
@@ -336,6 +335,5 @@ option {
   display: inline-block;
   width: 13rem;
   margin-left: 6px;
-  box-sizing: border-box;
   border-radius: 3px;
 }

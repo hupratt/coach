@@ -35,12 +35,10 @@ export const deleteColumnById = (id) => {
           })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });
-            console.log("err", JSON.stringify(err));
           });
       })
       .catch((err) => {
         dispatch({ type: actionTypes.FAIL, error: err });
-        console.log("err", JSON.stringify(err));
       });
   };
 };
@@ -69,7 +67,6 @@ export const apiColumnCreate = (data) => {
       })
       .catch((err) => {
         dispatch({ type: actionTypes.FAIL, error: err });
-        console.log("err", JSON.stringify(err));
       });
   };
 };

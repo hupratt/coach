@@ -15,7 +15,7 @@ const initState = {
 
 const Fail = (state, action) => {
   return updateObject(state, {
-    error: JSON.stringify(action.error),
+    error: action.error.message,
     loading: false,
   });
 };

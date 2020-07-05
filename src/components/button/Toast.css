@@ -1,32 +1,42 @@
 .fadeout-exit-done {
-    display: unset !important;
-  }
-  
-  .fadein-enter-done {
-    display: unset !important;
-  }
-  
-  .fadein-enter {
-    opacity: 0;
-  }
-  
-  .fadein-enter-active {
-    opacity: 1;
-    -webkit-transition: opacity 1000ms ease-in-out;
-    transition: opacity 1000ms ease-in-out;
-  }
-  
-  .fadein-exit {
-    opacity: 1;
-  }
-  
-  .fadein-exit-active {
-    opacity: 0;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-    -webkit-transition: opacity 1000ms, -webkit-transform 1000ms;
-    transition: opacity 1000ms, -webkit-transform 1000ms;
-    transition: opacity 1000ms, transform 1000ms;
-    transition: opacity 1000ms, transform 1000ms, -webkit-transform 1000ms;
-  }
-  
+  display: unset !important;
+}
+
+.fadein-enter-done {
+  display: unset !important;
+}
+
+.fadein-enter {
+  opacity: 0;
+}
+
+.fadein-enter-active {
+  opacity: 1;
+  -webkit-transition: opacity 1000ms ease-in-out;
+  transition: opacity 1000ms ease-in-out;
+}
+
+.fadein-exit {
+  opacity: 1;
+}
+
+.fadein-exit-active {
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+  -webkit-transition: opacity 1000ms, -webkit-transform 1000ms;
+  transition: opacity 1000ms, -webkit-transform 1000ms;
+  transition: opacity 1000ms, transform 1000ms;
+  transition: opacity 1000ms, transform 1000ms, -webkit-transform 1000ms;
+}
+
+.ui.error.message .content,
+.ui.error.message {
+  height: 5vh;
+  justify-content: flex-start;
+  flex-direction: row;
+  box-sizing: content-box !important;
+}
+.ui.error.message i {
+  z-index: 2;
+}

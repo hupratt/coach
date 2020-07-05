@@ -22,7 +22,6 @@ export const apiTaskCreate = (data, id) => {
       })
       .catch((err) => {
         dispatch({ type: actionTypes.FAIL, error: err });
-        console.log("err", JSON.stringify(err));
       });
   };
 };
@@ -43,12 +42,10 @@ export const apiTaskStatusUpdate = (taskId, newColumnId) => {
           })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });
-            console.log("err", JSON.stringify(err));
           });
       })
       .catch((err) => {
         dispatch({ type: actionTypes.FAIL, error: err });
-        console.log("err", JSON.stringify(err));
       });
   };
 };
@@ -70,12 +67,10 @@ export const apiTaskContentUpdate = (values, taskId, colId) => {
           })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });
-            console.log("err", JSON.stringify(err));
           });
       })
       .catch((err) => {
         dispatch({ type: actionTypes.FAIL, error: err });
-        console.log("err", JSON.stringify(err));
       });
   };
 };
@@ -95,12 +90,10 @@ export const apiTaskDelete = (id) => {
           })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });
-            console.log("err", JSON.stringify(err));
           });
       })
       .catch((err) => {
         dispatch({ type: actionTypes.FAIL, error: err });
-        console.log("err", JSON.stringify(err));
       });
   };
 };
