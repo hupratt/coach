@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import GetCard from "../displayCard/displayCard";
 import { useSelector, useDispatch } from "react-redux";
-import { apiTaskCreate } from "../../actions/task";
+import { apiTaskCreate, apiTaskContentUpdate } from "../../actions/task";
 
 function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   const [values, setValues] = useState({
@@ -21,21 +21,21 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   };
 
   const handleSubmit = (event) => {
-    if (
-      (event.keyCode === 13 && event.shiftKey === false) ||
-      event.target.id === "add-card-button"
-    ) {
+    if (event.target.id === "add-card-button") {
       editCard(values, column.id);
       console.log("values, column.id", values, column.id);
       setValues({ content: "" });
       if (isOpen) setIsOpen(false);
       dispatch(apiTaskCreate(values, column.id));
+    } else if (event.keyCode === 13 && event.shiftKey === false) {
+      dispatch(apiTaskContentUpdate(values, openCard, column.id));
+      if (isOpen) setIsOpen(false);
     }
   };
 
   const handleChange = (event, card) => {
     event.persist();
-    console.log(values);
+    console.log("values, card", values, card);
     setValues({ ...values, ...card, content: event.target.value });
   };
 
