@@ -11,7 +11,6 @@ export default class ReactLifeTimeline extends React.Component {
       lookup: {},
       loaded: false,
       today: new Date(),
-      last_event_date: new Date(),
     };
   }
 
@@ -21,7 +20,7 @@ export default class ReactLifeTimeline extends React.Component {
       this.props.get_events(this.got_events.bind(this));
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     if (
       this.props.get_events === null &&
       nextProps.events.length !== this.state.events.length
@@ -35,7 +34,6 @@ export default class ReactLifeTimeline extends React.Component {
   }
 
   got_events(events) {
-    let last_event_date = new Date();
     if (events.length > 0) {
       let latest_event = events.sort((e1, e2) => {
         let e1ref = this.event_end_date(e1);
@@ -44,15 +42,10 @@ export default class ReactLifeTimeline extends React.Component {
         else if (e2ref < e1ref) return -1;
         else return 0;
       })[0];
-      let latest_end = this.event_end_date(latest_event);
-      if (latest_end > last_event_date) {
-        last_event_date = latest_end;
-      }
     }
     this.setState({
       events: events,
       loaded: true,
-      last_event_date: last_event_date,
       lookup: this.generate_lookup(),
     });
   }
@@ -74,9 +67,9 @@ export default class ReactLifeTimeline extends React.Component {
         week_end
       );
     });
-    this.setState({ lookup }, () => {
-      ReactTooltip.rebuild();
-    });
+    // this.setState({ lookup }, () => {
+    //   ReactTooltip.rebuild();
+    // });
     return lookup;
   }
 
@@ -136,10 +129,10 @@ export default class ReactLifeTimeline extends React.Component {
         _events.push({ title: title, color: color });
       }
     }
-    if (this_week) {
-      color = "white";
-      _events.push({ title: "This week", color: color });
-    }
+    // if (this_week) {
+    //   color = "white";
+    //   _events.push({ title: "This week", color: color });
+    // }
     return {
       events: _events,
       color: color,
@@ -147,27 +140,18 @@ export default class ReactLifeTimeline extends React.Component {
     };
   }
 
-  get_end() {
-    let { last_event_date } = this.state;
-    console.log("last_event_date", last_event_date);
-    let projected_end = new Date(last_event_date.getTime());
-    projected_end.setDate(projected_end.getDate() + this.props.project_days);
-    return projected_end;
-  }
-
   all_weeks(fn) {
-    let { birthday } = this.props;
-    let end = this.get_end();
-    // start date of the calendar
-    let cursor = new Date(2019, 12, 1);
-    while (cursor <= end) {
+    let cursor = new Date(2019, 12, 29);
+    let weekCounter = 1;
+    while (weekCounter < 53) {
       let d = new Date(cursor.getTime());
       cursor.setDate(cursor.getDate() + 7);
-      fn(d, new Date(cursor.getTime()));
+      fn(d, new Date(cursor.getTime()), weekCounter);
+      weekCounter += 1;
     }
   }
 
-  render_week(date_start, date_end) {
+  render_week(date_start, date_end, weekCounter) {
     let date = this.print_date(date_start);
     let { today } = this.state;
     let res = this.state.lookup[date];
@@ -179,7 +163,9 @@ export default class ReactLifeTimeline extends React.Component {
     let future = date_start > today;
     let st = {};
     if (events.length > 0) st.backgroundColor = color || "#1AA9FF";
-    let tips = [date].concat(
+    let stringCopy = 0;
+    stringCopy += 1;
+    let tips = [`Week ${weekCounter}`].concat(
       events.map((e) => {
         return e.title;
       })
@@ -188,16 +174,27 @@ export default class ReactLifeTimeline extends React.Component {
     if (future) cls += " future";
     if (single) _single = <span className="singleEvents"></span>;
     return (
-      <div className={cls} key={date} style={st} data-tip={tips.join(", ")}>
-        {_single}
-      </div>
+      <React.Fragment>
+        <ReactTooltip
+          place="top"
+          effect="solid"
+          delayHide={1000}
+          data-event="click"
+        />
+        {/* <a href="#">{`Week ${weekCounter}`}</a>
+        </ReactTooltip> */}
+        <div className={cls} key={date} style={st} data-tip={tips.join(", ")}>
+          {_single}
+        </div>
+      </React.Fragment>
     );
   }
 
   render_all_weeks() {
     let weeks = [];
-    this.all_weeks((start, end) => {
-      weeks.push(this.render_week(start, end));
+
+    this.all_weeks((start, end, weekCounter) => {
+      weeks.push(this.render_week(start, end, weekCounter));
     });
     return weeks;
   }
@@ -205,7 +202,6 @@ export default class ReactLifeTimeline extends React.Component {
   render() {
     return (
       <>
-        <ReactTooltip place="top" effect="solid" />
         <div className="LifeTimeline">{this.render_all_weeks()}</div>
       </>
     );
