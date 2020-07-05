@@ -40,6 +40,7 @@ export const withError = (WrappedComponent) => {
     render() {
       const { error, success } = this.props;
       if (error !== null) {
+        console.log("inside hoc", error);
         return (
           <React.Fragment>
             <Toast

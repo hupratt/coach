@@ -13,6 +13,13 @@ const initState = {
   },
 };
 
+const Fail = (state, action) => {
+  return updateObject(state, {
+    error: JSON.stringify(action.error),
+    loading: false,
+  });
+};
+
 const setColumns = (state, action) => {
   return updateObject(state, {
     columns: action.columns,
@@ -40,6 +47,8 @@ const reducer = (state = initState, action) => {
       return setColumnName(state, action);
     case actionTypes.SET_ADD_COLUMN:
       return setAddColumn(state, action);
+    case actionTypes.FAIL:
+      return Fail(state, action);
     default:
       return state;
   }

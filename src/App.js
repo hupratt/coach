@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+
 import "./App.css";
 import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Navbar from "./components/navbar/Navbar";
+import { withError } from "./components/hoc/Hoc";
 import { login } from "./actions/auth";
 import {
   setColumns,
@@ -19,11 +21,14 @@ import Timeline from "./react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
 import Background from "./components/background";
 
+const BackgroundWithErrorHandling = withError(Background);
+
 function App() {
   const dispatch = useDispatch();
   const columns = useSelector((state) => state.columns.columns);
   const addColumn = useSelector((state) => state.columns.addColumn);
   const columnName = useSelector((state) => state.columns.columnName);
+  const error = useSelector((state) => state.columns.error);
 
   useEffect(() => {
     login("admin", "admin");
@@ -50,7 +55,12 @@ function App() {
 
   const removeCard = (card, columnId) => {
     const { id } = card;
+    const data = columns;
+    data.columnsData["column" + columnId].taskIds = data.columnsData[
+      "column" + columnId
+    ].taskIds.filter((cardId) => id !== cardId);
     dispatch(apiTaskDelete(id));
+    dispatch(setColumns({ ...data }));
   };
 
   const onDragEnd = (results) => {
@@ -224,8 +234,6 @@ function App() {
       maxOrderId: maxOrderId + 1,
       columnOrder: [...columnList, newObj],
     };
-    console.log("herreeeeee", newData);
-    console.log("columnName.column", columnName.column);
     dispatch(setColumns(newData));
     dispatch(apiColumnCreate(columnName.column));
     dispatch(setAddColumn(!addColumn));
@@ -240,8 +248,6 @@ function App() {
       ...columns,
       columnOrder: [...newColumns],
     };
-    console.log("deleting column newData", newData);
-
     dispatch(deleteColumnById(columnid));
   };
 
@@ -253,14 +259,12 @@ function App() {
         [column.id]: column,
       },
     };
-    console.log("newData", newData);
     dispatch(setColumns(newData));
   };
-  console.log("columns.columnOrder", columns.columnOrder);
   return (
     <React.Fragment>
       {/* <Navbar /> */}
-      <Background>
+      <BackgroundWithErrorHandling error={error}>
         <div className="task-board">
           <Timeline />
           <div className="board">
@@ -342,8 +346,9 @@ function App() {
             </div>
           </div>
         </div>
-      </Background>
+      </BackgroundWithErrorHandling>
     </React.Fragment>
   );
 }
+
 export default App;

@@ -23,13 +23,25 @@ export const setColumns = (columns) => {
 export const deleteColumnById = (id) => {
   console.log("deleting column action");
   return (dispatch) => {
-    api.delete(`${BASE}/${API_COLUMNS}/${id}/`).then((res) => {
-      api.get(`${BASE}/${API_BOARDS}/1/`).then((res) => {
-        const { columns, labels, members, name, owner } = res.data;
-        console.log("res.data", res.data);
-        dispatch(setColumns(transform(columns)));
+    api
+      .delete(`${BASE}/${API_COLUMNS}/${id}/`)
+      .then((res) => {
+        api
+          .get(`${BASE}/${API_BOARDS}/1/`)
+          .then((res) => {
+            const { columns, labels, members, name, owner } = res.data;
+            console.log("res.data", res.data);
+            dispatch(setColumns(transform(columns)));
+          })
+          .catch((err) => {
+            dispatch({ type: actionTypes.FAIL, error: err });
+            console.log("err", JSON.stringify(err));
+          });
+      })
+      .catch((err) => {
+        dispatch({ type: actionTypes.FAIL, error: err });
+        console.log("err", JSON.stringify(err));
       });
-    });
   };
 };
 
@@ -45,16 +57,20 @@ export const apiColumnCreate = (data) => {
   console.log("init a new column");
   return (dispatch) => {
     let formData = new FormData();
-    console.log("data", data);
     formData.append("title", data);
     formData.append("board", 1);
-    api.post(`${BASE}/${API_COLUMNS}/`, formData).then((res) => {
-      console.log("res", res);
-      dispatch({
-        type: actionTypes.SET_COLUMN_NAME,
-        data,
+    api
+      .post(`${BASE}/${API_COLUMNS}/`, formData)
+      .then((res) => {
+        dispatch({
+          type: actionTypes.SET_COLUMN_NAME,
+          data,
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: actionTypes.FAIL, error: err });
+        console.log("err", JSON.stringify(err));
       });
-    });
   };
 };
 export const setAddColumn = (data) => {

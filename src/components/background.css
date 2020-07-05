@@ -141,9 +141,6 @@ canvas {
 }
 
 @media screen and (min-width: 53em) {
-  .message {
-    display: none;
-  }
   .frame {
     position: fixed;
     text-align: left;
