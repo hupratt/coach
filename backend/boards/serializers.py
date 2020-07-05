@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.validators import ValidationError
+from datetime import datetime
+import pytz
 
 from accounts.serializers import BoardMemberSerializer
 from .models import Board, Task, Column, Label, Event
@@ -60,8 +62,33 @@ class TaskSerializer(serializers.ModelSerializer):
         assignees = validated_data.get("assignees")
         board = instance.column.board
         # create an event for the task for today
-        if validated_data["column"].title == "Done":
-            e, _ = Event.objects.get_or_create(task=instance, status="DONE")
+        print(validated_data["column"].title)
+        if validated_data["column"].title == "To do":
+            tz = pytz.timezone("Europe/Luxembourg")
+            today = tz.localize(datetime.now())
+            e = Event.objects.filter(
+                task=instance,
+                status="DONE",
+                created__year=today.year,
+                created__month=today.month,
+                created__day=today.day,
+            ).first()
+            if isinstance(e, Event) is True:
+                e.status = "TODO"
+                e.save()
+        elif validated_data["column"].title == "Done":
+            tz = pytz.timezone("Europe/Luxembourg")
+            today = tz.localize(datetime.now())
+            e = Event.objects.filter(
+                task=instance,
+                status="DONE",
+                created__year=today.year,
+                created__month=today.month,
+                created__day=today.day,
+            ).first()
+            if isinstance(e, Event) is False:
+                Event.objects.create(task=instance, status="DONE")
+
         self.extra_validation(board=board, labels=labels, assignees=assignees)
         return super().update(instance, validated_data)
 

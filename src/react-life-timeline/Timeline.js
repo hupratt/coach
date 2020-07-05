@@ -59,36 +59,41 @@ export default class Timeline extends React.Component {
       timeout_id: null,
     };
     this.EVENTS = [];
+    api
+      .get(`${BASE}/${API_EVENTS}/`)
+      .then((res) => {
+        const { data } = res.data;
+        data.forEach((element) => {
+          const {
+            task,
+            task__period,
+            week,
+            clocked,
+            task__title,
+            year,
+            status,
+          } = element;
+          if (status == "DONE") {
+            this.EVENTS.push({
+              date_start: getDatefromYearAndWeek(week, year),
+              date_end: getDatefromYearAndWeek(week, year),
+              title: task__title,
+              color: getColorFromRate(clocked / task__period),
+            });
+          }
+        });
+      })
+      .catch((err) => {
+        console.log("err", err);
+        // dispatch({ type: actionTypes.FAIL, error: err });
+      });
   }
 
   generate_events(cb) {
     cb(this.EVENTS);
   }
 
-  componentDidMount() {
-    api.get(`${BASE}/${API_EVENTS}/`).then((res) => {
-      const { data } = res.data;
-      data.forEach((element) => {
-        const {
-          task,
-          task__period,
-          week,
-          clocked,
-          task__title,
-          year,
-          status,
-        } = element;
-        if (status == "DONE") {
-          this.EVENTS.push({
-            date_start: getDatefromYearAndWeek(week, year),
-            date_end: getDatefromYearAndWeek(week, year),
-            title: task__title,
-            color: getColorFromRate(clocked / task__period),
-          });
-        }
-      });
-    });
-  }
+  componentDidMount() {}
 
   add_incremental_event(force_index) {
     let { events_added } = this.state;

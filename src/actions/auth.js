@@ -2,7 +2,7 @@ import axios from "axios";
 import { api, API_LOGIN, BASE } from "./api";
 
 export const login = (username, password) => {
-  api
+  axios
     .post(`${BASE}/${API_LOGIN}`, {
       username,
       password,

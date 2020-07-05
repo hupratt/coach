@@ -280,35 +280,36 @@ function App() {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
-                    {columns.columnOrder.map((columnValue, index) => {
-                      let column = {};
-                      const colId = Object.keys(columnValue)[0];
-                      if (columns.columnsData[colId]) {
-                        column = columns.columnsData[colId];
-                      }
-                      const taskArray = column.taskIds;
-                      let tasks = [];
-                      if (taskArray) {
-                        tasks = taskArray.map(
-                          (taskId) => columns.tasks[taskId]
+                    {columns.columnOrder &&
+                      columns.columnOrder.map((columnValue, index) => {
+                        let column = {};
+                        const colId = Object.keys(columnValue)[0];
+                        if (columns.columnsData[colId]) {
+                          column = columns.columnsData[colId];
+                        }
+                        const taskArray = column.taskIds;
+                        let tasks = [];
+                        if (taskArray) {
+                          tasks = taskArray.map(
+                            (taskId) => columns.tasks[taskId]
+                          );
+                        }
+                        return (
+                          <CardColumn
+                            column={column}
+                            key={column.id}
+                            tasks={tasks}
+                            index={index}
+                            createCard={createCard}
+                            removeCard={removeCard}
+                            editCard={editCard}
+                            data={columns}
+                            moveCard={moveCard}
+                            deleteColumn={deleteColumn}
+                            editColumnTitle={editColumnTitle}
+                          />
                         );
-                      }
-                      return (
-                        <CardColumn
-                          column={column}
-                          key={column.id}
-                          tasks={tasks}
-                          index={index}
-                          createCard={createCard}
-                          removeCard={removeCard}
-                          editCard={editCard}
-                          data={columns}
-                          moveCard={moveCard}
-                          deleteColumn={deleteColumn}
-                          editColumnTitle={editColumnTitle}
-                        />
-                      );
-                    })}
+                      })}
                     {provided.placeholder}
                   </div>
                 )}
