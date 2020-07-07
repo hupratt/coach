@@ -2,6 +2,7 @@
 
 import React from "react";
 import ReactTooltip from "react-tooltip";
+import PopUpModal from "../components/modal/PopUpModal";
 
 export default class ReactLifeTimeline extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class ReactLifeTimeline extends React.Component {
       lookup: {},
       loaded: false,
       today: new Date(),
+      open: false,
     };
   }
 
@@ -150,7 +152,15 @@ export default class ReactLifeTimeline extends React.Component {
       weekCounter += 1;
     }
   }
-
+  show = (dimmer) => {
+    this.setState((prevState) => {
+      return { ...prevState, dimmer, open: true };
+    });
+  };
+  close = () =>
+    this.setState((prevState) => {
+      return { ...prevState, open: false };
+    });
   render_week(date_start, date_end, weekCounter) {
     let date = this.print_date(date_start);
     let { today } = this.state;
@@ -174,16 +184,22 @@ export default class ReactLifeTimeline extends React.Component {
     if (future) cls += " future";
     if (single) _single = <span className="singleEvents"></span>;
     return (
-      <React.Fragment>
+      <React.Fragment key={weekCounter}>
         <ReactTooltip
           place="top"
           effect="solid"
           delayHide={1000}
           data-event="click"
         />
-        {/* <a href="#">{`Week ${weekCounter}`}</a>
-        </ReactTooltip> */}
-        <div className={cls} key={date} style={st} data-tip={tips.join(", ")}>
+        <div
+          className={cls}
+          key={date}
+          style={st}
+          data-tip={tips.join(", ")}
+          onClick={() => {
+            this.show();
+          }}
+        >
           {_single}
         </div>
       </React.Fragment>
@@ -202,6 +218,11 @@ export default class ReactLifeTimeline extends React.Component {
   render() {
     return (
       <>
+        <PopUpModal
+          open={this.state.open}
+          close={this.close}
+          dimmer="blurring"
+        />
         <div className="LifeTimeline">{this.render_all_weeks()}</div>
       </>
     );

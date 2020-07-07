@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import PopUpModal from "./components/modal/PopUpModal";
 import "./App.css";
 import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
