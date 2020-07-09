@@ -28,7 +28,7 @@ const daysLeftEndOfYear = (date1, date2) => {
 };
 
 const getColorFromRate = (rate) => {
-  if (rate == 1) {
+  if (rate === 1) {
     return COMPLETION[100];
   } else if (_.inRange(rate, 0.8, 1)) {
     return COMPLETION[80];
@@ -65,7 +65,6 @@ export default class Timeline extends React.Component {
         const { data } = res.data;
         data.forEach((element) => {
           const {
-            task,
             task__period,
             week,
             clocked,
@@ -73,7 +72,7 @@ export default class Timeline extends React.Component {
             year,
             status,
           } = element;
-          if (status == "DONE") {
+          if (status === "DONE") {
             this.EVENTS.push({
               date_start: getDatefromYearAndWeek(week, year),
               date_end: getDatefromYearAndWeek(week, year),
@@ -128,6 +127,7 @@ export default class Timeline extends React.Component {
           birthday={new Date("1990-04-17")}
           events={this.EVENTS}
           project_days={daysLeftEndOfYear(new Date("2020-01-01"), new Date())}
+          show={this.props.show}
         />
       </div>
     );

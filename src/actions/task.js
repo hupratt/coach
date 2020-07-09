@@ -33,11 +33,12 @@ export const apiTaskStatusUpdate = (taskId, newColumnId) => {
     formData.append("column", newColumnId);
     api
       .put(`${BASE}/${API_TASKS}/${taskId}/`, formData)
-      .then((res) => {
+      .then((_) => {
         api
           .get(`${BASE}/${API_BOARDS}/1/`)
           .then((res) => {
-            const { columns, labels, members, name, owner } = res.data;
+            // columns, labels, members, name, owner
+            const { columns } = res.data;
             dispatch(setColumns(transform(columns)));
           })
           .catch((err) => {
@@ -62,7 +63,8 @@ export const apiTaskContentUpdate = (values, taskId, colId) => {
         api
           .get(`${BASE}/${API_BOARDS}/1/`)
           .then((res) => {
-            const { columns, labels, members, name, owner } = res.data;
+            // columns, labels, members, name, owner
+            const { columns } = res.data;
             dispatch(setColumns(transform(columns)));
           })
           .catch((err) => {
@@ -80,12 +82,12 @@ export const apiTaskDelete = (id) => {
   return (dispatch) => {
     api
       .delete(`${BASE}/${API_TASKS}/${id}`)
-      .then((res) => {
+      .then((_) => {
         api
           .get(`${BASE}/${API_BOARDS}/1/`)
           .then((res) => {
-            const { columns, labels, members, name, owner } = res.data;
-            console.log("res.data", res.data);
+            // columns, labels, members, name, owner
+            const { columns } = res.data;
             dispatch(setColumns(transform(columns)));
           })
           .catch((err) => {

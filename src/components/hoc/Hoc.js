@@ -52,7 +52,7 @@ export const withError = (WrappedComponent) => {
           </React.Fragment>
         );
       }
-      if (success == true) {
+      if (success === true) {
         return (
           <React.Fragment>
             <Toast positive header="All good" content="Update succeeded" />

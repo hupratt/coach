@@ -1,5 +1,5 @@
 import axios from "axios";
-import { api, API_LOGIN, BASE } from "./api";
+import { API_LOGIN, BASE } from "./api";
 
 export const login = (username, password) => {
   axios

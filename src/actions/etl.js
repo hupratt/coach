@@ -53,7 +53,7 @@ const buildColumnsData = (column, taskArray) => {
 const buildTasks = (tasks) => {
   let taskArray = [];
   let taskHolder = {};
-  tasks.map((task) => {
+  tasks.forEach((task) => {
     taskArray.push(`task${task.id}`);
     taskHolder[`task${task.id}`] = {
       id: task.id.toString(),

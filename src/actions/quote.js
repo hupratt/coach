@@ -1,6 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
-import { API_QUOTE, BASE } from "../actions/api";
-import axios from "axios";
+// import { API_QUOTE, BASE } from "../actions/api";
+// import axios from "axios";
 import json from "../quotedata.json";
 
 export const grabQuoteOfTheDay = () => {

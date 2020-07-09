@@ -6,7 +6,8 @@ export const initBoard = () => {
   console.log("init grab data from server");
   return (dispatch) => {
     api.get(`${BASE}/${API_BOARDS}/1/`).then((res) => {
-      const { columns, labels, members, name, owner } = res.data;
+      // columns, labels, members, name, owner
+      const { columns } = res.data;
       dispatch(setColumns(transform(columns)));
     });
   };

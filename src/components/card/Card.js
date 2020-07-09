@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import GetCard from "../displayCard/displayCard";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { apiTaskCreate, apiTaskContentUpdate } from "../../actions/task";
 
 function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
@@ -23,7 +23,7 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   const handleSubmit = (event) => {
     if (
       event.target.id === "add-card-button" ||
-      (openCard == "" && event.keyCode === 13 && event.shiftKey === false)
+      (openCard === "" && event.keyCode === 13 && event.shiftKey === false)
     ) {
       dispatch(apiTaskCreate(values, column.id));
       editCard(values, column.id);

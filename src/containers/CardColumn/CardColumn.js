@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Card from "../../components/card/Card";
 import "./CardColumn.css";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import uuidv4 from "uuid/v4";
 
 function CardColumn({
   column,

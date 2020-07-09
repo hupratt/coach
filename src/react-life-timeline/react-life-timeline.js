@@ -36,15 +36,6 @@ export default class ReactLifeTimeline extends React.Component {
   }
 
   got_events(events) {
-    if (events.length > 0) {
-      let latest_event = events.sort((e1, e2) => {
-        let e1ref = this.event_end_date(e1);
-        let e2ref = this.event_end_date(e2);
-        if (e2ref > e1ref) return 1;
-        else if (e2ref < e1ref) return -1;
-        else return 0;
-      })[0];
-    }
     this.setState({
       events: events,
       loaded: true,
@@ -82,9 +73,7 @@ export default class ReactLifeTimeline extends React.Component {
   }
 
   get_events_in_week(week_start, week_end) {
-    let { today } = this.state;
     let { birthday, subject_name, events } = this.props;
-    let this_week = today >= week_start && today <= week_end;
     let color = null;
     let single = false; // Has single events
     let _events = events.filter((e) => {
@@ -152,15 +141,6 @@ export default class ReactLifeTimeline extends React.Component {
       weekCounter += 1;
     }
   }
-  show = (dimmer) => {
-    this.setState((prevState) => {
-      return { ...prevState, dimmer, open: true };
-    });
-  };
-  close = () =>
-    this.setState((prevState) => {
-      return { ...prevState, open: false };
-    });
   render_week(date_start, date_end, weekCounter) {
     let date = this.print_date(date_start);
     let { today } = this.state;
@@ -173,8 +153,6 @@ export default class ReactLifeTimeline extends React.Component {
     let future = date_start > today;
     let st = {};
     if (events.length > 0) st.backgroundColor = color || "#1AA9FF";
-    let stringCopy = 0;
-    stringCopy += 1;
     let tips = [`Week ${weekCounter}`].concat(
       events.map((e) => {
         return e.title;
@@ -196,9 +174,7 @@ export default class ReactLifeTimeline extends React.Component {
           key={date}
           style={st}
           data-tip={tips.join(", ")}
-          onClick={() => {
-            this.show();
-          }}
+          onClick={this.props.show}
         >
           {_single}
         </div>
@@ -218,11 +194,6 @@ export default class ReactLifeTimeline extends React.Component {
   render() {
     return (
       <>
-        <PopUpModal
-          open={this.state.open}
-          close={this.close}
-          dimmer="blurring"
-        />
         <div className="LifeTimeline">{this.render_all_weeks()}</div>
       </>
     );

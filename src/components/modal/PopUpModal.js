@@ -1,55 +1,95 @@
-import React, { useState, useEffect } from "react";
-import { Button, Header, Image, Modal } from "semantic-ui-react";
-import { CSSTransition } from "react-transition-group";
-import { useDispatch } from "react-redux";
-import * as actionTypes from "../../actions/actionTypes";
+import React, { Component } from "react";
+import style from "./style.js";
 
-const PopUpModal = ({ open, close, dimmer }) => {
-  const dispatch = useDispatch();
-  const [visible, setVisible] = useState(true);
-  useEffect(() => {
-    setTimeout(() => dispatch({ type: actionTypes.RESET_FAIL }), 10000);
-  }, []);
+export default class PopUpModal extends Component {
+  constructor(props) {
+    super(props);
+    let effect = props.effect || "fadeInDown";
+    this.setSize(effect);
+    this.state = {
+      style: style[effect],
+    };
+  }
 
-  return (
-    <CSSTransition
-      in={visible}
-      classNames="fadeout"
-      unmountOnExit
-      timeout={500}
-    >
-      <Modal dimmer={dimmer} open={open} onClose={close}>
-        <Modal.Header>Select a Photo</Modal.Header>
-        <Modal.Content image>
-          <Image
-            wrapped
-            size="medium"
-            src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
+  // componentWillReceiveProps({ visible, effect = "fadeInDown" }) {
+  //   this.setState({
+  //     visible: visible,
+  //   });
+  //   this.setSize(effect);
+  //   this.setStyles(effect);
+  // }
+
+  setStyles(effect) {
+    if (this.props && this.props.styles) {
+      style[effect].panel = {
+        ...style[effect].panel,
+        ...this.props.styles,
+      };
+    }
+  }
+
+  setSize(effect) {
+    if (this.props && this.props.width) {
+      if (this.props.width.charAt(this.props.width.length - 1) === "%") {
+        // Use Percentage
+        const width = this.props.width.slice(0, -1);
+        style[effect].panel.width = width + "%";
+      } else if (this.props.width.charAt(this.props.width.length - 1) === "x") {
+        // Use Pixels
+        const width = this.props.width.slice(0, -2);
+        style[effect].panel.width = width + "px";
+      } else {
+        // Defaults
+        style[effect].panel.width = this.props.width + "px";
+      }
+    }
+    if (this.props && this.props.height) {
+      if (this.props.height.charAt(this.props.height.length - 1) === "%") {
+        // Use Percentage
+        const height = this.props.height.slice(0, -1);
+        style[effect].panel.height = height + "vh";
+      } else if (
+        this.props.height.charAt(this.props.height.length - 1) === "x"
+      ) {
+        // Use Pixels
+        const height = this.props.height.slice(0, -2);
+        style[effect].panel.height = height + "px";
+      } else {
+        // Defaults
+        style[effect].panel.height = this.props.height + "px";
+      }
+    }
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <div
+          style={
+            this.props.visible
+              ? this.state.style.container
+              : this.state.style.containerHidden
+          }
+        >
+          <div
+            style={
+              this.props.visible
+                ? { ...this.state.style.panel }
+                : this.state.style.panelHidden
+            }
+          >
+            {this.props.children}
+          </div>
+          <div
+            style={
+              this.props.visible
+                ? this.state.style.mask
+                : this.state.style.maskHidden
+            }
+            onClick={this.props.onClickAway ? this.props.onClickAway : null}
           />
-          <Modal.Description>
-            <Header>Default Profile Image</Header>
-            <p>
-              We've found the following gravatar image associated with your
-              e-mail address.
-            </p>
-            <p>Is it okay to use this photo?</p>
-          </Modal.Description>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color="black" onClick={close}>
-            Nope
-          </Button>
-          <Button
-            positive
-            icon="checkmark"
-            labelPosition="right"
-            content="Yep, that's me"
-            onClick={close}
-          />
-        </Modal.Actions>
-      </Modal>
-    </CSSTransition>
-  );
-};
-
-export default PopUpModal;
+        </div>
+      </React.Fragment>
+    );
+  }
+}

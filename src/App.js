@@ -3,7 +3,7 @@ import PopUpModal from "./components/modal/PopUpModal";
 import "./App.css";
 import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import Navbar from "./components/navbar/Navbar";
+// import Navbar from "./components/navbar/Navbar";
 import { withError } from "./components/hoc/Hoc";
 import { login } from "./actions/auth";
 import {
@@ -13,7 +13,7 @@ import {
   deleteColumnById,
   apiColumnCreate,
 } from "./actions/columns";
-import uuidv4 from "uuid/v4";
+// import uuidv4 from "uuid/v4";
 import { apiTaskDelete, apiTaskStatusUpdate } from "./actions/task";
 import { initBoard } from "./actions/board";
 
@@ -29,6 +29,7 @@ function App() {
   const addColumn = useSelector((state) => state.columns.addColumn);
   const columnName = useSelector((state) => state.columns.columnName);
   const error = useSelector((state) => state.columns.error);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     login("admin", "admin");
@@ -70,8 +71,8 @@ function App() {
       return;
     }
     if (
-      destination.droppableId == source.droppableId &&
-      destination.index == source.index
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
     ) {
       return;
     }
@@ -97,7 +98,7 @@ function App() {
     const start = columns.columnsData["column" + source.droppableId];
     const finish = columns.columnsData["column" + destination.droppableId];
 
-    if (start == finish) {
+    if (start === finish) {
       const newTaskIds = Array.from(start.taskIds);
       newTaskIds.splice(source.index, 1);
       newTaskIds.splice(destination.index, 0, "column" + draggableId);
@@ -132,14 +133,14 @@ function App() {
     };
     console.log("start: from column", newStart);
     console.log("end: to column", newFinish);
-    const newState = {
-      ...columns,
-      columnsData: {
-        ...columns.columnsData,
-        ["column" + newStart.id]: newStart,
-        ["column" + newFinish.id]: newFinish,
-      },
-    };
+    // const newState = {
+    //   ...columns,
+    //   columnsData: {
+    //     ...columns.columnsData,
+    //     ["column" + newStart.id]: newStart,
+    //     ["column" + newFinish.id]: newFinish,
+    //   },
+    // };
     dispatch(apiTaskStatusUpdate(draggableId, newFinish.id));
   };
 
@@ -213,7 +214,6 @@ function App() {
 
   const addColumnDetails = (event) => {
     event.preventDefault();
-    const columnid = uuidv4();
     const columnList = columns.columnOrder;
     const maxOrderId = columns.maxOrderId;
     const column = {
@@ -240,14 +240,14 @@ function App() {
   };
 
   const deleteColumn = (columnid) => {
-    const newColumns = columns.columnOrder.filter(
-      (columnId) => columnid !== columnId
-    );
+    // const newColumns = columns.columnOrder.filter(
+    //   (columnId) => columnid !== columnId
+    // );
 
-    const newData = {
-      ...columns,
-      columnOrder: [...newColumns],
-    };
+    // const newData = {
+    //   ...columns,
+    //   columnOrder: [...newColumns],
+    // };
     dispatch(deleteColumnById(columnid));
   };
 
@@ -261,92 +261,103 @@ function App() {
     };
     dispatch(setColumns(newData));
   };
+  const renderBoard = () => {
+    return (
+      <div className="task-board">
+        <div className="board">
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable
+              droppableId="all-columns"
+              direction="horizontal"
+              type="column"
+            >
+              {(provided) => (
+                <div
+                  className="sub-board"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {columns.columnOrder &&
+                    columns.columnOrder.map((columnValue, index) => {
+                      let column = {};
+                      const colId = Object.keys(columnValue)[0];
+                      if (columns.columnsData[colId]) {
+                        column = columns.columnsData[colId];
+                      }
+                      const taskArray = column.taskIds;
+                      let tasks = [];
+                      if (taskArray) {
+                        tasks = taskArray.map(
+                          (taskId) => columns.tasks[taskId]
+                        );
+                      }
+                      return (
+                        <CardColumn
+                          column={column}
+                          key={column.id}
+                          tasks={tasks}
+                          index={index}
+                          createCard={createCard}
+                          removeCard={removeCard}
+                          editCard={editCard}
+                          data={columns}
+                          moveCard={moveCard}
+                          deleteColumn={deleteColumn}
+                          editColumnTitle={editColumnTitle}
+                        />
+                      );
+                    })}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+          <div className="add-another-list">
+            <div
+              className="add-list add-board"
+              onClick={addList}
+              style={{ display: !addColumn ? "inline-block" : "none" }}
+            >
+              <span className="plus-icon">+</span>
+              <span>Add Another list</span>
+            </div>
+            <div
+              className="textArea-add-list"
+              style={{ display: addColumn ? "inline-block" : "none" }}
+            >
+              <form onSubmit={(event) => addColumnDetails(event)}>
+                <input
+                  id="add-list-textarea"
+                  className="list-name-input"
+                  type="text"
+                  name="name"
+                  placeholder="Enter list title..."
+                  autoComplete="off"
+                  dir="auto"
+                  value={columnName.column}
+                  maxLength="512"
+                  onChange={handleColumnName}
+                ></input>
+                <button type="submit"> Add list</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  const onClickAway = () => {
+    setVisible(!visible);
+  };
   return (
     <React.Fragment>
       {/* <Navbar /> */}
       <BackgroundWithErrorHandling error={error}>
-        <div className="task-board">
-          <Timeline />
-          <div className="board">
-            <DragDropContext onDragEnd={onDragEnd}>
-              <Droppable
-                droppableId="all-columns"
-                direction="horizontal"
-                type="column"
-              >
-                {(provided) => (
-                  <div
-                    className="sub-board"
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    {columns.columnOrder &&
-                      columns.columnOrder.map((columnValue, index) => {
-                        let column = {};
-                        const colId = Object.keys(columnValue)[0];
-                        if (columns.columnsData[colId]) {
-                          column = columns.columnsData[colId];
-                        }
-                        const taskArray = column.taskIds;
-                        let tasks = [];
-                        if (taskArray) {
-                          tasks = taskArray.map(
-                            (taskId) => columns.tasks[taskId]
-                          );
-                        }
-                        return (
-                          <CardColumn
-                            column={column}
-                            key={column.id}
-                            tasks={tasks}
-                            index={index}
-                            createCard={createCard}
-                            removeCard={removeCard}
-                            editCard={editCard}
-                            data={columns}
-                            moveCard={moveCard}
-                            deleteColumn={deleteColumn}
-                            editColumnTitle={editColumnTitle}
-                          />
-                        );
-                      })}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-            <div className="add-another-list">
-              <div
-                className="add-list add-board"
-                onClick={addList}
-                style={{ display: !addColumn ? "inline-block" : "none" }}
-              >
-                <span className="plus-icon">+</span>
-                <span>Add Another list</span>
-              </div>
-              <div
-                className="textArea-add-list"
-                style={{ display: addColumn ? "inline-block" : "none" }}
-              >
-                <form onSubmit={(event) => addColumnDetails(event)}>
-                  <input
-                    id="add-list-textarea"
-                    className="list-name-input"
-                    type="text"
-                    name="name"
-                    placeholder="Enter list title..."
-                    autoComplete="off"
-                    dir="auto"
-                    value={columnName.column}
-                    maxLength="512"
-                    onChange={handleColumnName}
-                  ></input>
-                  <button type="submit"> Add list</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Timeline show={onClickAway} />
+        <PopUpModal visible={visible} onClickAway={onClickAway}>
+          <p>Hello</p>
+          {renderBoard()}
+        </PopUpModal>
       </BackgroundWithErrorHandling>
     </React.Fragment>
   );
