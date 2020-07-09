@@ -2,7 +2,6 @@
 
 import React from "react";
 import ReactTooltip from "react-tooltip";
-import PopUpModal from "../components/modal/PopUpModal";
 
 export default class ReactLifeTimeline extends React.Component {
   constructor(props) {
@@ -192,11 +191,7 @@ export default class ReactLifeTimeline extends React.Component {
   }
 
   render() {
-    return (
-      <>
-        <div className="LifeTimeline">{this.render_all_weeks()}</div>
-      </>
-    );
+    return <div className="LifeTimeline">{this.render_all_weeks()}</div>;
   }
 }
 

@@ -133,14 +133,6 @@ function App() {
     };
     console.log("start: from column", newStart);
     console.log("end: to column", newFinish);
-    // const newState = {
-    //   ...columns,
-    //   columnsData: {
-    //     ...columns.columnsData,
-    //     ["column" + newStart.id]: newStart,
-    //     ["column" + newFinish.id]: newFinish,
-    //   },
-    // };
     dispatch(apiTaskStatusUpdate(draggableId, newFinish.id));
   };
 
@@ -346,15 +338,15 @@ function App() {
       </div>
     );
   };
-  const onClickAway = () => {
+  const toggleVisibility = () => {
     setVisible(!visible);
   };
   return (
     <React.Fragment>
       {/* <Navbar /> */}
       <BackgroundWithErrorHandling error={error}>
-        <Timeline show={onClickAway} />
-        <PopUpModal visible={visible} onClickAway={onClickAway}>
+        <Timeline show={toggleVisibility} />
+        <PopUpModal visible={visible} onClickAway={toggleVisibility}>
           <p>Hello</p>
           {renderBoard()}
         </PopUpModal>

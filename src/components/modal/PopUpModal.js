@@ -11,14 +11,6 @@ export default class PopUpModal extends Component {
     };
   }
 
-  // componentWillReceiveProps({ visible, effect = "fadeInDown" }) {
-  //   this.setState({
-  //     visible: visible,
-  //   });
-  //   this.setSize(effect);
-  //   this.setStyles(effect);
-  // }
-
   setStyles(effect) {
     if (this.props && this.props.styles) {
       style[effect].panel = {
