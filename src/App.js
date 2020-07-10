@@ -29,6 +29,7 @@ function App() {
   const addColumn = useSelector((state) => state.columns.addColumn);
   const columnName = useSelector((state) => state.columns.columnName);
   const error = useSelector((state) => state.columns.error);
+  const events = useSelector((state) => state.events.events);
   const [visible, setVisible] = useState(false);
   const [week, setWeek] = useState(27);
 
@@ -273,6 +274,9 @@ function App() {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
+                    {/*
+                    if columns.week == week
+                     */}
                     {columns.columnOrder &&
                       columns.columnOrder.map((columnValue, index) => {
                         let column = {};
@@ -283,9 +287,19 @@ function App() {
                         const taskArray = column.taskIds;
                         let tasks = [];
                         if (taskArray) {
-                          tasks = taskArray.map(
-                            (taskId) => columns.tasks[taskId]
-                          );
+                          taskArray.forEach((taskId) => {
+                            console.log(
+                              'columns.tasks[taskId]["weeks"]',
+                              columns.tasks[taskId]["weeks"]
+                            );
+                            if (
+                              columns.tasks[taskId]["weeks"].includes(
+                                parseInt(week)
+                              )
+                            ) {
+                              tasks.push(columns.tasks[taskId]);
+                            }
+                          });
                         }
                         return (
                           <CardColumn
@@ -354,7 +368,7 @@ function App() {
       <BackgroundWithErrorHandling error={error}>
         <Timeline show={toggleVisibility} />
         <PopUpModal visible={visible} onClickAway={toggleVisibility}>
-          {renderBoard()}
+          {renderBoard(events)}
         </PopUpModal>
       </BackgroundWithErrorHandling>
     </React.Fragment>

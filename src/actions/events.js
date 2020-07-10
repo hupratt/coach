@@ -63,6 +63,7 @@ export const grabEvents = () => {
               date_end: getDatefromYearAndWeek(week, year),
               title: task__title,
               color: getColorFromRate(clocked / task__period),
+              week,
             });
           }
         });

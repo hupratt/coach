@@ -58,6 +58,7 @@ const buildTasks = (tasks) => {
     taskHolder[`task${task.id}`] = {
       id: task.id.toString(),
       content: task.title,
+      weeks: task.events_in_week,
     };
   });
   return [taskArray, taskHolder];
@@ -85,6 +86,7 @@ export const transform = (columns) => {
       columnsData: colsData,
       maxOrderId: Number(maxOrderId),
     });
+    console.log("columns", columns);
     return {
       tasks: tasksHolder,
       columnOrder: colOrder,

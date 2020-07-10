@@ -31,8 +31,17 @@ class BoardSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "owner"]
 
 
+class EventSerializer(serializers.ModelSerializer):
+    task = serializers.PrimaryKeyRelatedField(queryset=Task.objects.all())
+
+    class Meta:
+        model = Event
+        fields = ("id", "created", "status", "task")
+
+
 class TaskSerializer(serializers.ModelSerializer):
     column = serializers.PrimaryKeyRelatedField(queryset=Column.objects.all())
+    events_in_week = serializers.SerializerMethodField()
     title = serializers.CharField(required=False)
     labels = serializers.PrimaryKeyRelatedField(
         queryset=Label.objects.all(), many=True, required=False
@@ -40,6 +49,15 @@ class TaskSerializer(serializers.ModelSerializer):
     assignees = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), many=True, required=False
     )
+
+    def get_events_in_week(self, obj):
+        qs = (
+            Event.objects.filter(task__id=obj.id)
+            .annotate(week=ExtractWeek("created"))
+            .values("week")
+        )
+        week_list = [week["week"] for week in qs]
+        return set(week_list)
 
     def extra_validation(self, board=None, labels=None, assignees=None, user=None):
         if labels and board:
@@ -116,6 +134,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "task_order",
             "column",
             "period",
+            "events_in_week",
         ]
 
 
@@ -140,10 +159,6 @@ class LabelSerializer(BoardModelSerializer):
     class Meta:
         model = Label
         fields = ["id", "name", "color", "board"]
-
-
-class EventSerializer(serializers.Serializer):
-    pass
 
 
 class BoardDetailSerializer(serializers.ModelSerializer):
