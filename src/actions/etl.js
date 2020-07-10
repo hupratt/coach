@@ -80,13 +80,6 @@ export const transform = (columns) => {
   if (columns.length > 0) {
     const [tasksHolder, colsData] = buildColsAndTasksHolder(columns);
     const [colOrder, maxOrderId] = buildColumnOrder(columns);
-    console.log("return", {
-      tasks: tasksHolder,
-      columnOrder: colOrder,
-      columnsData: colsData,
-      maxOrderId: Number(maxOrderId),
-    });
-    console.log("columns", columns);
     return {
       tasks: tasksHolder,
       columnOrder: colOrder,

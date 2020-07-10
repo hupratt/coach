@@ -131,7 +131,7 @@ export default class ReactLifeTimeline extends React.Component {
   }
 
   all_weeks(fn) {
-    let cursor = new Date(2019, 12, 29);
+    let cursor = new Date("2019-12-30");
     let weekCounter = 1;
     while (weekCounter < 53) {
       let d = new Date(cursor.getTime());

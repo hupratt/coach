@@ -292,13 +292,14 @@ function App() {
                               'columns.tasks[taskId]["weeks"]',
                               columns.tasks[taskId]["weeks"]
                             );
-                            if (
-                              columns.tasks[taskId]["weeks"].includes(
-                                parseInt(week)
-                              )
-                            ) {
-                              tasks.push(columns.tasks[taskId]);
-                            }
+                            // if (
+                            //   columns.tasks[taskId]["weeks"] &&
+                            //   columns.tasks[taskId]["weeks"].includes(
+                            //     parseInt(week)
+                            //   )
+                            // ) {
+                            tasks.push(columns.tasks[taskId]);
+                            // }
                           });
                         }
                         return (

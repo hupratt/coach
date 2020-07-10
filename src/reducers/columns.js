@@ -10,7 +10,6 @@ const initState = {
     columnOrder: [],
     columnsData: { id: "", title: "", taskIds: [] },
     tasks: { id: "", content: "", weeks: [] },
-    // week: ??
   },
 };
 
