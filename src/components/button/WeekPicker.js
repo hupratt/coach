@@ -153,7 +153,10 @@ class WeekdayPicker extends Component {
         onMouseLeave={onMouseLeave}
         onTouchTap={onTouchTap}
       >
-        <attr title={localeUtils.formatWeekdayLong(weekday, locale)}>
+        <attr
+          title={localeUtils.formatWeekdayLong(weekday, locale)}
+          weeknum={localeUtils.formatWeekdayNum(weekday, locale)}
+        >
           {localeUtils.formatWeekdayShort(weekday, locale)}
         </attr>
       </button>

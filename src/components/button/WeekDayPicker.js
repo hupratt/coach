@@ -8,6 +8,8 @@ import WeekdayPicker from "./WeekPicker";
 // };
 
 const MyWeekdayPicker = () => {
-  return <WeekdayPicker />;
+  return (
+    <WeekdayPicker onWeekdayClick={(e) => console.log("e", e.target.title)} />
+  );
 };
 export default MyWeekdayPicker;

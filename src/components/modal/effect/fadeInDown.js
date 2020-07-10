@@ -7,6 +7,7 @@ export default {
     top: 0,
     left: 0,
     position: "absolute",
+    filter: "blur(1px)",
   },
   maskHidden: {
     display: "none",
