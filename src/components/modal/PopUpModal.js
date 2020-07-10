@@ -66,7 +66,7 @@ export default class PopUpModal extends Component {
           <div
             style={
               this.props.visible
-                ? { ...this.state.style.panel }
+                ? this.state.style.panel
                 : this.state.style.panelHidden
             }
           >

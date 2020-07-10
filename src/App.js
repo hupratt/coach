@@ -347,7 +347,6 @@ function App() {
       <BackgroundWithErrorHandling error={error}>
         <Timeline show={toggleVisibility} />
         <PopUpModal visible={visible} onClickAway={toggleVisibility}>
-          <p>Hello</p>
           {renderBoard()}
         </PopUpModal>
       </BackgroundWithErrorHandling>
