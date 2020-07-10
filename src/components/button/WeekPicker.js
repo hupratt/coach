@@ -151,9 +151,9 @@ class WeekdayPicker extends Component {
         onKeyDown={(e) => this.handleDayKeyDown(e, weekday, modifiers)}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        onTouchTap={onTouchTap}
       >
         <attr
+          is="a"
           title={localeUtils.formatWeekdayLong(weekday, locale)}
           weeknum={localeUtils.formatWeekdayNum(weekday, locale)}
         >

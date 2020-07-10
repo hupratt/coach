@@ -9,7 +9,14 @@ import WeekdayPicker from "./WeekPicker";
 
 const MyWeekdayPicker = () => {
   return (
-    <WeekdayPicker onWeekdayClick={(e) => console.log("e", e.target.title)} />
+    <WeekdayPicker
+      onWeekdayClick={(e) =>
+        e &&
+        e.target &&
+        e.target.getAttribute("weeknum") &&
+        console.log("e", e.target.getAttribute("weeknum"))
+      }
+    />
   );
 };
 export default MyWeekdayPicker;
