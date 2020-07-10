@@ -173,7 +173,8 @@ export default class ReactLifeTimeline extends React.Component {
           key={date}
           style={st}
           data-tip={tips.join(", ")}
-          onClick={this.props.show}
+          onClick={(tips) => this.props.show(tips)}
+          weekvalue={weekCounter}
         >
           {_single}
         </div>

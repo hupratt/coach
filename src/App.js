@@ -13,7 +13,6 @@ import {
   deleteColumnById,
   apiColumnCreate,
 } from "./actions/columns";
-// import uuidv4 from "uuid/v4";
 import { apiTaskDelete, apiTaskStatusUpdate } from "./actions/task";
 import { initBoard } from "./actions/board";
 
@@ -30,6 +29,7 @@ function App() {
   const columnName = useSelector((state) => state.columns.columnName);
   const error = useSelector((state) => state.columns.error);
   const [visible, setVisible] = useState(false);
+  const [week, setWeek] = useState(27);
 
   useEffect(() => {
     login("admin", "admin");
@@ -257,6 +257,7 @@ function App() {
     return (
       <div className="task-board">
         <div className="board">
+          <h2>{week}</h2>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable
               droppableId="all-columns"
@@ -338,8 +339,10 @@ function App() {
       </div>
     );
   };
-  const toggleVisibility = () => {
+  const toggleVisibility = (weekCounter) => {
     setVisible(!visible);
+    weekCounter.currentTarget &&
+      setWeek(weekCounter.currentTarget.getAttribute("weekvalue"));
   };
   return (
     <React.Fragment>
