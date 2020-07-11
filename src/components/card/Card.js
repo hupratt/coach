@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import GetCard from "../displayCard/displayCard";
-import { useDispatch } from "react-redux";
-import { apiTaskCreate, apiTaskContentUpdate } from "../../actions/task";
+import { useSelector, useDispatch } from "react-redux";
+import { apiTitleUpdate, apiTaskContentUpdate } from "../../actions/task";
 
 function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
-  const [values, setValues] = useState({
-    content: "",
-    button: "",
-    focus: false,
-    id: "",
-    week: "",
-    weeks: [],
-  });
   const dispatch = useDispatch();
+  const values = useSelector((state) => state.tasks.values);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isMove, setIsMove] = useState(false);
@@ -30,20 +23,22 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
       event.target.id === "add-card-button" ||
       (openCard === "" && event.keyCode === 13 && event.shiftKey === false)
     ) {
-      dispatch(apiTaskCreate(values, column.id));
-      editCard(values, column.id);
-      setValues({ content: "" });
-      if (isOpen) setIsOpen(false);
-    } else if (event.keyCode === 13 && event.shiftKey === false) {
       dispatch(apiTaskContentUpdate(values, openCard, column.id));
-      console.log("values", values);
       if (isOpen) setIsOpen(false);
     }
   };
 
-  const handleChange = (event, card) => {
+  const handleChange = (event) => {
     event.persist();
-    setValues({ ...values, ...card, content: event.target.value });
+    let customValues = values;
+    customValues["title"] = event.target.value;
+    if (
+      event.target.id === "add-card-button" ||
+      (openCard === "" && event.keyCode === 13 && event.shiftKey === false)
+    ) {
+      dispatch(apiTaskContentUpdate(customValues, openCard, column.id));
+      if (isOpen) setIsOpen(false);
+    }
   };
 
   const handleClick = (event) => {
@@ -92,7 +87,7 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   );
 
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={`task${task.id}`} index={index}>
       {(provided) => (
         <div
           {...provided.draggableProps}

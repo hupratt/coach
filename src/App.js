@@ -50,14 +50,13 @@ function App() {
     dispatch(setColumns({ ...newColumns }));
   };
 
-  const createCard = (name, card, id) => {
-    let newColumns = columns;
-    card["week"] = week;
-    newColumns.tasks[name] = card;
-    newColumns.columnsData["column" + id].taskIds.push(name);
-    console.log("newColumns", newColumns);
-    dispatch(setColumns({ ...newColumns }));
-  };
+  // const createCard = (name, card, id) => {
+  //   let newColumns = columns;
+  //   card["week"] = week;
+  //   newColumns.tasks[name] = card;
+  //   newColumns.columnsData["column" + id].taskIds.push(name);
+  //   dispatch(setColumns({ ...newColumns }));
+  // };
 
   const removeCard = (card, columnId) => {
     const { id } = card;
@@ -291,8 +290,6 @@ function App() {
                             tasks.push(columns.tasks[taskId]);
                           });
                         }
-                        console.log("columns.tasks", columns.tasks);
-                        // tasks.forEach((task) => console.log(task));
                         return (
                           <CardColumn
                             column={column}
@@ -302,13 +299,14 @@ function App() {
                               (task) => week == task.week || task.focus == true
                             )}
                             index={index}
-                            createCard={createCard}
                             removeCard={removeCard}
                             editCard={editCard}
                             data={columns}
                             moveCard={moveCard}
                             deleteColumn={deleteColumn}
                             editColumnTitle={editColumnTitle}
+                            week={week}
+                            // createCard={createCard}
                           />
                         );
                       })}

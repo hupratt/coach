@@ -68,7 +68,7 @@ function GetCard({
               id="content-text"
               placeholder="Enter a title for this card..."
               value={values.content}
-              onChange={(event) => handleChange(event, task)}
+              onChange={(event) => handleChange(event)}
               name="content-text"
               form="content-form"
             ></textarea>

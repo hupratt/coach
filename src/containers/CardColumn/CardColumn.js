@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import Card from "../../components/card/Card";
 import "./CardColumn.css";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { apiTaskCreate } from "../../actions/task";
 
 function CardColumn({
   column,
   tasks,
   index,
-  createCard,
   removeCard,
   editCard,
   data,
   moveCard,
   deleteColumn,
   editColumnTitle,
+  week,
 }) {
+  const dispatch = useDispatch();
+
   const [displayColumn, setDisplayColumn] = useState(false);
   const [editTitle, setEditTitle] = useState({
     title: column.title,
@@ -24,17 +28,16 @@ function CardColumn({
 
   const [showInputTitle, setShowInputTitle] = useState(false);
 
-  const handleclick = (id) => {
-    // how to set max id?
-    console.log("setting");
-    const maxOrderId = tasks.length + 1;
+  const handleclick = (colID, data, event) => {
     const card = {
-      id: `${maxOrderId}`,
       content: "",
       focus: true,
       button: "Add Card",
+      week,
     };
-    createCard(`task${maxOrderId}`, card, id);
+    // task action: apiTaskCreate recuperer l'id de la task créée
+    dispatch(apiTaskCreate(card, colID, data));
+    // createCard(`task${maxOrderId}`, card, colID);
   };
 
   const showDelete = () => {
@@ -131,7 +134,7 @@ function CardColumn({
             <span className="card-bottom-icon">+</span>
             <span
               className="card-bottom-text"
-              onClick={() => handleclick(column.id)}
+              onClick={(e) => handleclick(column.id, data, e)}
             >
               Add another card
             </span>

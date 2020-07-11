@@ -3,22 +3,38 @@ import * as actionTypes from "../actions/actionTypes";
 import { transform } from "./etl";
 import { setColumns } from "./columns";
 
-export const apiTaskCreate = (data, id) => {
+export const apiTaskCreate = (card, colID, columnData) => {
   console.log("init a new card");
+  var cardId;
+  console.log("whats up???", columnData);
+  let newColumns = columnData;
   return (dispatch) => {
     let formData = new FormData();
-    formData.append("title", data.content);
-    formData.append("week", data.week);
-    formData.append("column", id);
+    console.log("CARD", card);
+    formData.append("title", card.title);
+    formData.append("week", card.week);
+    formData.append("column", colID);
     // formData.append("period", data.content);
     api
       .post(`${BASE}/${API_TASKS}/`, formData)
       .then((res) => {
-        console.log("res", res);
+        const { id, title, week } = res.data;
+        cardId = id;
         dispatch({
           type: actionTypes.SET_TASK_NAME,
-          data: data.content,
+          focus: false,
+          id,
+          title,
+          week,
         });
+      })
+      .then(() => {
+        card["id"] = cardId;
+        console.log("newColumns", newColumns);
+        newColumns.tasks[`task${cardId}`] = card;
+        newColumns.columnsData["column" + colID].taskIds.push(`task${cardId}`);
+        console.log("newColumns", newColumns);
+        dispatch(setColumns({ ...newColumns }));
       })
       .catch((err) => {
         dispatch({ type: actionTypes.FAIL, error: err });
@@ -57,12 +73,13 @@ export const apiTaskContentUpdate = (values, taskId, colId) => {
   console.log("update task content");
   return (dispatch) => {
     let formData = new FormData();
-    formData.append("title", values.content);
+    console.log("values check here", values);
+    formData.append("title", values.title);
     formData.append("column", colId);
     formData.append("week", values.week);
 
     api
-      .put(`${BASE}/${API_TASKS}/${taskId}/`, formData)
+      .put(`${BASE}/${API_TASKS}/${values.id}/`, formData)
       .then((res) => {
         api
           .get(`${BASE}/${API_BOARDS}/1/`)
@@ -78,6 +95,15 @@ export const apiTaskContentUpdate = (values, taskId, colId) => {
       .catch((err) => {
         dispatch({ type: actionTypes.FAIL, error: err });
       });
+  };
+};
+
+export const apiTitleUpdate = (title) => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.SET_TASK_TITLE,
+      title,
+    });
   };
 };
 
