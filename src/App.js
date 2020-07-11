@@ -78,7 +78,9 @@ function App() {
       const sourceIndex = source.index;
       newColumnOrder.splice(sourceIndex, 1);
       newColumnOrder.splice(destination.index, 0, {
-        [draggableId]: columns.columnOrder[sourceIndex][draggableId],
+        ["column" + draggableId]: columns.columnOrder[sourceIndex][
+          "column" + draggableId
+        ],
       });
 
       const newState = {
@@ -168,10 +170,8 @@ function App() {
     }
     if (previousColumn !== val.col && previousposition !== val.pos) {
       const startTaskIds = Array.from(start.taskIds);
-      console.log("startTaskIds", startTaskIds);
       const index = startTaskIds.indexOf(card.id);
       startTaskIds.splice(index, 1);
-      console.log("startTaskIds", startTaskIds);
       const newStart = {
         ...start,
         taskIds: startTaskIds,
@@ -250,7 +250,7 @@ function App() {
       <React.Fragment>
         <div className="task-board">
           <h2>Week {week}</h2>
-          <MyWeekdayPicker />
+          {/* <MyWeekdayPicker /> */}
           <div className="board">
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable

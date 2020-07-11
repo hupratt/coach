@@ -16,7 +16,12 @@ export default {
   containerHidden: {},
   panel: {
     zIndex: 10002,
-    position: "relative",
+    position: "absolute",
+    left: "0",
+    right: "0",
+    top: "25vh",
+    bottom: "0",
+    margin: "auto",
   },
   panelHidden: {
     opacity: 0,
