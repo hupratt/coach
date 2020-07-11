@@ -28,16 +28,14 @@ function CardColumn({
 
   const [showInputTitle, setShowInputTitle] = useState(false);
 
-  const handleclick = (colID, data, event) => {
+  const handleclick = (colID, data) => {
     const card = {
       content: "",
       focus: true,
       button: "Add Card",
       week,
     };
-    // task action: apiTaskCreate recuperer l'id de la task créée
     dispatch(apiTaskCreate(card, colID, data));
-    // createCard(`task${maxOrderId}`, card, colID);
   };
 
   const showDelete = () => {
@@ -134,7 +132,7 @@ function CardColumn({
             <span className="card-bottom-icon">+</span>
             <span
               className="card-bottom-text"
-              onClick={(e) => handleclick(column.id, data, e)}
+              onClick={() => handleclick(column.id, data)}
             >
               Add another card
             </span>

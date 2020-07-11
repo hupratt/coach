@@ -50,14 +50,6 @@ function App() {
     dispatch(setColumns({ ...newColumns }));
   };
 
-  // const createCard = (name, card, id) => {
-  //   let newColumns = columns;
-  //   card["week"] = week;
-  //   newColumns.tasks[name] = card;
-  //   newColumns.columnsData["column" + id].taskIds.push(name);
-  //   dispatch(setColumns({ ...newColumns }));
-  // };
-
   const removeCard = (card, columnId) => {
     const { id } = card;
     const data = columns;
@@ -236,14 +228,6 @@ function App() {
   };
 
   const deleteColumn = (columnid) => {
-    // const newColumns = columns.columnOrder.filter(
-    //   (columnId) => columnid !== columnId
-    // );
-
-    // const newData = {
-    //   ...columns,
-    //   columnOrder: [...newColumns],
-    // };
     dispatch(deleteColumnById(columnid));
   };
 
@@ -306,7 +290,6 @@ function App() {
                             deleteColumn={deleteColumn}
                             editColumnTitle={editColumnTitle}
                             week={week}
-                            // createCard={createCard}
                           />
                         );
                       })}
