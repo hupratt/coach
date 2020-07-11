@@ -140,8 +140,8 @@ class EventView(APIView):
 
     def get(self, *args, **kwargs):
         qs_events = (
-            Event.objects.annotate(week=ExtractWeek("created"))
-            .annotate(year=ExtractYear("created"))
+            Event.objects.annotate(week=ExtractWeek("done"))
+            .annotate(year=ExtractYear("done"))
             .values(
                 "year",
                 "week",
@@ -151,7 +151,7 @@ class EventView(APIView):
                 "status",
                 "task__column",
             )
-            .annotate(clocked=Count("created"))
+            .annotate(clocked=Count("done"))
         )
         return JsonResponse({"data": list(qs_events)})
 

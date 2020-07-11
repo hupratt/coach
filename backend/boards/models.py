@@ -107,3 +107,4 @@ class Event(TimeStampedModel):
     created = models.DateTimeField(
         auto_now_add=True, help_text="(automatic) created date"
     )
+    done = models.DateTimeField(help_text="date for the task_done_at")

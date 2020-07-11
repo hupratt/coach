@@ -112,8 +112,8 @@ function App() {
       return;
     }
 
-    const startTaskIds = Array.from(start.taskIds);
-    startTaskIds.splice(source.index, 1);
+    // const startTaskIds = Array.from(start.taskIds);
+    // startTaskIds.splice(source.index, 1);
     // const newStart = {
     //   ...start,
     //   taskIds: startTaskIds,

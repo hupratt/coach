@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.validators import ValidationError
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 from accounts.serializers import BoardMemberSerializer
@@ -36,7 +36,7 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ("id", "created", "status", "task")
+        fields = ("id", "created", "status", "task", "done")
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -53,7 +53,7 @@ class TaskSerializer(serializers.ModelSerializer):
     def get_events_in_week(self, obj):
         qs = (
             Event.objects.filter(task__id=obj.id)
-            .annotate(week=ExtractWeek("created"))
+            .annotate(week=ExtractWeek("done"))
             .values("week")
         )
         week_list = [week["week"] for week in qs]
@@ -80,32 +80,33 @@ class TaskSerializer(serializers.ModelSerializer):
         assignees = validated_data.get("assignees")
         board = instance.column.board
         # create an event for the task for today
-        print(validated_data["column"].title)
+        _week_string = f"2020-W{validated_data['week']}"
+        _date_time = datetime.strptime(_week_string + "-1", "%Y-W%W-%w") - timedelta(
+            days=7
+        )
+        tz = pytz.timezone("Europe/Luxembourg")
+        today = tz.localize(_date_time)
         if validated_data["column"].title == "To do":
-            tz = pytz.timezone("Europe/Luxembourg")
-            today = tz.localize(datetime.now())
             e = Event.objects.filter(
                 task=instance,
                 status="DONE",
-                created__year=today.year,
-                created__month=today.month,
-                created__day=today.day,
+                done__year=today.year,
+                done__month=today.month,
+                done__day=today.day,
             ).first()
             if isinstance(e, Event) is True:
                 e.status = "TODO"
                 e.save()
         elif validated_data["column"].title == "Done":
-            tz = pytz.timezone("Europe/Luxembourg")
-            today = tz.localize(datetime.now())
             e = Event.objects.filter(
                 task=instance,
                 status="DONE",
-                created__year=today.year,
-                created__month=today.month,
-                created__day=today.day,
+                done__year=today.year,
+                done__month=today.month,
+                done__day=today.day,
             ).first()
             if isinstance(e, Event) is False:
-                Event.objects.create(task=instance, status="DONE")
+                Event.objects.create(task=instance, status="DONE", done=today)
 
         self.extra_validation(board=board, labels=labels, assignees=assignees)
         return super().update(instance, validated_data)
