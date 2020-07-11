@@ -78,9 +78,7 @@ function App() {
       const sourceIndex = source.index;
       newColumnOrder.splice(sourceIndex, 1);
       newColumnOrder.splice(destination.index, 0, {
-        ["column" + draggableId]: columns.columnOrder[sourceIndex][
-          "column" + draggableId
-        ],
+        [draggableId]: columns.columnOrder[sourceIndex][draggableId],
       });
 
       const newState = {
@@ -97,7 +95,7 @@ function App() {
     if (start === finish) {
       const newTaskIds = Array.from(start.taskIds);
       newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, "column" + draggableId);
+      newTaskIds.splice(destination.index, 0, draggableId);
       const newColumn = {
         ...start,
         taskIds: newTaskIds,
@@ -116,20 +114,24 @@ function App() {
 
     const startTaskIds = Array.from(start.taskIds);
     startTaskIds.splice(source.index, 1);
-    const newStart = {
-      ...start,
-      taskIds: startTaskIds,
-    };
+    // const newStart = {
+    //   ...start,
+    //   taskIds: startTaskIds,
+    // };
 
     const finishTaskIds = Array.from(finish.taskIds);
-    finishTaskIds.splice(destination.index, 0, "task" + draggableId);
+    finishTaskIds.splice(destination.index, 0, draggableId);
     const newFinish = {
       ...finish,
       taskIds: finishTaskIds,
     };
-    console.log("start: from column", newStart);
-    console.log("end: to column", newFinish);
-    dispatch(apiTaskStatusUpdate(draggableId, newFinish.id, week));
+    dispatch(
+      apiTaskStatusUpdate(
+        draggableId.slice(4, draggableId.length),
+        newFinish.id,
+        week
+      )
+    );
   };
 
   const moveCard = (card, column, previousposition, previousColumn, val) => {
@@ -180,6 +182,7 @@ function App() {
         ...finish,
         taskIds: finishTaskIds,
       };
+      console.log("newState", newState);
       const newState = {
         ...columns,
         columnsData: {
@@ -188,6 +191,7 @@ function App() {
           [newFinish.id]: newFinish,
         },
       };
+      console.log("newState", newState);
       dispatch(setColumns(newState));
     }
   };

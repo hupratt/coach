@@ -7,7 +7,6 @@ const initState = {
 };
 
 const setAuthorAndQuote = (state, action) => {
-  console.log("state", state);
   return updateObject(state, {
     author: action.author,
     quote: action.quote,
