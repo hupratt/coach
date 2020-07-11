@@ -274,9 +274,6 @@ function App() {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
-                    {/*
-                    if columns.week == week
-                     */}
                     {columns.columnOrder &&
                       columns.columnOrder.map((columnValue, index) => {
                         let column = {};
@@ -288,25 +285,16 @@ function App() {
                         let tasks = [];
                         if (taskArray) {
                           taskArray.forEach((taskId) => {
-                            console.log(
-                              'columns.tasks[taskId]["weeks"]',
-                              columns.tasks[taskId]["weeks"]
-                            );
-                            // if (
-                            //   columns.tasks[taskId]["weeks"] &&
-                            //   columns.tasks[taskId]["weeks"].includes(
-                            //     parseInt(week)
-                            //   )
-                            // ) {
                             tasks.push(columns.tasks[taskId]);
-                            // }
                           });
                         }
                         return (
                           <CardColumn
                             column={column}
                             key={column.id}
-                            tasks={tasks}
+                            tasks={tasks.filter(
+                              (task) => week == task.weeks || task.focus == true
+                            )}
                             index={index}
                             createCard={createCard}
                             removeCard={removeCard}

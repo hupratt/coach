@@ -3,7 +3,6 @@ import React from "react";
 import ReactLifeTimeline from "./react-life-timeline";
 
 import "./react-life-timeline.min.css";
-import _ from "lodash";
 import { connect } from "react-redux";
 import { grabEvents } from "../actions/events";
 
