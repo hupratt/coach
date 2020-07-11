@@ -85,6 +85,7 @@ class Task(SortableMixin, TimeStampedModel):
     period = models.CharField(
         max_length=2, choices=Period.choices, default=Period.WORKDAY
     )
+    week = models.PositiveIntegerField(choices=[(x, str(x)) for x in range(1, 53)])
     color = models.CharField(max_length=7, default="#D7421B")
     created = models.DateTimeField(
         auto_now_add=True, help_text="(automatic) created date"

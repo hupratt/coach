@@ -8,7 +8,7 @@ export const apiTaskCreate = (data, id) => {
   return (dispatch) => {
     let formData = new FormData();
     formData.append("title", data.content);
-    formData.append("description", data.content);
+    formData.append("week", data.week);
     formData.append("column", id);
     // formData.append("period", data.content);
     api
@@ -26,11 +26,13 @@ export const apiTaskCreate = (data, id) => {
   };
 };
 
-export const apiTaskStatusUpdate = (taskId, newColumnId) => {
+export const apiTaskStatusUpdate = (taskId, newColumnId, week) => {
   console.log("update task status");
   return (dispatch) => {
     let formData = new FormData();
     formData.append("column", newColumnId);
+    formData.append("week", week);
+
     api
       .put(`${BASE}/${API_TASKS}/${taskId}/`, formData)
       .then((_) => {
@@ -57,6 +59,8 @@ export const apiTaskContentUpdate = (values, taskId, colId) => {
     let formData = new FormData();
     formData.append("title", values.content);
     formData.append("column", colId);
+    formData.append("week", values.week);
+
     api
       .put(`${BASE}/${API_TASKS}/${taskId}/`, formData)
       .then((res) => {

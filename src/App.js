@@ -42,6 +42,7 @@ function App() {
 
   const editCard = (card) => {
     const { id } = card;
+    card["week"] = week;
     const newColumns = {
       ...columns,
       tasks: { ...columns.tasks, ["task" + id]: card },
@@ -51,8 +52,10 @@ function App() {
 
   const createCard = (name, card, id) => {
     let newColumns = columns;
+    card["week"] = week;
     newColumns.tasks[name] = card;
     newColumns.columnsData["column" + id].taskIds.push(name);
+    console.log("newColumns", newColumns);
     dispatch(setColumns({ ...newColumns }));
   };
 
@@ -135,7 +138,7 @@ function App() {
     };
     console.log("start: from column", newStart);
     console.log("end: to column", newFinish);
-    dispatch(apiTaskStatusUpdate(draggableId, newFinish.id));
+    dispatch(apiTaskStatusUpdate(draggableId, newFinish.id, week));
   };
 
   const moveCard = (card, column, previousposition, previousColumn, val) => {
@@ -288,12 +291,15 @@ function App() {
                             tasks.push(columns.tasks[taskId]);
                           });
                         }
+                        console.log("columns.tasks", columns.tasks);
+                        // tasks.forEach((task) => console.log(task));
                         return (
                           <CardColumn
                             column={column}
                             key={column.id}
+                            /*tasks={tasks}*/
                             tasks={tasks.filter(
-                              (task) => week == task.weeks || task.focus == true
+                              (task) => week == task.week || task.focus == true
                             )}
                             index={index}
                             createCard={createCard}

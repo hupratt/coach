@@ -7,6 +7,11 @@ import { apiTaskCreate, apiTaskContentUpdate } from "../../actions/task";
 function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   const [values, setValues] = useState({
     content: "",
+    button: "",
+    focus: false,
+    id: "",
+    week: "",
+    weeks: [],
   });
   const dispatch = useDispatch();
 
@@ -31,6 +36,7 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
       if (isOpen) setIsOpen(false);
     } else if (event.keyCode === 13 && event.shiftKey === false) {
       dispatch(apiTaskContentUpdate(values, openCard, column.id));
+      console.log("values", values);
       if (isOpen) setIsOpen(false);
     }
   };

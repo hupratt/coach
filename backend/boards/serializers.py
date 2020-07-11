@@ -135,6 +135,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "column",
             "period",
             "events_in_week",
+            "week",
         ]
 
 

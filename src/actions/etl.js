@@ -59,6 +59,7 @@ const buildTasks = (tasks) => {
       id: task.id.toString(),
       content: task.title,
       weeks: task.events_in_week,
+      week: task.week,
     };
   });
   return [taskArray, taskHolder];
