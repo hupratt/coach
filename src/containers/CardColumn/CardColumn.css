@@ -16,6 +16,7 @@
   height: 3.6875rem;
   line-height: 3.6875rem;
   position: relative;
+  display: flex;
 }
 
 .list-header-text {
@@ -321,6 +322,7 @@ option {
 .list-header-icon {
   width: 30px;
   line-height: 2.2;
+  background-color: #bfbfbf;
 }
 
 .list-header-icon:hover {

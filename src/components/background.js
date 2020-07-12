@@ -13,7 +13,7 @@ const heroArea = (children, author, quote, blur, superblur) => {
         <div className="content__title-wrap">
           {/* <span className="content__pretitle">CWS Investment</span> */}
 
-          <h2 className={`content__title ${blur}`}>Ascendency</h2>
+          <h2 className={`content__title ${blur}`}>Coach</h2>
           <div className={`container ${blur}`}>
             <span className="content__pretitle">
               {quote} - {author}
