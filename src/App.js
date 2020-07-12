@@ -12,6 +12,7 @@ import {
   setAddColumn,
   deleteColumnById,
   apiColumnCreate,
+  triggerTogglePopUp,
 } from "./actions/columns";
 import { apiTaskDelete, apiTaskStatusUpdate } from "./actions/task";
 import { initBoard } from "./actions/board";
@@ -30,7 +31,6 @@ function App() {
   const columnName = useSelector((state) => state.columns.columnName);
   const error = useSelector((state) => state.columns.error);
   const events = useSelector((state) => state.events.events);
-  const [visible, setVisible] = useState(false);
   const [week, setWeek] = useState(27);
 
   useEffect(() => {
@@ -338,7 +338,7 @@ function App() {
     );
   };
   const toggleVisibility = (weekCounter) => {
-    setVisible(!visible);
+    dispatch(triggerTogglePopUp());
     weekCounter.currentTarget &&
       setWeek(weekCounter.currentTarget.getAttribute("weekvalue"));
   };
@@ -347,7 +347,7 @@ function App() {
       {/* <Navbar /> */}
       <BackgroundWithErrorHandling error={error}>
         <Timeline show={toggleVisibility} />
-        <PopUpModal visible={visible} onClickAway={toggleVisibility}>
+        <PopUpModal onClickAway={toggleVisibility}>
           {renderBoard(events)}
         </PopUpModal>
       </BackgroundWithErrorHandling>

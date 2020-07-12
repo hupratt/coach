@@ -15,13 +15,12 @@
 .list-header {
   height: 3.6875rem;
   line-height: 3.6875rem;
-  display: flex;
   position: relative;
 }
 
 .list-header-text {
   margin: 0;
-  width: 14rem;
+  width: 100%;
   font-weight: 600px;
   font-size: 20px;
   text-align: center;

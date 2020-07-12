@@ -7,3 +7,4 @@ export const GRAB_QUOTE = "GRAB_QUOTE";
 export const GRAB_EVENTS = "GRAB_EVENTS";
 export const FAIL = "FAIL";
 export const RESET_FAIL = "RESET_FAIL";
+export const TOGGLE_POPUP = "TOGGLE_POPUP";

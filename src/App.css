@@ -137,3 +137,7 @@ body {
   transition: opacity 1000ms, transform 1000ms;
   transition: opacity 1000ms, transform 1000ms, -webkit-transform 1000ms;
 }
+
+.add-another-list form {
+  overflow: hidden;
+}

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import style from "./style.js";
+import { triggerTogglePopUp } from "../../actions/columns";
+import { connect } from "react-redux";
 
-export default class PopUpModal extends Component {
+class PopUpModal extends Component {
   constructor(props) {
     super(props);
     let effect = props.effect || "fadeInDown";
@@ -10,7 +12,6 @@ export default class PopUpModal extends Component {
       style: style[effect],
     };
   }
-
   setStyles(effect) {
     if (this.props && this.props.styles) {
       style[effect].panel = {
@@ -54,29 +55,28 @@ export default class PopUpModal extends Component {
   }
 
   render() {
+    const { visible } = this.props;
     return (
       <React.Fragment>
         <div
+          className={`popup-active-${visible}`}
           style={
-            this.props.visible
+            visible
               ? this.state.style.container
               : this.state.style.containerHidden
           }
+          onClick={() => this.props.triggerTogglePopUp()}
         >
           <div
             style={
-              this.props.visible
-                ? this.state.style.panel
-                : this.state.style.panelHidden
+              visible ? this.state.style.panel : this.state.style.panelHidden
             }
           >
             {this.props.children}
           </div>
           <div
             style={
-              this.props.visible
-                ? this.state.style.mask
-                : this.state.style.maskHidden
+              visible ? this.state.style.mask : this.state.style.maskHidden
             }
             onClick={this.props.onClickAway ? this.props.onClickAway : null}
           />
@@ -85,3 +85,17 @@ export default class PopUpModal extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    visible: state.columns.popUp,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    triggerTogglePopUp: () => dispatch(triggerTogglePopUp()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PopUpModal);

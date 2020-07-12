@@ -51,6 +51,13 @@ export const setColumnName = (data) => {
     });
   };
 };
+export const triggerTogglePopUp = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.TOGGLE_POPUP,
+    });
+  };
+};
 export const apiColumnCreate = (data) => {
   console.log("init a new column");
   return (dispatch) => {

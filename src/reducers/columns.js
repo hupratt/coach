@@ -11,6 +11,14 @@ const initState = {
     columnsData: { id: "", title: "", taskIds: [] },
     tasks: { id: "", content: "", weeks: [], week: "" },
   },
+  popUp: false,
+};
+
+const togglePopUp = (state) => {
+  console.log("togglePopUp", state);
+  return updateObject(state, {
+    popUp: !state.popUp,
+  });
 };
 
 const Fail = (state, action) => {
@@ -32,7 +40,6 @@ const setColumns = (state, action) => {
 };
 
 const setColumnName = (state, action) => {
-  console.log("state", state);
   return updateObject(state, {
     columnName: action.data,
   });
@@ -56,6 +63,8 @@ const reducer = (state = initState, action) => {
       return Fail(state, action);
     case actionTypes.RESET_FAIL:
       return resetErrorOnFail(state, action);
+    case actionTypes.TOGGLE_POPUP:
+      return togglePopUp(state, action);
     default:
       return state;
   }
