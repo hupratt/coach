@@ -19,7 +19,7 @@ function Navbar() {
           <div className="navbar-profile">
             <div className="navbar-profile__picture">
               <img
-                src="https://images.unsplash.com/photo-1505150892987-424388901632?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+                src="https://randomuser.me/api/portraits/men/4.jpg"
                 alt="Profile Picture"
               />
             </div>

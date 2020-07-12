@@ -322,11 +322,11 @@ option {
 .list-header-icon {
   width: 30px;
   line-height: 2.2;
-  background-color: #bfbfbf;
+  background-color: #cbd5e0;
 }
 
 .list-header-icon:hover {
-  background-color: #cbd5e0;
+  background-color: #bfbfbf;
 }
 
 #edit-column-title {
