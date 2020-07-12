@@ -62,8 +62,9 @@ class Timeline extends React.Component {
   }
 
   render() {
+    const blur = this.props.visible ? "blur" : "";
     return (
-      <div className="container see-through">
+      <div className={`container see-through ${blur}`}>
         <h2>2020</h2>
         <ReactLifeTimeline
           subject_name="Hugo"
@@ -89,6 +90,7 @@ ReactLifeTimeline.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     events: state.events.events,
+    visible: state.columns.popUp,
   };
 };
 
