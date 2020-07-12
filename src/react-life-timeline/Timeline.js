@@ -63,6 +63,8 @@ class Timeline extends React.Component {
 
   render() {
     const blur = this.props.visible ? "blur" : "";
+    console.log("background blur");
+
     return (
       <div className={`container see-through ${blur}`}>
         <h2>2020</h2>

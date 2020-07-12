@@ -6,11 +6,9 @@ import { setColumns } from "./columns";
 export const apiTaskCreate = (card, colID, columnData) => {
   console.log("init a new card");
   var cardId;
-  console.log("whats up???", columnData);
   let newColumns = columnData;
   return (dispatch) => {
     let formData = new FormData();
-    console.log("CARD", card);
     formData.append("title", card.title);
     formData.append("week", card.week);
     formData.append("column", colID);
@@ -30,10 +28,8 @@ export const apiTaskCreate = (card, colID, columnData) => {
       })
       .then(() => {
         card["id"] = cardId;
-        console.log("newColumns", newColumns);
         newColumns.tasks[`task${cardId}`] = card;
         newColumns.columnsData["column" + colID].taskIds.push(`task${cardId}`);
-        console.log("newColumns", newColumns);
         dispatch(setColumns({ ...newColumns }));
       })
       .catch((err) => {
@@ -73,8 +69,6 @@ export const apiTaskContentUpdate = (values, taskId, colId) => {
   console.log("update task content");
   return (dispatch) => {
     let formData = new FormData();
-    console.log("values check here", values);
-    formData.append("title", values.title);
     formData.append("column", colId);
     formData.append("week", values.week);
 

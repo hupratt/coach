@@ -149,11 +149,9 @@ function App() {
 
     if (previousColumn === val.col && previousposition !== val.pos) {
       const newTaskIds = Array.from(start.taskIds);
-      console.log("newTaskIds", newTaskIds);
       const index = newTaskIds.indexOf(card.id);
       newTaskIds.splice(index, 1);
       newTaskIds.splice(val.pos, 0, card.id);
-      console.log("newTaskIds", newTaskIds);
       const newColumn = {
         ...start,
         taskIds: newTaskIds,
@@ -182,7 +180,6 @@ function App() {
         ...finish,
         taskIds: finishTaskIds,
       };
-      console.log("newState", newState);
       const newState = {
         ...columns,
         columnsData: {
@@ -191,7 +188,6 @@ function App() {
           [newFinish.id]: newFinish,
         },
       };
-      console.log("newState", newState);
       dispatch(setColumns(newState));
     }
   };
@@ -338,6 +334,7 @@ function App() {
     );
   };
   const toggleVisibility = (weekCounter) => {
+    console.log("toggle triggered");
     dispatch(triggerTogglePopUp());
     weekCounter.currentTarget &&
       setWeek(weekCounter.currentTarget.getAttribute("weekvalue"));

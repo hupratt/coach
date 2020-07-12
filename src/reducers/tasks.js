@@ -24,7 +24,6 @@ const setTaskData = (state, action) => {
   });
 };
 const setTaskTitle = (state, action) => {
-  console.log("state", state);
   return updateObject(state, {
     values: {
       title: action.title,

@@ -62,5 +62,4 @@
 
   const myApp = new App(container, options);
   myApp.loadAssets().then(myApp.init);
-  console.log("running init");
 })();

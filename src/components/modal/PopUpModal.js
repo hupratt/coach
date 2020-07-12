@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import style from "./style.js";
-import { triggerTogglePopUp } from "../../actions/columns";
 import { connect } from "react-redux";
 
 class PopUpModal extends Component {
@@ -65,7 +64,6 @@ class PopUpModal extends Component {
               ? this.state.style.container
               : this.state.style.containerHidden
           }
-          onClick={() => this.props.triggerTogglePopUp()}
         >
           <div
             style={
@@ -92,10 +90,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    triggerTogglePopUp: () => dispatch(triggerTogglePopUp()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PopUpModal);
+export default connect(mapStateToProps)(PopUpModal);

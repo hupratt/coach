@@ -5,6 +5,7 @@ import { grabQuoteOfTheDay } from "../actions/quote";
 import "./background.css";
 
 const heroArea = (children, author, quote, blur, superblur) => {
+  console.log("content blur");
   return (
     <React.Fragment>
       <div className="content">

@@ -15,7 +15,6 @@ const initState = {
 };
 
 const togglePopUp = (state) => {
-  console.log("togglePopUp", state);
   return updateObject(state, {
     popUp: !state.popUp,
   });

@@ -30,7 +30,6 @@ export const deleteColumnById = (id) => {
           .then((res) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;
-            console.log("res.data", res.data);
             dispatch(setColumns(transform(columns)));
           })
           .catch((err) => {

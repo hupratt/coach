@@ -1,4 +1,3 @@
-console.log(POSTPROCESSING);
 class App {
   constructor(container, options = {}) {
     // Init ThreeJS Basics
@@ -7,12 +6,12 @@ class App {
     if (this.options.distortion == null) {
       this.options.distortion = {
         uniforms: distortion_uniforms,
-        getDistortion: distortion_vertex
+        getDistortion: distortion_vertex,
       };
     }
     this.container = container;
     this.renderer = new THREE.WebGLRenderer({
-      antialias: false
+      antialias: false,
     });
     this.renderer.setSize(container.offsetWidth, container.offsetHeight, false);
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -40,7 +39,7 @@ class App {
     this.fogUniforms = {
       fogColor: { type: "c", value: fog.color },
       fogNear: { type: "f", value: fog.near },
-      fogFar: { type: "f", value: fog.far }
+      fogFar: { type: "f", value: fog.far },
     };
     this.clock = new THREE.Clock();
     this.assets = {};
@@ -84,10 +83,9 @@ class App {
       new POSTPROCESSING.BloomEffect({
         luminanceThreshold: 0.2,
         luminanceSmoothing: 0,
-        resolutionScale: 1
+        resolutionScale: 1,
       })
     );
-    console.log(this.assets.smaa, this.camera);
     const smaaPass = new POSTPROCESSING.EffectPass(
       this.camera,
       new POSTPROCESSING.SMAAEffect(
@@ -227,7 +225,7 @@ class App {
 
 const distortion_uniforms = {
   uDistortionX: new THREE.Uniform(new THREE.Vector2(80, 3)),
-  uDistortionY: new THREE.Uniform(new THREE.Vector2(-40, 2.5))
+  uDistortionY: new THREE.Uniform(new THREE.Vector2(-40, 2.5)),
 };
 
 const distortion_vertex = `
@@ -252,11 +250,11 @@ const distortion_vertex = `
     }
 `;
 
-const random = base => {
+const random = (base) => {
   if (Array.isArray(base)) return Math.random() * (base[1] - base[0]) + base[0];
   return Math.random() * base;
 };
-const pickRandom = arr => {
+const pickRandom = (arr) => {
   if (Array.isArray(arr)) return arr[Math.floor(Math.random() * arr.length)];
   return arr;
 };
@@ -296,7 +294,7 @@ class CarLights {
 
     let colors = this.colors;
     if (Array.isArray(colors)) {
-      colors = colors.map(c => new THREE.Color(c));
+      colors = colors.map((c) => new THREE.Color(c));
     } else {
       colors = new THREE.Color(colors);
     }
@@ -365,18 +363,17 @@ class CarLights {
           // uColor: new THREE.Uniform(new THREE.Color(this.color)),
           uTime: new THREE.Uniform(0),
           uTravelLength: new THREE.Uniform(options.length),
-          uFade: new THREE.Uniform(this.fade)
+          uFade: new THREE.Uniform(this.fade),
         },
         this.webgl.fogUniforms,
         options.distortion.uniforms
-      )
+      ),
     });
-    material.onBeforeCompile = shader => {
+    material.onBeforeCompile = (shader) => {
       shader.vertexShader = shader.vertexShader.replace(
         "#include <getDistortion_vertex>",
         options.distortion.getDistortion
       );
-      console.log(shader.vertex);
     };
     let mesh = new THREE.Mesh(instanced, material);
     mesh.frustumCulled = false;
@@ -468,7 +465,7 @@ class LightsSticks {
 
     let colors = options.colors.sticks;
     if (Array.isArray(colors)) {
-      colors = colors.map(c => new THREE.Color(c));
+      colors = colors.map((c) => new THREE.Color(c));
     } else {
       colors = new THREE.Color(colors);
     }
@@ -506,14 +503,14 @@ class LightsSticks {
       uniforms: Object.assign(
         {
           uTravelLength: new THREE.Uniform(options.length),
-          uTime: new THREE.Uniform(0)
+          uTime: new THREE.Uniform(0),
         },
         this.webgl.fogUniforms,
         options.distortion.uniforms
-      )
+      ),
     });
 
-    material.onBeforeCompile = shader => {
+    material.onBeforeCompile = (shader) => {
       shader.vertexShader = shader.vertexShader.replace(
         "#include <getDistortion_vertex>",
         options.distortion.getDistortion
@@ -617,7 +614,7 @@ class Road {
           isRoad ? options.colors.roadColor : options.colors.islandColor
         )
       ),
-      uTime: this.uTime
+      uTime: this.uTime,
     };
     if (isRoad) {
       uniforms = Object.assign(uniforms, {
@@ -636,7 +633,7 @@ class Road {
         ),
         uBrokenLinesWidthPercentage: new THREE.Uniform(
           options.brokenLinesWidthPercentage
-        )
+        ),
       });
     }
     const material = new THREE.ShaderMaterial({
@@ -647,10 +644,10 @@ class Road {
         uniforms,
         this.webgl.fogUniforms,
         options.distortion.uniforms
-      )
+      ),
     });
 
-    material.onBeforeCompile = shader => {
+    material.onBeforeCompile = (shader) => {
       shader.vertexShader = shader.vertexShader.replace(
         "#include <getDistortion_vertex>",
         options.distortion.getDistortion
