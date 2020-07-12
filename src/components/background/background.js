@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useRef, useEffect, useState } from "react";
-import { grabQuoteOfTheDay } from "../actions/quote";
+import { grabQuoteOfTheDay } from "../../actions/quote";
 
 import "./background.css";
 

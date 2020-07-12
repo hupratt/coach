@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimmer, Loader, Segment, Image } from "semantic-ui-react";
-import Toast from "../button/Toast";
+import Toast from "../../components/button/Toast";
 
 export const Hoc = (props) => props.children;
 

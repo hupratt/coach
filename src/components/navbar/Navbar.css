@@ -3,6 +3,7 @@
   top: 0;
   width: 100%;
   background-color: #2a2a2a;
+  z-index: 1;
 }
 
 .nav-container {

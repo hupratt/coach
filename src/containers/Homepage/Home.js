@@ -3,7 +3,7 @@ import PopUpModal from "../../components/modal/PopUpModal";
 import "./Home.css";
 import CardColumn from "../../containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { withError } from "../../components/hoc/Hoc";
+import { withError } from "../../containers/hoc/Hoc";
 import { login } from "../../actions/auth";
 import {
   setColumns,
@@ -18,7 +18,7 @@ import { initBoard } from "../../actions/board";
 
 import Timeline from "../../react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
-import Background from "../../components/background";
+import Background from "../../components/background/background";
 import MyWeekdayPicker from "../../components/button/WeekDayPicker";
 
 const BackgroundWithErrorHandling = withError(Background);

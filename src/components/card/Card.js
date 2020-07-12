@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import GetCard from "../displayCard/displayCard";
+import GetCard from "../../containers/displayCard/displayCard";
 import { useSelector, useDispatch } from "react-redux";
 import { apiTitleUpdate, apiTaskContentUpdate } from "../../actions/task";
 
