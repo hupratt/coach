@@ -3,7 +3,6 @@ import PopUpModal from "../../components/modal/PopUpModal";
 import "./Home.css";
 import CardColumn from "../../containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import Navbar from "../../components/navbar/Navbar";
 import { withError } from "../../components/hoc/Hoc";
 import { login } from "../../actions/auth";
 import {
@@ -341,7 +340,6 @@ function Homepage() {
   return (
     <React.Fragment>
       <BackgroundWithErrorHandling error={error}>
-        <Navbar />
         <Timeline show={toggleVisibility} />
         <PopUpModal onClickAway={toggleVisibility}>
           {renderBoard(events)}
