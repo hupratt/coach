@@ -6,11 +6,21 @@ import YConsistencylevel2 from "../../images/badges/YConsistency-level2.png";
 import Readinglevel2 from "../../images/badges/Reading-level2.png";
 import Sportslevel2 from "../../images/badges/Sports-level2.png";
 import Writinglevel2 from "../../images/badges/Writing-level2.png";
-import arrowleft from "../../images/long-arrow-pointing-to-left.svg";
+import arrowleft from "../../images/long-arrow-pointing-to-left-white.svg";
+import { Link } from "react-router-dom";
 
 function ProfilePage({}) {
   return (
     <React.Fragment>
+      <Link to="/" style={{ zIndex: 1, position: "relative" }}>
+        <img
+          className="home-icon"
+          src={arrowleft}
+          width="60px"
+          height="60px"
+          alt="Home"
+        />
+      </Link>
       <div class="profile-panel profile-panel-orange">
         <div class="profile-header">
           <h1>Hendra Susanto</h1>
@@ -76,11 +86,11 @@ function ProfilePage({}) {
             />
           </a>
         </div>
-        <div class="profile-footer">
+        {/* <div class="profile-footer">
           <a class="btn" href="#">
             Follow
           </a>
-        </div>
+        </div> */}
       </div>
     </React.Fragment>
   );

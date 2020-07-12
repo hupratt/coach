@@ -80,13 +80,14 @@
 .badge-level {
   background-color: black;
   margin-bottom: 5px;
+  border-color: black;
 }
 
 .profile-footer {
   padding: 30px 0;
 }
 
-.profile-panel-orange {
+/* .profile-panel-orange {
   border-bottom-color: #ff6900;
 }
 .profile-panel-orange .btn {
@@ -94,7 +95,7 @@
 }
 .profile-panel-orange .btn:hover {
   background: #ff781a;
-}
+} */
 
 .btn {
   display: inline-block;
