@@ -4,42 +4,101 @@
   width: 100%;
   background-color: #2a2a2a;
 }
-.navbar {
-  width: 100%;
-  height: 2.5rem;
+
+.nav-container {
   display: flex;
-  margin: 20px;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.icon {
-  border-color: black;
-  width: 2.5rem;
-  height: 2.5rem;
-  background-color: #5a5959;
+.nav-navbar {
+  width: 60%;
+  padding-left: 2rem;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.2s;
+}
+.navbar-search {
+  background-color: transparent;
+  width: 40%;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+}
+.navbar-search__input {
+  border: none;
+  width: 80%;
+  height: 30px;
+  border-radius: 50px;
+  background-color: #e2e2e2;
   text-align: center;
-  vertical-align: center;
+  color: #232323;
+  transition: 0.2s;
+}
+.navbar-search__input:focus {
+  width: 100%;
+}
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  color: #555;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 1rem 2rem;
+  transition: 0.2s;
+}
+.navbar-profile:hover {
+  background-color: #d5d5d5;
+  color: #333;
+}
+.navbar-profile:active .navbar-profile__picture {
+  transform: translateY(3px);
+}
+.navbar-profile:active .navbar-profile__name {
+  transform: translateY(3px);
+  color: var(--color-link);
+}
+.navbar-profile__picture {
+  width: 40px;
+  height: 40px;
+  margin-left: 1rem;
+  order: 1;
+  transition: 0.2s;
+}
+.navbar-profile__picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  -moz-user-select: none;
+  user-select: none;
+}
+.navbar-profile__name {
+  color: inherit;
+  -moz-user-select: none;
+  user-select: none;
+  transition: 0.2s;
+}
+
+.profile {
+  position: absolute;
+  top: 0.5rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+.profile .fa-codepen {
   margin-right: 0.5rem;
-  /* display: flex; */
-  border-radius: 5px;
-  color: #fff;
-  display: inline-block;
 }
+.profile .author a:link,
+.profile .author a:visited {
+  color: inherit;
 
-.home-icon {
-}
-
-.board-icon-wrapper {
-  width: 6rem;
-}
-
-img.board-icon {
-  display: inline;
-}
-
-input[type="text"] {
-  width: 20rem;
-  height: 1.8rem;
-  margin-top: 0.5rem;
-  border-radius: 5px;
-  padding: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-decoration: none;
 }
