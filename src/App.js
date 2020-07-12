@@ -3,7 +3,7 @@ import PopUpModal from "./components/modal/PopUpModal";
 import "./App.css";
 import CardColumn from "./containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-// import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import { withError } from "./components/hoc/Hoc";
 import { login } from "./actions/auth";
 import {
@@ -341,8 +341,8 @@ function App() {
   };
   return (
     <React.Fragment>
-      {/* <Navbar /> */}
       <BackgroundWithErrorHandling error={error}>
+        <Navbar />
         <Timeline show={toggleVisibility} />
         <PopUpModal onClickAway={toggleVisibility}>
           {renderBoard(events)}
