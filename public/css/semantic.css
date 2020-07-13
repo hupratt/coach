@@ -5107,7 +5107,7 @@ i.flag.zw:before {
   font-weight: 700;
   line-height: 1.28571429em;
   text-transform: none;
-  color: rgba(0, 0, 0, 0.87);
+  /* color: rgba(0, 0, 0, 0.87); */
 }
 .ui.header:first-child {
   margin-top: -0.14285714em;
@@ -13412,7 +13412,7 @@ ol.ui.horizontal.list li:before {
  */
 .ui.segment {
   position: relative;
-  background: #fff;
+  /* background: #fff; */
   -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
   box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
   margin: 1rem 0;
@@ -13441,7 +13441,7 @@ ol.ui.horizontal.list li:before {
   border-bottom: none;
 }
 .ui.inverted.segment > .ui.header {
-  color: #fff;
+  /* color: #fff; */
 }
 .ui[class*="bottom attached"].segment > [class*="top attached"].label {
   border-top-left-radius: 0;

@@ -3,9 +3,16 @@
   font-size: 16px;
 }
 
+.ui.divided {
+  background-color: #2e2e2e;
+}
+
+.ui.stacked.segment {
+  background-color: #575555;
+}
 .social-box button {
   width: 100%;
-  background: rgba(0, 0, 0, 0);
+  /* background: rgba(0, 0, 0, 0); */
   border: 1px solid #ababab;
   padding: 10px 20px;
   border-radius: 4px;

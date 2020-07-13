@@ -63,7 +63,7 @@ function CardColumn({
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
         <div
-          className="column"
+          className="kanbancolumn"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}

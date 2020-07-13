@@ -1,5 +1,6 @@
 import React from "react";
 import "./Profilepage.css";
+import defaultAvatar from "../../images/avatar.png";
 import Devlevel2 from "../../images/badges/Dev-level2.png";
 import MConsistencylevel2 from "../../images/badges/MConsistency-level2.png";
 import YConsistencylevel2 from "../../images/badges/YConsistency-level2.png";
@@ -10,7 +11,7 @@ import arrowleft from "../../images/long-arrow-pointing-to-left-white.svg";
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 
-function ProfilePage({}) {
+function ProfilePage({ name = "Anon Mouse", title = "Web Developer" }) {
   return (
     <React.Fragment>
       <Link to="/" style={{ zIndex: 1, position: "relative" }}>
@@ -24,10 +25,10 @@ function ProfilePage({}) {
       </Link>
       <div className="profile-panel profile-panel-orange">
         <div className="profile-header">
-          <h1>Hendra Susanto</h1>
-          <h2>Web Developer</h2>
+          <h1>{name}</h1>
+          <h2>{title}</h2>
           <div className="profile-image">
-            <img src="https://randomuser.me/api/portraits/men/4.jpg" />
+            <img src={defaultAvatar} />
             <div className="profile-status profile-status-away"></div>
           </div>
         </div>

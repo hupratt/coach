@@ -12,6 +12,8 @@ import { NavLink, Redirect } from "react-router-dom";
 import { authLogin } from "../../actions/auth";
 import { googleLogin, facebookLogin, githubLogin } from "../../actions/api";
 import "./Login.css";
+import arrowleft from "../../images/long-arrow-pointing-to-left-white.svg";
+import { Link } from "react-router-dom";
 
 class LoginForm extends React.Component {
   state = {
@@ -36,90 +38,101 @@ class LoginForm extends React.Component {
       return <Redirect to="/profile" />;
     }
     return (
-      <Grid
-        textAlign="center"
-        verticalAlign="middle"
-        columns={2}
-        divided
-        className="loginForm"
-      >
-        <Grid.Row>
-          <Grid.Column style={{ maxWidth: 450, marginTop: 100 }}>
-            <Header as="h2" color="black" textAlign="center">
-              Log-in to your account
-            </Header>
-            {error && <p>{this.props.error.message}</p>}
+      <>
+        <Link to="/" style={{ zIndex: 1, position: "relative" }}>
+          <img
+            className="home-icon"
+            src={arrowleft}
+            width="60px"
+            height="60px"
+            alt="Home"
+          />
+        </Link>
+        <Grid
+          textAlign="center"
+          verticalAlign="middle"
+          columns={2}
+          divided
+          className="loginForm"
+        >
+          <Grid.Row>
+            <Grid.Column style={{ maxWidth: 450, marginTop: 100 }}>
+              <Header as="h2" color="black" textAlign="center">
+                Log-in to your account
+              </Header>
+              {error && <p>{this.props.error.message}</p>}
 
-            <React.Fragment>
-              <Form size="large" onSubmit={this.handleSubmit}>
-                <Segment stacked>
-                  <Form.Input
-                    onChange={this.handleChange}
-                    value={username}
-                    name="username"
-                    fluid
-                    icon="user"
-                    iconPosition="left"
-                    placeholder="Username"
-                  />
-                  <Form.Input
-                    onChange={this.handleChange}
-                    fluid
-                    value={password}
-                    name="password"
-                    icon="lock"
-                    iconPosition="left"
-                    placeholder="Password"
-                    type="password"
-                  />
+              <React.Fragment>
+                <Form size="large" onSubmit={this.handleSubmit}>
+                  <Segment stacked>
+                    <Form.Input
+                      onChange={this.handleChange}
+                      value={username}
+                      name="username"
+                      fluid
+                      icon="user"
+                      iconPosition="left"
+                      placeholder="Username"
+                    />
+                    <Form.Input
+                      onChange={this.handleChange}
+                      fluid
+                      value={password}
+                      name="password"
+                      icon="lock"
+                      iconPosition="left"
+                      placeholder="Password"
+                      type="password"
+                    />
 
-                  <Button
-                    color="grey"
-                    fluid
-                    size="large"
-                    loading={loading}
-                    disabled={loading}
+                    <Button
+                      color="grey"
+                      fluid
+                      size="large"
+                      loading={loading}
+                      disabled={loading}
+                    >
+                      Login
+                    </Button>
+                  </Segment>
+                </Form>
+                <Message>
+                  New to us? <NavLink to="/signup">Sign Up</NavLink>
+                </Message>
+              </React.Fragment>
+            </Grid.Column>
+            <Grid.Column style={{ maxWidth: 450, marginTop: 100 }}>
+              {error && <p>{this.props.error.message}</p>}
+              <Segment stacked style={{ minHeight: "285" }}>
+                <div className="social-box">
+                  <button
+                    className="social-login google"
+                    onClick={() => (window.location.href = googleLogin)}
                   >
-                    Login
-                  </Button>
-                </Segment>
-              </Form>
-              <Message>
-                New to us? <NavLink to="/signup">Sign Up</NavLink>
-              </Message>
-            </React.Fragment>
-          </Grid.Column>
-          <Grid.Column style={{ maxWidth: 450, marginTop: 100 }}>
-            {error && <p>{this.props.error.message}</p>}
-            <Segment stacked style={{ minHeight: "285" }}>
-              <div className="social-box">
-                <button
-                  className="social-login google"
-                  onClick={() => (window.location.href = googleLogin)}
-                >
-                  <img src="https://bookshop-images-f1492f08-f236-4a55-afb7-70ded209cb24.s3.eu-west-2.amazonaws.com/resources/google-icon-logo-png-transparent.png" />
-                  Google
-                </button>
+                    <img src="https://bookshop-images-f1492f08-f236-4a55-afb7-70ded209cb24.s3.eu-west-2.amazonaws.com/resources/google-icon-logo-png-transparent.png" />
+                    Google
+                  </button>
 
-                <button
-                  className="social-login facebook"
-                  onClick={() => (window.location.href = facebookLogin)}
-                >
-                  <img src="https://bookshop-images-f1492f08-f236-4a55-afb7-70ded209cb24.s3.eu-west-2.amazonaws.com/resources/FB-Icon.png" />
-                  Facebook
-                </button>
-                <button
-                  className="social-login github"
-                  onClick={() => (window.location.href = githubLogin)}
-                >
-                  <img src="https://bookshop-images-f1492f08-f236-4a55-afb7-70ded209cb24.s3.eu-west-2.amazonaws.com/resources/github.png" />
-                  Github
-                </button>
-              </div>
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+                  <button
+                    className="social-login facebook"
+                    onClick={() => (window.location.href = facebookLogin)}
+                  >
+                    <img src="https://bookshop-images-f1492f08-f236-4a55-afb7-70ded209cb24.s3.eu-west-2.amazonaws.com/resources/FB-Icon.png" />
+                    Facebook
+                  </button>
+                  <button
+                    className="social-login github"
+                    onClick={() => (window.location.href = githubLogin)}
+                  >
+                    <img src="https://bookshop-images-f1492f08-f236-4a55-afb7-70ded209cb24.s3.eu-west-2.amazonaws.com/resources/github.png" />
+                    Github
+                  </button>
+                </div>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </>
     );
   }
 }
