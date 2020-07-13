@@ -1,11 +1,11 @@
 import _ from "lodash";
 import axios from "axios";
 
-export const api = {};
+let _api = {};
 
 _.each(["get", "post", "put", "delete"], (method) => {
   if (!localStorage.getItem("token")) return axios;
-  api[method] = (url, props, callbacks = {}) => {
+  _api[method] = (url, props, callbacks = {}) => {
     if (localStorage.getItem("token")) {
       axios.defaults.headers.common["Authorization"] =
         "Token " + localStorage.getItem("token");
@@ -22,12 +22,14 @@ _.each(["get", "post", "put", "delete"], (method) => {
   };
 });
 
+export const api = _api;
+
 export const BASE = process.env.REACT_APP_BASE_URL;
 
 // Available endpoints
-export const API_LOGIN = "auth/login/";
-export const API_LOGOUT = "auth/logout/";
-export const API_REGISTER = "auth/registration/";
+export const API_LOGIN = `${BASE}/auth/login/`;
+export const API_LOGOUT = `${BASE}/auth/logout/`;
+export const API_REGISTER = `${BASE}/auth/registration/`;
 export const API_GUEST_REGISTER = "auth/guest/";
 
 export const API_AVATARS = "api/avatars/";

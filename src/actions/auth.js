@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_LOGIN, BASE } from "./api";
+import { API_LOGIN, API_LOGOUT, BASE, API_REGISTER } from "./api";
 import * as actionTypes from "./actionTypes";
 
 export const login = (username, password) => {
@@ -80,9 +80,11 @@ const logout = () => {
 
 const checkAuthTimeout = (expirationTime) => {
   return (dispatch) => {
-    setTimeout(() => {
-      dispatch(logout());
-    }, expirationTime * 1000);
+    axios.post(`${API_LOGOUT}`).then(
+      setTimeout(() => {
+        dispatch(logout());
+      }, 5000)
+    );
   };
 };
 
@@ -105,7 +107,7 @@ export const authLogin = (username, password) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post(`${BASE}/rest-auth/login/`, {
+      .post(`${API_LOGIN}`, {
         username: username,
         password: password,
       })
@@ -117,7 +119,7 @@ export const authLogin = (username, password) => {
         axios.defaults.headers.common["Authorization"] = "Token " + token;
         // dispatch(userIsStaff());
         dispatch(authSuccess(token, username));
-        dispatch(checkAuthTimeout(36000));
+        // dispatch(checkAuthTimeout(36000));
       })
       .catch((err) => {
         dispatch(authFail(err));
@@ -129,7 +131,7 @@ export const authSignup = (username, email, password1, password2) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post(`${BASE}/rest-auth/registration/`, {
+      .post(`${API_REGISTER}`, {
         username: username,
         email: email,
         password1: password1,

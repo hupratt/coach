@@ -30,13 +30,15 @@ function Homepage() {
   const columnName = useSelector((state) => state.columns.columnName);
   const error = useSelector((state) => state.columns.error);
   const events = useSelector((state) => state.events.events);
+  const token = useSelector((state) => state.auth.token);
   const [week, setWeek] = useState(27);
 
+  // useEffect(() => {
+  //   login("admin", "admin");
+  // }, []);
+
   useEffect(() => {
-    login("admin", "admin");
-  }, []);
-  useEffect(() => {
-    dispatch(initBoard());
+    dispatch(initBoard(token));
   }, []);
 
   const editCard = (card) => {
