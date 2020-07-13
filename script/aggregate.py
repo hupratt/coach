@@ -15,38 +15,37 @@ another_date2 = tz.localize(datetime(2020, 8, 1))
 
 User = get_user_model()
 user, _ = User.objects.get_or_create(owner_id=1)
-u, _ = User.objects.get_or_create(id=1)
 
-board, _ = Board.objects.get_or_create(owner_id=u.id)
+board, _ = Board.objects.get_or_create(owner_id=user.id)
 column1, _ = Column.objects.get_or_create(title="To do", board=board)
 column2, _ = Column.objects.get_or_create(title="Done", board=board)
 task1, _ = Task.objects.get_or_create(title="Do push-ups", column=column1, week=27)
 task2, _ = Task.objects.get_or_create(title="Wake up @8:00", column=column1, week=27)
 
-e = Event.objects.create(task=task1, status="DONE")
+e = Event.objects.create(task=task1, status="DONE", creator=user)
 e.created = another_date
 e.save()
-e = Event.objects.create(task=task1, status="DONE")
+e = Event.objects.create(task=task1, status="DONE", creator=user)
 e.created = another_date
 e.save()
-e = Event.objects.create(task=task1, status="DONE")
+e = Event.objects.create(task=task1, status="DONE", creator=user)
 e.created = another_date
 e.save()
-e = Event.objects.create(task=task1, status="DONE")
+e = Event.objects.create(task=task1, status="DONE", creator=user)
 e.created = another_date
 e.save()
 
-e = Event.objects.create(task=task2, status="DONE")
+e = Event.objects.create(task=task2, status="DONE", creator=user)
 e.created = another_date2
 e.save()
-e = Event.objects.create(task=task2, status="DONE")
+e = Event.objects.create(task=task2, status="DONE", creator=user)
 e.created = another_date2
 e.save()
-e = Event.objects.create(task=task2, status="DONE")
+e = Event.objects.create(task=task2, status="DONE", creator=user)
 e.created = another_date2
 e.save()
 
-e = Event.objects.create(task=task2, status="DONE")
+e = Event.objects.create(task=task2, status="DONE", creator=user)
 e.created = today
 e.save()
 

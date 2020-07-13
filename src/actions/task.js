@@ -38,7 +38,7 @@ export const apiTaskCreate = (card, colID, columnData) => {
   };
 };
 
-export const apiTaskStatusUpdate = (taskId, newColumnId, week) => {
+export const apiTaskStatusUpdate = (taskId, newColumnId, week, boardid) => {
   console.log("update task status");
   return (dispatch) => {
     let formData = new FormData();
@@ -49,7 +49,7 @@ export const apiTaskStatusUpdate = (taskId, newColumnId, week) => {
       .put(`${BASE}/${API_TASKS}/${taskId}/`, formData)
       .then((_) => {
         api
-          .get(`${BASE}/${API_BOARDS}/1/`)
+          .get(`${BASE}/${API_BOARDS}/${boardid}/`)
           .then((res) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;
@@ -65,7 +65,7 @@ export const apiTaskStatusUpdate = (taskId, newColumnId, week) => {
   };
 };
 
-export const apiTaskContentUpdate = (values, taskId, colId) => {
+export const apiTaskContentUpdate = (values, taskId, colId, boardid) => {
   console.log("update task content");
   return (dispatch) => {
     let formData = new FormData();
@@ -76,7 +76,7 @@ export const apiTaskContentUpdate = (values, taskId, colId) => {
       .put(`${BASE}/${API_TASKS}/${values.id}/`, formData)
       .then((res) => {
         api
-          .get(`${BASE}/${API_BOARDS}/1/`)
+          .get(`${BASE}/${API_BOARDS}/${boardid}/`)
           .then((res) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;
@@ -101,14 +101,14 @@ export const apiTitleUpdate = (title) => {
   };
 };
 
-export const apiTaskDelete = (id) => {
+export const apiTaskDelete = (id, boardid) => {
   console.log("delete a new card");
   return (dispatch) => {
     api
       .delete(`${BASE}/${API_TASKS}/${id}`)
       .then((_) => {
         api
-          .get(`${BASE}/${API_BOARDS}/1/`)
+          .get(`${BASE}/${API_BOARDS}/${boardid}/`)
           .then((res) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;

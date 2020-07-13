@@ -19,14 +19,14 @@ export const resetError = () => {
   };
 };
 
-export const deleteColumnById = (id) => {
+export const deleteColumnById = (id, boardid) => {
   console.log("deleting column action");
   return (dispatch) => {
     api
       .delete(`${BASE}/${API_COLUMNS}/${id}/`)
       .then((res) => {
         api
-          .get(`${BASE}/${API_BOARDS}/1/`)
+          .get(`${BASE}/${API_BOARDS}/${boardid}/`)
           .then((res) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;
@@ -57,12 +57,12 @@ export const triggerTogglePopUp = () => {
     });
   };
 };
-export const apiColumnCreate = (data) => {
+export const apiColumnCreate = (data, boardid) => {
   console.log("init a new column");
   return (dispatch) => {
     let formData = new FormData();
     formData.append("title", data);
-    formData.append("board", 1);
+    formData.append("board", boardid);
     api
       .post(`${BASE}/${API_COLUMNS}/`, formData)
       .then((res) => {

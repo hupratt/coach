@@ -106,7 +106,12 @@ class TaskSerializer(serializers.ModelSerializer):
                 done__day=today.day,
             ).first()
             if isinstance(e, Event) is False:
-                Event.objects.create(task=instance, status="DONE", done=today)
+                Event.objects.create(
+                    task=instance,
+                    status="DONE",
+                    done=today,
+                    creator=User.objects.get(id=board.owner_id),
+                )
 
         self.extra_validation(board=board, labels=labels, assignees=assignees)
         return super().update(instance, validated_data)

@@ -30,12 +30,8 @@ function Homepage() {
   const columnName = useSelector((state) => state.columns.columnName);
   const error = useSelector((state) => state.columns.error);
   const events = useSelector((state) => state.events.events);
-  const token = useSelector((state) => state.auth.token);
+  const boards = useSelector((state) => state.columns.boards);
   const [week, setWeek] = useState(27);
-
-  // useEffect(() => {
-  //   login("admin", "admin");
-  // }, []);
 
   useEffect(() => {
     localStorage.getItem("token") && dispatch(initBoard());
@@ -57,7 +53,7 @@ function Homepage() {
     data.columnsData["column" + columnId].taskIds = data.columnsData[
       "column" + columnId
     ].taskIds.filter((cardId) => id !== cardId);
-    dispatch(apiTaskDelete(id));
+    dispatch(apiTaskDelete(id, boards[0]));
     dispatch(setColumns({ ...data }));
   };
 
@@ -132,7 +128,8 @@ function Homepage() {
       apiTaskStatusUpdate(
         draggableId.slice(4, draggableId.length),
         newFinish.id,
-        week
+        week,
+        boards[0]
       )
     );
   };
@@ -224,12 +221,12 @@ function Homepage() {
       columnOrder: [...columnList, newObj],
     };
     dispatch(setColumns(newData));
-    dispatch(apiColumnCreate(columnName.column));
+    dispatch(apiColumnCreate(columnName.column, boards[0]));
     dispatch(setAddColumn(!addColumn));
   };
 
   const deleteColumn = (columnid) => {
-    dispatch(deleteColumnById(columnid));
+    dispatch(deleteColumnById(columnid, boards[0]));
   };
 
   const editColumnTitle = (column) => {

@@ -7,6 +7,7 @@ import { apiTitleUpdate, apiTaskContentUpdate } from "../../actions/task";
 function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   const dispatch = useDispatch();
   const values = useSelector((state) => state.tasks.values);
+  const boards = useSelector((state) => state.columns.boards);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isMove, setIsMove] = useState(false);
@@ -23,7 +24,7 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
       event.target.id === "add-card-button" ||
       (openCard === "" && event.keyCode === 13 && event.shiftKey === false)
     ) {
-      dispatch(apiTaskContentUpdate(values, openCard, column.id));
+      dispatch(apiTaskContentUpdate(values, openCard, column.id, boards[0]));
       if (isOpen) setIsOpen(false);
     }
   };
@@ -36,7 +37,9 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
       event.target.id === "add-card-button" ||
       (openCard === "" && event.keyCode === 13 && event.shiftKey === false)
     ) {
-      dispatch(apiTaskContentUpdate(customValues, openCard, column.id));
+      dispatch(
+        apiTaskContentUpdate(customValues, openCard, column.id, boards[0])
+      );
       if (isOpen) setIsOpen(false);
     }
   };

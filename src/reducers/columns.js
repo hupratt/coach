@@ -12,6 +12,7 @@ const initState = {
     tasks: { id: "", content: "", weeks: [], week: "" },
   },
   popUp: false,
+  boards: [],
 };
 
 const togglePopUp = (state) => {
@@ -20,6 +21,12 @@ const togglePopUp = (state) => {
   });
 };
 
+const setBoardIds = (state, action) => {
+  console.log("action.boards", action.boards);
+  return updateObject(state, {
+    boards: action.boards,
+  });
+};
 const Fail = (state, action) => {
   return updateObject(state, {
     error: action.error.message,
@@ -64,6 +71,8 @@ const reducer = (state = initState, action) => {
       return resetErrorOnFail(state, action);
     case actionTypes.TOGGLE_POPUP:
       return togglePopUp(state, action);
+    case actionTypes.SET_BOARD_IDS:
+      return setBoardIds(state, action);
     default:
       return state;
   }
