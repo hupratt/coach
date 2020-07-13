@@ -9,7 +9,7 @@ export const apiTaskCreate = (card, colID, columnData) => {
   let newColumns = columnData;
   return (dispatch) => {
     let formData = new FormData();
-    formData.append("title", card.title);
+    formData.append("title", card.content);
     formData.append("week", card.week);
     formData.append("column", colID);
     // formData.append("period", data.content);
@@ -71,6 +71,7 @@ export const apiTaskContentUpdate = (values, taskId, colId, boardid) => {
     let formData = new FormData();
     formData.append("column", colId);
     formData.append("week", values.week);
+    formData.append("title", values.title);
 
     api
       .put(`${BASE}/${API_TASKS}/${values.id}/`, formData)
