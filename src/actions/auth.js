@@ -20,20 +20,11 @@ export const login = (username, password) => {
 export const authCheckState = () => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
-    if (token === undefined) {
-      dispatch(logout());
-    } else {
+    if (localStorage.getItem("token")) {
       const expirationDate = new Date(localStorage.getItem("expirationDate"));
-      if (expirationDate <= new Date()) {
-        dispatch(logout());
-      } else {
+      if (expirationDate > new Date()) {
         axios.defaults.headers.common["Authorization"] = "Token " + token;
         dispatch(authSuccess(token));
-        dispatch(
-          checkAuthTimeout(
-            (expirationDate.getTime() - new Date().getTime()) / 1000
-          )
-        );
       }
     }
   };
@@ -83,7 +74,7 @@ const checkAuthTimeout = (expirationTime) => {
     axios.post(`${API_LOGOUT}`).then(
       setTimeout(() => {
         dispatch(logout());
-      }, 5000)
+      }, expirationTime * 5000)
     );
   };
 };
@@ -144,7 +135,7 @@ export const authSignup = (username, email, password1, password2) => {
         localStorage.setItem("expirationDate", expirationDate);
         axios.defaults.headers.common["Authorization"] = "Token " + token;
         dispatch(authSuccess(token, username));
-        dispatch(checkAuthTimeout(3600));
+        // dispatch(checkAuthTimeout(3600));
       })
       .catch((err) => {
         dispatch(authFail(err));

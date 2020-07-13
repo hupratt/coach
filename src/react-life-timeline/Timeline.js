@@ -34,7 +34,8 @@ class Timeline extends React.Component {
   }
 
   componentDidMount() {
-    this.props.token && this.props.fetchEvents();
+    localStorage.getItem("token") &&
+      setTimeout(() => this.props.fetchEvents(), 2000);
   }
 
   add_incremental_event(force_index) {

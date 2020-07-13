@@ -32,7 +32,7 @@ class LoginForm extends React.Component {
   render() {
     const { error, loading, token } = this.props;
     const { username, password } = this.state;
-    if (token) {
+    if (localStorage.getItem("token")) {
       return <Redirect to="/profile" />;
     }
     return (

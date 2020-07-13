@@ -3,6 +3,7 @@ from adminsortable.models import SortableMixin
 from django.contrib.auth import get_user_model
 from django.db import models
 from model_utils.models import TimeStampedModel
+from django.db.models import Manager
 
 User = get_user_model()
 
@@ -99,6 +100,15 @@ class Task(SortableMixin, TimeStampedModel):
         ordering = ["task_order"]
 
 
+class EventManager(Manager):
+    def filter_by_instance(self, user_id):
+        task = Task.object.get()
+        # column =
+        # board =
+        # user =
+        return self.get_queryset().filter(owner_id=user_id)
+
+
 class Event(TimeStampedModel):
     status = models.CharField(max_length=4, choices=Status.choices, default=Status.TODO)
     task = SortableForeignKey(
@@ -108,3 +118,8 @@ class Event(TimeStampedModel):
         auto_now_add=True, help_text="(automatic) created date"
     )
     done = models.DateTimeField(help_text="date for the task_done_at")
+    objects = EventManager()
+    creator = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="event_creator"
+    )
+

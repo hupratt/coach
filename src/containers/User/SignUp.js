@@ -33,8 +33,8 @@ class RegistrationForm extends React.Component {
   render() {
     const { username, email, password1, password2 } = this.state;
     const { error, loading, token } = this.props;
-    if (token) {
-      return <Redirect to="/" />;
+    if (localStorage.getItem("token")) {
+      return <Redirect to="/profile" />;
     }
     return (
       <Grid

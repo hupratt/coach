@@ -6,17 +6,22 @@ from boards.models import Event, Task, Column, Board
 from django.db.models import Q, Count
 from datetime import datetime, timedelta, time
 import pytz
+from django.contrib.auth import get_user_model
 
 tz = pytz.timezone("Europe/Luxembourg")
 today = tz.localize(datetime.now())
 another_date = tz.localize(datetime(2020, 5, 21))
 another_date2 = tz.localize(datetime(2020, 8, 1))
 
-board, _ = Board.objects.get_or_create(owner_id=1)
+User = get_user_model()
+user, _ = User.objects.get_or_create(owner_id=1)
+u, _ = User.objects.get_or_create(id=1)
+
+board, _ = Board.objects.get_or_create(owner_id=u.id)
 column1, _ = Column.objects.get_or_create(title="To do", board=board)
 column2, _ = Column.objects.get_or_create(title="Done", board=board)
-task1, _ = Task.objects.get_or_create(title="Do push-ups", column=column1)
-task2, _ = Task.objects.get_or_create(title="Wake up @8:00", column=column1)
+task1, _ = Task.objects.get_or_create(title="Do push-ups", column=column1, week=27)
+task2, _ = Task.objects.get_or_create(title="Wake up @8:00", column=column1, week=27)
 
 e = Event.objects.create(task=task1, status="DONE")
 e.created = another_date

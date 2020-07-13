@@ -38,7 +38,7 @@ function Homepage() {
   // }, []);
 
   useEffect(() => {
-    dispatch(initBoard(token));
+    localStorage.getItem("token") && dispatch(initBoard());
   }, []);
 
   const editCard = (card) => {
