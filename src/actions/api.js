@@ -41,3 +41,7 @@ export const API_SORT_TASKS = "api/sort/task/";
 export const API_USERS = "api/users/";
 export const API_SEARCH_USERS = "api/u/search/";
 export const API_QUOTE = "static/quotes/quotedata.json";
+
+export const googleLogin = `${BASE}/accounts/google/login/`;
+export const facebookLogin = `${BASE}/accounts/facebook/login/`;
+export const githubLogin = `${BASE}/accounts/github/login/`;

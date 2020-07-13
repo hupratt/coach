@@ -5,7 +5,6 @@ import json from "../quotedata.json";
 
 export const grabQuoteOfTheDay = () => {
   return (dispatch) => {
-    const rand = Math.floor(Math.random() * 501) + 1;
     // axios
     //   .get(`${BASE}/${API_QUOTE}`, {
     //     headers: {
@@ -21,7 +20,7 @@ export const grabQuoteOfTheDay = () => {
     //       // author,
     //     });
     //   });
-    const { quote, author } = json.data[rand];
+    const { quote, author } = json.data[Math.floor(Math.random() * 501) + 1];
     dispatch({
       type: actionTypes.GRAB_QUOTE,
       quote,

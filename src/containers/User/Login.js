@@ -9,45 +9,44 @@ import {
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
-import { authSignup } from "../../actions/auth";
-import { googleLogin, facebookLogin, githubLogin } from "../../constants";
+import { authLogin } from "../../actions/auth";
+import { googleLogin, facebookLogin, githubLogin } from "../../actions/api";
+import "./Login.css";
 
-class RegistrationForm extends React.Component {
+class LoginForm extends React.Component {
   state = {
     username: "",
-    email: "",
-    password1: "",
-    password2: "",
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { username, email, password1, password2 } = this.state;
-    this.props.signup(username, email, password1, password2);
+    password: "",
   };
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { username, password } = this.state;
+    this.props.login(username, password);
+  };
+
   render() {
-    const { username, email, password1, password2 } = this.state;
     const { error, loading, token } = this.props;
+    const { username, password } = this.state;
     if (token) {
-      return <Redirect to="/" />;
+      return <Redirect to="/profile" />;
     }
     return (
       <Grid
-        columns={2}
-        divided
         textAlign="center"
         verticalAlign="middle"
-        className="signupForm"
+        columns={2}
+        divided
+        className="loginForm"
       >
         <Grid.Row>
           <Grid.Column style={{ maxWidth: 450, marginTop: 100 }}>
             <Header as="h2" color="black" textAlign="center">
-              Signup to your account
+              Log-in to your account
             </Header>
             {error && <p>{this.props.error.message}</p>}
 
@@ -65,31 +64,12 @@ class RegistrationForm extends React.Component {
                   />
                   <Form.Input
                     onChange={this.handleChange}
-                    value={email}
-                    name="email"
                     fluid
-                    icon="mail"
-                    iconPosition="left"
-                    placeholder="E-mail address"
-                  />
-                  <Form.Input
-                    onChange={this.handleChange}
-                    fluid
-                    value={password1}
-                    name="password1"
+                    value={password}
+                    name="password"
                     icon="lock"
                     iconPosition="left"
                     placeholder="Password"
-                    type="password"
-                  />
-                  <Form.Input
-                    onChange={this.handleChange}
-                    fluid
-                    value={password2}
-                    name="password2"
-                    icon="lock"
-                    iconPosition="left"
-                    placeholder="Confirm password"
                     type="password"
                   />
 
@@ -100,12 +80,12 @@ class RegistrationForm extends React.Component {
                     loading={loading}
                     disabled={loading}
                   >
-                    Signup
+                    Login
                   </Button>
                 </Segment>
               </Form>
               <Message>
-                Already have an account? <NavLink to="/login">Login</NavLink>
+                New to us? <NavLink to="/signup">Sign Up</NavLink>
               </Message>
             </React.Fragment>
           </Grid.Column>
@@ -154,9 +134,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signup: (username, email, password1, password2) =>
-      dispatch(authSignup(username, email, password1, password2)),
+    login: (username, password) => dispatch(authLogin(username, password)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

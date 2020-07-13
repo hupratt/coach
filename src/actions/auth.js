@@ -39,11 +39,11 @@ export const authCheckState = () => {
   };
 };
 
-// export const authStart = () => {
-//   return {
-//     type: actionTypes.AUTH_START,
-//   };
-// };
+export const authStart = () => {
+  return {
+    type: actionTypes.AUTH_START,
+  };
+};
 
 const authSuccess = (token, username = null) => {
   return {
@@ -53,12 +53,12 @@ const authSuccess = (token, username = null) => {
   };
 };
 
-// export const authFail = (error) => {
-//   return {
-//     type: actionTypes.AUTH_FAIL,
-//     error: error,
-//   };
-// };
+const authFail = (error) => {
+  return {
+    type: actionTypes.AUTH_FAIL,
+    error: error,
+  };
+};
 
 const logout = () => {
   localStorage.removeItem("token");
@@ -68,7 +68,7 @@ const logout = () => {
   };
 };
 
-// export const grabCookies = () => {
+// const grabCookies = () => {
 //   return (dispatch) => {
 //     dispatch({
 //       type: actionTypes.AUTH_GRAB_TOKEN_DISTINCT_ID,
@@ -86,7 +86,7 @@ const checkAuthTimeout = (expirationTime) => {
   };
 };
 
-// export const userIsStaff = () => {
+// const userIsStaff = () => {
 //   return (dispatch) => {
 //     axios
 //       .get(`${endpoint}/user-staff/`)
@@ -101,51 +101,51 @@ const checkAuthTimeout = (expirationTime) => {
 //   };
 // };
 
-// export const authLogin = (username, password) => {
-//   return (dispatch) => {
-//     dispatch(authStart());
-//     axios
-//       .post(`${base}/rest-auth/login/`, {
-//         username: username,
-//         password: password,
-//       })
-//       .then((res) => {
-//         const token = res.data.key;
-//         const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
-//         localStorage.setItem("token", token);
-//         localStorage.setItem("expirationDate", expirationDate);
-//         axios.defaults.headers.common["Authorization"] = "Token " + token;
-//         dispatch(userIsStaff());
-//         dispatch(authSuccess(token, username));
-//         dispatch(checkAuthTimeout(36000));
-//       })
-//       .catch((err) => {
-//         dispatch(authFail(err));
-//       });
-//   };
-// };
+export const authLogin = (username, password) => {
+  return (dispatch) => {
+    dispatch(authStart());
+    axios
+      .post(`${BASE}/rest-auth/login/`, {
+        username: username,
+        password: password,
+      })
+      .then((res) => {
+        const token = res.data.key;
+        const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
+        localStorage.setItem("token", token);
+        localStorage.setItem("expirationDate", expirationDate);
+        axios.defaults.headers.common["Authorization"] = "Token " + token;
+        // dispatch(userIsStaff());
+        dispatch(authSuccess(token, username));
+        dispatch(checkAuthTimeout(36000));
+      })
+      .catch((err) => {
+        dispatch(authFail(err));
+      });
+  };
+};
 
-// export const authSignup = (username, email, password1, password2) => {
-//   return (dispatch) => {
-//     dispatch(authStart());
-//     axios
-//       .post(`${base}/rest-auth/registration/`, {
-//         username: username,
-//         email: email,
-//         password1: password1,
-//         password2: password2,
-//       })
-//       .then((res) => {
-//         const token = res.data.key;
-//         const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
-//         localStorage.setItem("token", token);
-//         localStorage.setItem("expirationDate", expirationDate);
-//         axios.defaults.headers.common["Authorization"] = "Token " + token;
-//         dispatch(authSuccess(token, username));
-//         dispatch(checkAuthTimeout(3600));
-//       })
-//       .catch((err) => {
-//         dispatch(authFail(err));
-//       });
-//   };
-// };
+export const authSignup = (username, email, password1, password2) => {
+  return (dispatch) => {
+    dispatch(authStart());
+    axios
+      .post(`${BASE}/rest-auth/registration/`, {
+        username: username,
+        email: email,
+        password1: password1,
+        password2: password2,
+      })
+      .then((res) => {
+        const token = res.data.key;
+        const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
+        localStorage.setItem("token", token);
+        localStorage.setItem("expirationDate", expirationDate);
+        axios.defaults.headers.common["Authorization"] = "Token " + token;
+        dispatch(authSuccess(token, username));
+        dispatch(checkAuthTimeout(3600));
+      })
+      .catch((err) => {
+        dispatch(authFail(err));
+      });
+  };
+};

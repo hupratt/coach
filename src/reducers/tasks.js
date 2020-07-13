@@ -3,7 +3,6 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initState = {
   values: {
-    id: "",
     title: "",
     button: "",
     focus: false,

@@ -34,7 +34,7 @@ class Timeline extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchEvents();
+    this.props.token && this.props.fetchEvents();
   }
 
   add_incremental_event(force_index) {
@@ -93,6 +93,7 @@ const mapStateToProps = (state) => {
   return {
     events: state.events.events,
     visible: state.columns.popUp,
+    token: state.auth.token,
   };
 };
 

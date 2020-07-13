@@ -1,6 +1,7 @@
 import { api, BASE, API_EVENTS } from "./api";
 import * as actionTypes from "../actions/actionTypes";
 import _ from "lodash";
+import axios from "axios";
 
 const COMPLETION = {
   /* Shades of Green 
@@ -44,33 +45,62 @@ const dispatch_events = (events) => {
 export const grabEvents = () => {
   let EVENTS = [];
   return (dispatch) => {
-    api
-      .get(`${BASE}/${API_EVENTS}/`)
-      .then((res) => {
-        const { data } = res.data;
-        data.forEach((element) => {
-          const {
-            task__period,
-            week,
-            clocked,
-            task__title,
-            year,
-            status,
-          } = element;
-          if (status === "DONE") {
-            EVENTS.push({
-              date_start: getDatefromYearAndWeek(week, year),
-              date_end: getDatefromYearAndWeek(week, year),
-              title: task__title,
-              color: getColorFromRate(clocked / task__period),
-              week,
+    api.get
+      ? api
+          .get(`${BASE}/${API_EVENTS}/`)
+          .then((res) => {
+            const { data } = res.data;
+            data.forEach((element) => {
+              const {
+                task__period,
+                week,
+                clocked,
+                task__title,
+                year,
+                status,
+              } = element;
+              if (status === "DONE") {
+                EVENTS.push({
+                  date_start: getDatefromYearAndWeek(week, year),
+                  date_end: getDatefromYearAndWeek(week, year),
+                  title: task__title,
+                  color: getColorFromRate(clocked / task__period),
+                  week,
+                });
+              }
             });
-          }
-        });
-        dispatch(dispatch_events(EVENTS));
-      })
-      .catch((err) => {
-        dispatch({ type: actionTypes.FAIL, error: err });
-      });
+            dispatch(dispatch_events(EVENTS));
+          })
+          .catch((err) => {
+            dispatch({ type: actionTypes.FAIL, error: err });
+          })
+      : axios
+          .get(`${BASE}/${API_EVENTS}/`)
+          .then((res) => {
+            const { data } = res.data;
+            data.forEach((element) => {
+              const {
+                task__period,
+                week,
+                clocked,
+                task__title,
+                year,
+                status,
+              } = element;
+              if (status === "DONE") {
+                EVENTS.push({
+                  date_start: getDatefromYearAndWeek(week, year),
+                  date_end: getDatefromYearAndWeek(week, year),
+                  title: task__title,
+                  color: getColorFromRate(clocked / task__period),
+                  week,
+                });
+              }
+            });
+            dispatch(dispatch_events(EVENTS));
+          })
+          .catch((err) => {
+            dispatch({ type: actionTypes.FAIL, error: err });
+          });
   };
 };
