@@ -8,6 +8,7 @@ import Sportslevel2 from "../../images/badges/Sports-level2.png";
 import Writinglevel2 from "../../images/badges/Writing-level2.png";
 import arrowleft from "../../images/long-arrow-pointing-to-left-white.svg";
 import { Link } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 
 function ProfilePage({}) {
   return (
@@ -21,17 +22,23 @@ function ProfilePage({}) {
           alt="Home"
         />
       </Link>
-      <div class="profile-panel profile-panel-orange">
-        <div class="profile-header">
+      <div className="profile-panel profile-panel-orange">
+        <div className="profile-header">
           <h1>Hendra Susanto</h1>
           <h2>Web Developer</h2>
-          <div class="profile-image">
+          <div className="profile-image">
             <img src="https://randomuser.me/api/portraits/men/4.jpg" />
-            <div class="profile-status profile-status-away"></div>
+            <div className="profile-status profile-status-away"></div>
           </div>
         </div>
-        <div class="profile-social-links">
-          <a class="badge-level social-btn" href="#">
+        <div className="profile-social-links">
+          <ReactTooltip
+            place="top"
+            effect="solid"
+            delayHide={1000}
+            data-event="click"
+          />
+          <a className="badge-level social-btn" href="#" data-tip="Devlevel2">
             <img
               className="home-icon"
               src={Devlevel2}
@@ -40,7 +47,11 @@ function ProfilePage({}) {
               alt="Home"
             />
           </a>
-          <a class="badge-level social-btn" href="#">
+          <a
+            className="badge-level social-btn"
+            href="#"
+            data-tip="Sportslevel2"
+          >
             <img
               className="home-icon"
               src={Sportslevel2}
@@ -49,7 +60,11 @@ function ProfilePage({}) {
               alt="Home"
             />
           </a>
-          <a class="badge-level social-btn" href="#">
+          <a
+            className="badge-level social-btn"
+            href="#"
+            data-tip="Writinglevel2"
+          >
             <img
               className="home-icon"
               src={Writinglevel2}
@@ -58,7 +73,11 @@ function ProfilePage({}) {
               alt="Home"
             />
           </a>
-          <a class="badge-level social-btn" href="#">
+          <a
+            className="badge-level social-btn"
+            href="#"
+            data-tip="MConsistencylevel2"
+          >
             <img
               className="home-icon"
               src={MConsistencylevel2}
@@ -67,7 +86,11 @@ function ProfilePage({}) {
               alt="Home"
             />
           </a>
-          <a class="badge-level social-btn" href="#">
+          <a
+            className="badge-level social-btn"
+            href="#"
+            data-tip="YConsistencylevel2"
+          >
             <img
               className="home-icon"
               src={YConsistencylevel2}
@@ -76,7 +99,11 @@ function ProfilePage({}) {
               alt="Home"
             />
           </a>
-          <a class="badge-level social-btn" href="#">
+          <a
+            className="badge-level social-btn"
+            href="#"
+            data-tip="Readinglevel2"
+          >
             <img
               className="home-icon"
               src={Readinglevel2}
@@ -86,8 +113,8 @@ function ProfilePage({}) {
             />
           </a>
         </div>
-        {/* <div class="profile-footer">
-          <a class="btn" href="#">
+        {/* <div className="profile-footer">
+          <a className="btn" href="#">
             Follow
           </a>
         </div> */}
