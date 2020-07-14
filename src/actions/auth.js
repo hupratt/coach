@@ -10,7 +10,8 @@ export const login = (username, password) => {
     })
     .then((res) => {
       const token = res.data.key;
-      const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
+      // expire in 10 days
+      const expirationDate = new Date(new Date().getTime() + 3600 * 100000);
       localStorage.setItem("token", token);
       localStorage.setItem("expirationDate", expirationDate);
       axios.defaults.headers.common["Authorization"] = "Token " + token;
@@ -20,11 +21,16 @@ export const login = (username, password) => {
 export const authCheckState = () => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
-    if (localStorage.getItem("token")) {
+    console.log("token", token);
+    if (token) {
       const expirationDate = new Date(localStorage.getItem("expirationDate"));
+      console.log("expirationDate", expirationDate);
       if (expirationDate > new Date()) {
+        console.log("registering the token");
         axios.defaults.headers.common["Authorization"] = "Token " + token;
         dispatch(authSuccess(token));
+      } else {
+        dispatch(logout());
       }
     }
   };

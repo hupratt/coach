@@ -2,6 +2,7 @@ import { api, API_BOARDS, API_TASKS, BASE } from "./api";
 import * as actionTypes from "../actions/actionTypes";
 import { transform } from "./etl";
 import { setColumns } from "./columns";
+import axios from "axios";
 
 export const apiTaskCreate = (card, colID, columnData) => {
   console.log("init a new card");
@@ -13,7 +14,7 @@ export const apiTaskCreate = (card, colID, columnData) => {
     formData.append("week", card.week);
     formData.append("column", colID);
     // formData.append("period", data.content);
-    api
+    axios
       .post(`${BASE}/${API_TASKS}/`, formData)
       .then((res) => {
         const { id, title, week } = res.data;
@@ -45,10 +46,10 @@ export const apiTaskStatusUpdate = (taskId, newColumnId, week, boardid) => {
     formData.append("column", newColumnId);
     formData.append("week", week);
 
-    api
+    axios
       .put(`${BASE}/${API_TASKS}/${taskId}/`, formData)
       .then((_) => {
-        api
+        axios
           .get(`${BASE}/${API_BOARDS}/${boardid}/`)
           .then((res) => {
             // columns, labels, members, name, owner
@@ -73,10 +74,10 @@ export const apiTaskContentUpdate = (values, taskId, colId, boardid) => {
     formData.append("week", values.week);
     formData.append("title", values.title);
 
-    api
+    axios
       .put(`${BASE}/${API_TASKS}/${values.id}/`, formData)
       .then((res) => {
-        api
+        axios
           .get(`${BASE}/${API_BOARDS}/${boardid}/`)
           .then((res) => {
             // columns, labels, members, name, owner
@@ -105,10 +106,10 @@ export const apiTitleUpdate = (title) => {
 export const apiTaskDelete = (id, boardid) => {
   console.log("delete a new card");
   return (dispatch) => {
-    api
+    axios
       .delete(`${BASE}/${API_TASKS}/${id}`)
       .then((_) => {
-        api
+        axios
           .get(`${BASE}/${API_BOARDS}/${boardid}/`)
           .then((res) => {
             // columns, labels, members, name, owner
