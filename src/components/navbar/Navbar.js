@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import defaultAvatar from "../../images/avatar.png";
 
-function Navbar({ name = "Anon Mouse" }) {
+function Navbar({ name = "Anon Müller" }) {
   return (
     <div className="navbar-wrapper">
       <div className="nav-container">

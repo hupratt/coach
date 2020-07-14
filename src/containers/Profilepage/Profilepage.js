@@ -85,7 +85,7 @@ function renderBadges() {
     </div>
   );
 }
-function ProfilePage({ name = "Anon Mouse", title = "Web Developer" }) {
+function ProfilePage({ name = "Anon Müller", title = "Web Developer" }) {
   return (
     <React.Fragment>
       <Link to="/" style={{ zIndex: 1, position: "relative" }}>
@@ -100,7 +100,7 @@ function ProfilePage({ name = "Anon Mouse", title = "Web Developer" }) {
       <div className="profile-panel profile-panel-orange">
         <div className="profile-header">
           <h1>{name}</h1>
-          {/* <h2>{title}</h2> */}
+          <h2></h2>
           <div className="profile-image">
             <img src={defaultAvatar} />
             <div className="profile-status profile-status-online"></div>

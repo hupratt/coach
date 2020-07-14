@@ -242,6 +242,11 @@ function Homepage() {
   const renderBoard = () => {
     return (
       <React.Fragment>
+        <a href="#">
+          <span onClick={toggleVisibility} className="close">
+            &times;
+          </span>
+        </a>
         <div className="task-board">
           <h2>Week {week}</h2>
           {/* <MyWeekdayPicker /> */}
