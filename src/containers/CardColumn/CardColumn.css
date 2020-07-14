@@ -78,22 +78,42 @@
 .modal-wrapper {
   position: fixed;
   display: flex;
+  flex-direction: column;
+  background: #3d3d3d7a;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.modal-wrapper .modal-actions {
+  margin-top: 20px;
+  height: 1.5rem;
+  color: black;
+  font-size: 1.1rem;
+}
+.modal-wrapper textarea,
+.modal-wrapper div {
+  max-width: 270px;
+}
+
+i.dropdown::before {
+  content: "\f0d7";
+  font-family: "Font Awesome 5 Free";
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: black;
 }
 
 .modal-actions {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 6px 12px 6px 8px;
-  margin: 0 0 4px 8px;
-  color: #fff;
+  background: white;
+  color: var(--color-link);
   text-align: center;
   border-radius: 5px;
-  width: 70px;
 }
 
-.modal-actions:hover {
+/* .modal-actions:hover {
   width: 80px;
   transition: width 0.1s;
-}
+} */
 
 .close {
   color: #aaaaaa;

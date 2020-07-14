@@ -68,12 +68,12 @@ export const apiTaskStatusUpdate = (taskId, newColumnId, week, boardid) => {
 
 export const apiTaskContentUpdate = (values, taskId, colId, boardid) => {
   console.log("update task content");
+  console.log("values", values);
   return (dispatch) => {
     let formData = new FormData();
     formData.append("column", colId);
     formData.append("week", values.week);
     formData.append("title", values.title);
-
     axios
       .put(`${BASE}/${API_TASKS}/${values.id}/`, formData)
       .then((res) => {

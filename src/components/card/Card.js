@@ -4,7 +4,16 @@ import GetCard from "../../containers/displayCard/displayCard";
 import { useSelector, useDispatch } from "react-redux";
 import { apiTitleUpdate, apiTaskContentUpdate } from "../../actions/task";
 
-function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
+function Card({
+  task,
+  index,
+  removeCard,
+  column,
+  editCard,
+  data,
+  moveCard,
+  week,
+}) {
   const dispatch = useDispatch();
   const values = useSelector((state) => state.tasks.values);
   const boards = useSelector((state) => state.columns.boards);
@@ -20,11 +29,17 @@ function Card({ task, index, removeCard, column, editCard, data, moveCard }) {
   };
 
   const handleSubmit = (event) => {
+    event.persist();
+    let customValues = values;
+    customValues["week"] = week;
+    customValues["id"] = task.id;
     if (
       event.target.id === "add-card-button" ||
-      (openCard === "" && event.keyCode === 13 && event.shiftKey === false)
+      (event.keyCode === 13 && event.shiftKey === false)
     ) {
-      dispatch(apiTaskContentUpdate(values, openCard, column.id, boards[0]));
+      dispatch(
+        apiTaskContentUpdate(customValues, openCard, column.id, boards[0])
+      );
       if (isOpen) setIsOpen(false);
     }
   };

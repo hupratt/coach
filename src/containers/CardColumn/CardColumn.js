@@ -119,6 +119,7 @@ function CardColumn({
                             editCard={editCard}
                             data={data}
                             moveCard={moveCard}
+                            week={week}
                           />
                         )
                     )}

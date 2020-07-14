@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CategoryDropDown from "../button/CategoryDropDown";
 
 const Modal = ({
   task,
@@ -83,6 +84,7 @@ const Modal = ({
           left: position.modalLeft ? `${position.modalLeft}px` : undefined,
         }}
       >
+        <h2>Task</h2>
         <textarea
           className="modal-content"
           name=""
@@ -93,61 +95,19 @@ const Modal = ({
           value={values.content}
           placeholder={task.content}
         ></textarea>
+        <h2>Category</h2>
+        <CategoryDropDown />
         <div className="modal-actions-wrapper">
           <div className="modal-actions" onClick={() => handleDelete(task)}>
             Delete
           </div>
-          <div onClick={handleMove} className="modal-actions">
-            Move
+          <div onClick={handleSubmit} className="modal-actions">
+            Save
+          </div>
+          <div onClick={handleClose} className="modal-actions">
+            Cancel
           </div>
         </div>
-      </div>
-      <div
-        className="move-actions"
-        style={{
-          top: position.modalTop ? `${position.modalTop + 99}px` : undefined,
-          left: position.modalLeft
-            ? `${position.modalLeft + 246}px`
-            : undefined,
-          display: isMove ? "block" : "none",
-        }}
-      >
-        <span className="move-actions-title">Move Card</span>
-        <div className="select-actions">
-          <div className="actions-content" style={{ flexGrow: 1 }}>
-            <label>Column</label>
-            <select
-              name="select-column"
-              className="column-options"
-              id="column-select"
-              value={val.col}
-              onChange={(event) => handleVal(event, val, "col")}
-              required
-            >
-              {displayColumn}
-            </select>
-          </div>
-          <div className="actions-content" style={{ flexGrow: 1 }}>
-            <label>Position</label>
-            <select
-              name="select-position"
-              className="column-options"
-              value={val.pos}
-              id="position-select"
-              onChange={(event) => handleVal(event, val, "pos")}
-              required
-            >
-              {displayPosition}
-            </select>
-          </div>
-        </div>
-
-        <button
-          onClick={() => handleCardMove(task, column, val.pos1, val.col1, val)}
-          type="submit"
-        >
-          Move
-        </button>
       </div>
     </div>
   );
