@@ -9,7 +9,7 @@ const heroArea = (children, author, quote, blur, superblur) => {
   return (
     <React.Fragment>
       <div className="content">
-        <div id="app" className={superblur}></div>
+        <div id="app"></div>
         <div className="content__title-wrap">
           {/* <span className="content__pretitle">CWS Investment</span> */}
 
@@ -54,7 +54,7 @@ function Background(props) {
     dispatch(grabQuoteOfTheDay());
   }, []);
   useDidUpdate(() => {
-    if (didMount) {
+    if (!didMount) {
       setDidMount(true);
       setTimeout(() => {
         const script = document.createElement("script");

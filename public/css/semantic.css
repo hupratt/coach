@@ -1577,7 +1577,7 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
 .ui.grey.button,
 .ui.grey.buttons .button {
   background-color: #767676;
-  color: #fff;
+  color:var(--color-link);
   text-shadow: none;
   background-image: none;
 }
@@ -5106,7 +5106,7 @@ i.flag.zw:before {
   font-weight: 700;
   line-height: 1.28571429em;
   text-transform: none;
-  /* color: rgba(0, 0, 0, 0.87); */
+  color: var(--color-link);
 }
 .ui.header:first-child {
   margin-top: -0.14285714em;
@@ -18829,7 +18829,7 @@ ol.ui.horizontal.list li:before {
   position: relative;
   min-height: 1em;
   margin: 1em 0;
-  background: #4b4b4b;
+  background: #333;
   padding: 1em 1.5em;
   line-height: 1.4285em;
   color: #818080;

@@ -31,6 +31,7 @@
 .profile-image img {
   max-width: 100%;
 }
+.profile-status.profile-status-online,
 .profile-status.profile-status-away {
   box-sizing: content-box;
 }
@@ -46,7 +47,9 @@
 }
 .profile-image .profile-status.profile-status-away {
   background: #fad920;
-  z-index: 22222;
+}
+.profile-image .profile-status.profile-status-online {
+  background: #65d35b;
 }
 .profile-image img {
   border-radius: 100%;

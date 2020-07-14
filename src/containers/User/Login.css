@@ -4,16 +4,19 @@
 }
 
 .ui.divided {
-  background-color: #2e2e2e;
+  background-color: black;
 }
 
 .ui.stacked.segment {
-  background-color: #575555;
+  background-color: #333;
 }
 
 .ui.stacked.segment input {
   background-color: #4b4b4b;
 }
+/* .ui.stacked.segment input:hover {
+  background-color: #444343;
+} */
 .social-box button {
   width: 100%;
   background: #4b4b4b;
@@ -27,14 +30,14 @@
 }
 
 .social-box button:nth-child(1):hover {
-  background: #666666;
+  background: #2f2f2f;
 }
 
 .social-box button:nth-child(2):hover {
-  background: #666666;
+  background: #2f2f2f;
 }
 .social-box button:nth-child(3):hover {
-  background: #666666;
+  background: #2f2f2f;
 }
 
 .social-box button img {

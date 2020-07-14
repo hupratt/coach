@@ -11,6 +11,80 @@ import arrowleft from "../../images/long-arrow-pointing-to-left-white.svg";
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 
+function renderBadges() {
+  return (
+    <div className="profile-social-links">
+      <ReactTooltip
+        place="top"
+        effect="solid"
+        delayHide={1000}
+        data-event="click"
+      />
+      <a className="badge-level social-btn" href="#" data-tip="Devlevel2">
+        <img
+          className="home-icon"
+          src={Devlevel2}
+          width="60px"
+          height="60px"
+          alt="Home"
+        />
+      </a>
+      <a className="badge-level social-btn" href="#" data-tip="Sportslevel2">
+        <img
+          className="home-icon"
+          src={Sportslevel2}
+          width="60px"
+          height="60px"
+          alt="Home"
+        />
+      </a>
+      <a className="badge-level social-btn" href="#" data-tip="Writinglevel2">
+        <img
+          className="home-icon"
+          src={Writinglevel2}
+          width="60px"
+          height="60px"
+          alt="Home"
+        />
+      </a>
+      <a
+        className="badge-level social-btn"
+        href="#"
+        data-tip="MConsistencylevel2"
+      >
+        <img
+          className="home-icon"
+          src={MConsistencylevel2}
+          width="60px"
+          height="60px"
+          alt="Home"
+        />
+      </a>
+      <a
+        className="badge-level social-btn"
+        href="#"
+        data-tip="YConsistencylevel2"
+      >
+        <img
+          className="home-icon"
+          src={YConsistencylevel2}
+          width="60px"
+          height="60px"
+          alt="Home"
+        />
+      </a>
+      <a className="badge-level social-btn" href="#" data-tip="Readinglevel2">
+        <img
+          className="home-icon"
+          src={Readinglevel2}
+          width="60px"
+          height="60px"
+          alt="Home"
+        />
+      </a>
+    </div>
+  );
+}
 function ProfilePage({ name = "Anon Mouse", title = "Web Developer" }) {
   return (
     <React.Fragment>
@@ -26,99 +100,13 @@ function ProfilePage({ name = "Anon Mouse", title = "Web Developer" }) {
       <div className="profile-panel profile-panel-orange">
         <div className="profile-header">
           <h1>{name}</h1>
-          <h2>{title}</h2>
+          {/* <h2>{title}</h2> */}
           <div className="profile-image">
             <img src={defaultAvatar} />
-            <div className="profile-status profile-status-away"></div>
+            <div className="profile-status profile-status-online"></div>
           </div>
         </div>
-        <div className="profile-social-links">
-          <ReactTooltip
-            place="top"
-            effect="solid"
-            delayHide={1000}
-            data-event="click"
-          />
-          <a className="badge-level social-btn" href="#" data-tip="Devlevel2">
-            <img
-              className="home-icon"
-              src={Devlevel2}
-              width="60px"
-              height="60px"
-              alt="Home"
-            />
-          </a>
-          <a
-            className="badge-level social-btn"
-            href="#"
-            data-tip="Sportslevel2"
-          >
-            <img
-              className="home-icon"
-              src={Sportslevel2}
-              width="60px"
-              height="60px"
-              alt="Home"
-            />
-          </a>
-          <a
-            className="badge-level social-btn"
-            href="#"
-            data-tip="Writinglevel2"
-          >
-            <img
-              className="home-icon"
-              src={Writinglevel2}
-              width="60px"
-              height="60px"
-              alt="Home"
-            />
-          </a>
-          <a
-            className="badge-level social-btn"
-            href="#"
-            data-tip="MConsistencylevel2"
-          >
-            <img
-              className="home-icon"
-              src={MConsistencylevel2}
-              width="60px"
-              height="60px"
-              alt="Home"
-            />
-          </a>
-          <a
-            className="badge-level social-btn"
-            href="#"
-            data-tip="YConsistencylevel2"
-          >
-            <img
-              className="home-icon"
-              src={YConsistencylevel2}
-              width="60px"
-              height="60px"
-              alt="Home"
-            />
-          </a>
-          <a
-            className="badge-level social-btn"
-            href="#"
-            data-tip="Readinglevel2"
-          >
-            <img
-              className="home-icon"
-              src={Readinglevel2}
-              width="60px"
-              height="60px"
-              alt="Home"
-            />
-          </a>
-        </div>
-        {/* <div className="profile-footer">
-          <a className="btn" href="#">
-            Follow
-          </a>
-        </div> */}
+        {/* {renderBadges()} */}
       </div>
     </React.Fragment>
   );
