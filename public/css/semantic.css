@@ -232,7 +232,6 @@ body {
   padding: 0;
   overflow-x: hidden;
   min-width: 320px;
-  background: #fff;
   font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.4285em;
@@ -18830,10 +18829,10 @@ ol.ui.horizontal.list li:before {
   position: relative;
   min-height: 1em;
   margin: 1em 0;
-  background: #f8f8f9;
+  background: #4b4b4b;
   padding: 1em 1.5em;
   line-height: 1.4285em;
-  color: rgba(0, 0, 0, 0.87);
+  color: #818080;
   -webkit-transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease,
     -webkit-box-shadow 0.1s ease;
   transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease,

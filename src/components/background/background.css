@@ -12,8 +12,8 @@ body {
   margin: 0;
   --color-text: #fff;
   --color-bg: #000;
-  --color-link: #5a5a5a;
-  --color-link-hover: #3eaaf1;
+  --color-link: #b6b6b6;
+  --color-link-hover: white;
   --color-alt: #3ba2e5;
   --color-info: #e93f3b;
   color: var(--color-text);
