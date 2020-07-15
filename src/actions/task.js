@@ -56,6 +56,8 @@ export const apiTaskStatusUpdate = (taskId, newColumnId, week, boardid) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;
             dispatch(setColumns(transform(columns)));
+          })
+          .then((_) => {
             dispatch(grabEvents());
           })
           .catch((err) => {
