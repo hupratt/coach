@@ -3,6 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 import { transform } from "./etl";
 import { setColumns } from "./columns";
 import axios from "axios";
+import { grabEvents } from "./events";
 
 export const apiTaskCreate = (card, colID, columnData) => {
   console.log("init a new card");
@@ -55,6 +56,7 @@ export const apiTaskStatusUpdate = (taskId, newColumnId, week, boardid) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;
             dispatch(setColumns(transform(columns)));
+            dispatch(grabEvents());
           })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });
@@ -82,6 +84,7 @@ export const apiTaskContentUpdate = (values, taskId, colId, boardid) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;
             dispatch(setColumns(transform(columns)));
+            // dispatch(apiTitleUpdate(values.title));
           })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });

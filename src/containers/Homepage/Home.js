@@ -20,6 +20,7 @@ import Timeline from "../../react-life-timeline/Timeline";
 import { useSelector, useDispatch } from "react-redux";
 import Background from "../../components/background/background";
 import MyWeekdayPicker from "../../components/button/WeekDayPicker";
+import { useDidUpdate } from "../../components/utils";
 
 const BackgroundWithErrorHandling = withError(Background);
 
@@ -31,12 +32,14 @@ function Homepage() {
   const error = useSelector((state) => state.columns.error);
   const events = useSelector((state) => state.events.events);
   const boards = useSelector((state) => state.columns.boards);
+  const title = useSelector((state) => state.tasks.values.title);
   const [week, setWeek] = useState(27);
-
   useEffect(() => {
     localStorage.getItem("token") && dispatch(initBoard());
   }, []);
-
+  // useDidUpdate(() => {
+  //   dispatch(initBoard());
+  // }, [title]);
   const editCard = (card) => {
     const { id } = card;
     card["week"] = week;
@@ -110,13 +113,6 @@ function Homepage() {
       dispatch(setColumns(newData));
       return;
     }
-
-    // const startTaskIds = Array.from(start.taskIds);
-    // startTaskIds.splice(source.index, 1);
-    // const newStart = {
-    //   ...start,
-    //   taskIds: startTaskIds,
-    // };
 
     const finishTaskIds = Array.from(finish.taskIds);
     finishTaskIds.splice(destination.index, 0, draggableId);

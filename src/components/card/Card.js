@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../modal/Modal";
 
-function CardContainer({
+function Card({
   task,
   handleBlur,
   handleChange,
@@ -91,4 +91,4 @@ function CardContainer({
   }
 }
 
-export default CardContainer;
+export default Card;

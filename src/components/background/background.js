@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useRef, useEffect, useState } from "react";
 import { grabQuoteOfTheDay } from "../../actions/quote";
+import { useDidUpdate } from "../utils";
 
 import "./background.css";
 
@@ -11,7 +12,7 @@ const heroArea = (children, author, quote, blur, superblur) => {
       <div className="content">
         <div id="app"></div>
         <div className="content__title-wrap">
-          {/* <span className="content__pretitle">CWS Investment</span> */}
+          {/* <span className="content__pretitle"></span> */}
 
           <h2 className={`content__title ${blur}`}>Coach</h2>
           <div className={`container ${blur}`}>
@@ -27,18 +28,6 @@ const heroArea = (children, author, quote, blur, superblur) => {
       </div>
     </React.Fragment>
   );
-};
-
-const useDidUpdate = (callback, deps) => {
-  const hasMount = useRef(false);
-
-  useEffect(() => {
-    if (hasMount.current) {
-      callback();
-    } else {
-      hasMount.current = true;
-    }
-  }, deps);
 };
 
 function Background(props) {
