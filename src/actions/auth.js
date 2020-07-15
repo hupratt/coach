@@ -21,7 +21,6 @@ export const login = (username, password) => {
 export const authCheckState = () => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
-    console.log("token", token);
     if (token) {
       const expirationDate = new Date(localStorage.getItem("expirationDate"));
       console.log("expirationDate", expirationDate);

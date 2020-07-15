@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Card from "../../components/card/Card";
+import Card from "../CardContainer/CardContainer";
 import "./CardColumn.css";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";

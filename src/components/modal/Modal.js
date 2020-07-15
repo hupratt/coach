@@ -18,8 +18,6 @@ const Modal = ({
   cardClicked,
   moveCard,
 }) => {
-  const { columnsData } = data;
-
   const [val, setVal] = useState({
     col1: column.title,
     pos1: openCard ? column.taskIds.indexOf(openCard) + 1 : 0,
@@ -33,44 +31,6 @@ const Modal = ({
     }
   }, [openCard]);
 
-  const handleVal = (event, field, option) => {
-    let value = field;
-    value[option] = event.target.value;
-    setVal({ ...val, ...value });
-  };
-  const displayColumn = data.columnOrder.map((columnItem) => {
-    // const selected = columnsData[column].title === column.title;
-    return (
-      columnsData[columnItem] && (
-        <option
-          value={columnsData[columnItem].title}
-          key={columnsData[columnItem].id}
-        >
-          {columnsData[columnItem].title}
-        </option>
-      )
-    );
-  });
-  let displayPosition = <React.Fragment></React.Fragment>;
-  if (column.taskIds) {
-    displayPosition = column.taskIds.map((cardPosition, index) => {
-      return (
-        <option value={index + 1} key={cardPosition}>
-          {index + 1}
-        </option>
-      );
-    });
-  }
-
-  const handleCardMove = (
-    card,
-    column,
-    previousposition,
-    previousColumn,
-    val
-  ) => {
-    moveCard(card, column, previousposition, previousColumn, val);
-  };
   return (
     <div className="modal" style={{ display: isOpen ? "block" : "none" }}>
       <span onClick={handleClose} className="close">

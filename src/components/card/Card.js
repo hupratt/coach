@@ -1,121 +1,94 @@
-import React, { useState } from "react";
-import { Draggable } from "react-beautiful-dnd";
-import GetCard from "../../containers/displayCard/displayCard";
-import { useSelector, useDispatch } from "react-redux";
-import { apiTitleUpdate, apiTaskContentUpdate } from "../../actions/task";
+import React from "react";
+import Modal from "../modal/Modal";
 
-function Card({
+function CardContainer({
   task,
-  index,
-  removeCard,
-  column,
-  editCard,
+  handleBlur,
+  handleChange,
+  values,
+  handleSubmit,
+  handleClick,
+  isOpen,
+  handleClose,
+  position,
+  handleDelete,
+  handleMove,
+  isMove,
   data,
+  column,
+  openCard,
+  cardClicked,
   moveCard,
-  week,
 }) {
-  const dispatch = useDispatch();
-  const values = useSelector((state) => state.tasks.values);
-  const boards = useSelector((state) => state.columns.boards);
+  if (task.content) {
+    return (
+      <div className="card-modal-container">
+        <Modal
+          key={task.id}
+          task={task}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          isOpen={isOpen}
+          values={values}
+          handleClose={handleClose}
+          position={position}
+          handleDelete={handleDelete}
+          handleMove={handleMove}
+          isMove={isMove}
+          data={data}
+          column={column}
+          openCard={openCard}
+          cardClicked={cardClicked}
+          moveCard={moveCard}
+        />
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMove, setIsMove] = useState(false);
-  const [position, setPosition] = useState({ modalTop: "", modalLeft: "" });
-  const [openCard, setOpenCard] = useState("");
-  const [cardClicked, setcardClicked] = useState("");
-  const handleBlur = (event, value) => {
-    event.preventDefault();
-    removeCard(value, column.id);
-  };
-
-  const handleSubmit = (event) => {
-    event.persist();
-    let customValues = values;
-    customValues["week"] = week;
-    customValues["id"] = task.id;
-    if (
-      event.target.id === "add-card-button" ||
-      (event.keyCode === 13 && event.shiftKey === false)
-    ) {
-      dispatch(
-        apiTaskContentUpdate(customValues, openCard, column.id, boards[0])
-      );
-      if (isOpen) setIsOpen(false);
-    }
-  };
-
-  const handleChange = (event) => {
-    event.persist();
-    let customValues = values;
-    customValues["title"] = event.target.value;
-    if (
-      event.target.id === "add-card-button" ||
-      (openCard === "" && event.keyCode === 13 && event.shiftKey === false)
-    ) {
-      dispatch(
-        apiTaskContentUpdate(customValues, openCard, column.id, boards[0])
-      );
-      if (isOpen) setIsOpen(false);
-    }
-  };
-
-  const handleClick = (event) => {
-    setcardClicked(task.id);
-    setOpenCard(task.id);
-    setIsOpen(!isOpen);
-    setPosition({
-      ...position,
-      modalTop: event.clientY - 29,
-      modalLeft: event.clientX - 231,
-    });
-  };
-
-  const handleClose = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleMove = () => {
-    setIsMove(!isMove);
-  };
-  const handleDelete = (value) => {
-    removeCard(value, column.id);
-  };
-
-  const value = (
-    <GetCard
-      key={task.id}
-      column={column}
-      task={task}
-      handleBlur={handleBlur}
-      handleChange={handleChange}
-      values={values}
-      handleSubmit={handleSubmit}
-      handleClick={handleClick}
-      isOpen={isOpen}
-      handleClose={handleClose}
-      position={position}
-      handleDelete={handleDelete}
-      handleMove={handleMove}
-      isMove={isMove}
-      data={data}
-      openCard={openCard}
-      cardClicked={cardClicked}
-      moveCard={moveCard}
-    />
-  );
-
-  return (
-    <Draggable draggableId={`task${task.id}`} index={index}>
-      {(provided) => (
-        <div
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
+        <li className="card">
+          <p className="card-edit" onClick={(event) => handleClick(event)}>
+            edit
+          </p>
+          <span className="card-info">{task.content}</span>
+        </li>
+      </div>
+    );
+  } else if (!task.content && task.focus) {
+    return (
+      <form
+        className="new-card"
+        id="content-form"
+        name="content-form"
+        onBlur={(event) => handleBlur(event, task)}
+        onKeyDown={(event) => handleSubmit(event)}
+      >
+        <li className="card">
+          <span className="card-info">
+            <textarea
+              rows="1"
+              cols="23"
+              autoFocus
+              id="content-text"
+              placeholder="Enter a title for this card..."
+              value={values.content}
+              onChange={(event) => handleChange(event)}
+              name="content-text"
+              form="content-form"
+            ></textarea>
+          </span>
+        </li>
+        <button
+          type="button"
+          id="add-card-button"
+          onMouseDown={(event) => {
+            event.preventDefault();
+            handleSubmit(event);
+          }}
         >
-          {value}
-        </div>
-      )}
-    </Draggable>
-  );
+          {task.button}
+        </button>
+      </form>
+    );
+  } else if (!task.content && !task.focus) {
+    return null;
+  }
 }
-export default Card;
+
+export default CardContainer;
