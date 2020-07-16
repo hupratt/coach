@@ -20,7 +20,11 @@ from django.urls import path, include, re_path
 from rest_framework import routers
 from .views import index
 
-from accounts.api import UserViewSet, UserSearchView, AvatarViewSet, GuestRegistration
+from accounts.api import (
+    UserViewSet,
+    UserSearchView,
+    AvatarViewSet,
+)  # , GuestRegistration
 from boards.api import (
     BoardViewSet,
     ColumnViewSet,
@@ -48,7 +52,7 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("auth/", include("rest_auth.urls")),
     path("auth/registration/", include("rest_auth.registration.urls")),
-    path("auth/guest/", GuestRegistration.as_view(), name="guest-registration"),
+    # path("auth/guest/", GuestRegistration.as_view(), name="guest-registration"),
     path("backdoor/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
