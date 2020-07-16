@@ -73,18 +73,18 @@ class BoardMemberSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "email", "first_name", "last_name", "avatar"]
 
 
-class TokenSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(source="user.id", read_only=True)
-    username = serializers.CharField(source="user.username", read_only=True)
-    photo_url = serializers.SerializerMethodField()
+# class TokenSerializer(serializers.ModelSerializer):
+#     id = serializers.IntegerField(source="user.id", read_only=True)
+#     username = serializers.CharField(source="user.username", read_only=True)
+#     photo_url = serializers.SerializerMethodField()
 
-    class Meta:
-        model = TokenModel
-        # Include field "key" once frontend actually uses token auth
-        # instead of the current session auth
-        fields = ("id", "username", "photo_url")
+#     class Meta:
+#         model = TokenModel
+#         # Include field "key" once frontend actually uses token auth
+#         # instead of the current session auth
+#         fields = ("id", "username", "photo_url")
 
-    def get_photo_url(self, obj):
-        if not obj.user.avatar:
-            return None
-        return obj.user.avatar.photo.url
+#     def get_photo_url(self, obj):
+#         if not obj.user.avatar:
+#             return None
+#         return obj.user.avatar.photo.url

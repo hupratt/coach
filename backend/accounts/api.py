@@ -97,24 +97,24 @@ class AvatarViewSet(ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
-class GuestRegistration(RegisterView):
-    def create(self, request, *args, **kwargs):
-        password = str(uuid.uuid4())
-        guest_id = str(shortuuid.uuid())[:10]
-        request.data.update(
-            {
-                "username": f"Guest-{guest_id}",
-                "email": f"{guest_id}@guest.com",
-                "password1": password,
-                "password2": password,
-            }
-        )
-        return super().create(request, *args, **kwargs)
+# class GuestRegistration(RegisterView):
+#     def create(self, request, *args, **kwargs):
+#         password = str(uuid.uuid4())
+#         guest_id = str(shortuuid.uuid())[:10]
+#         request.data.update(
+#             {
+#                 "username": f"Guest-{guest_id}",
+#                 "email": f"{guest_id}@guest.com",
+#                 "password1": password,
+#                 "password2": password,
+#             }
+#         )
+#         return super().create(request, *args, **kwargs)
 
-    def perform_create(self, serializer):
-        user = super().perform_create(serializer)
-        user.is_guest = True
-        user.avatar = get_random_avatar()
-        user.save()
-        create_demo_board(user)
-        return user
+#     def perform_create(self, serializer):
+#         user = super().perform_create(serializer)
+#         user.is_guest = True
+#         user.avatar = get_random_avatar()
+#         user.save()
+#         create_demo_board(user)
+#         return user
