@@ -20,6 +20,7 @@ BACKEND_DIR = os.path.dirname(
 # SECURITY WARNING: don't run with debug turned on in production!
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
 DEBUG = os.environ.get("DEBUG", False)
+ALLOWED_HOSTS = ["coach.pythonbots.software", "127.0.0.1", "localhost"]
 
 
 # Application definition
