@@ -3,8 +3,6 @@ from .base import *
 
 DEBUG = False
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
-STATIC_URL = os.environ.get("STATIC_URL", "")
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "")
 
 # Nginx is used instead of SecurityMiddleware
 # for setting all the recommended security headers
