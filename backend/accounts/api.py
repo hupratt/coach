@@ -1,7 +1,6 @@
 import uuid
 
 import shortuuid
-from dj_rest_auth.registration.views import RegisterView
 from django.contrib.auth import get_user_model
 from rest_framework import filters
 from rest_framework import mixins
