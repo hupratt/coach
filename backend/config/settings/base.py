@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "accounts",
     "boards",
+    "frontend",
     "adminsortable",
     "rest_framework",
     "rest_framework.authtoken",
@@ -79,7 +80,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["backend/frontend/static/"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -146,6 +147,10 @@ USE_TZ = True
 STATIC_URL = os.environ.get("DJANGO_STATIC_URL", "/static/")
 STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", "./static/")
 
+STATICFILES_DIRS = [
+    os.path.join(BACKEND_DIR, "frontend/static"),
+]
+
 # Media files
 MEDIA_ROOT = "./media"
 MEDIA_URL = "/media/"
@@ -174,3 +179,8 @@ SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = None
 ACCOUNT_UNIQUE_EMAIL = True
+
+
+# Posthog
+POSTHOG_KEY = os.environ.get("POSTHOG_KEY", "")
+POSTHOG_DOMAIN = os.environ.get("POSTHOG_DOMAIN", "")

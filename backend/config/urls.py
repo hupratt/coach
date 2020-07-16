@@ -16,8 +16,9 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework import routers
+from .views import index
 
 from accounts.api import UserViewSet, UserSearchView, AvatarViewSet, GuestRegistration
 from boards.api import (
@@ -51,6 +52,8 @@ urlpatterns = [
     path("backdoor/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# make sure this is always last
+urlpatterns += [re_path(r"^.*", index, name="home")]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
