@@ -185,3 +185,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 # Posthog
 POSTHOG_KEY = os.environ.get("POSTHOG_KEY", "")
 POSTHOG_DOMAIN = os.environ.get("POSTHOG_DOMAIN", "")
+
+
+CSRF_COOKIE_NAME = "XSRF-TOKEN"

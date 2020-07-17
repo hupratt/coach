@@ -3,10 +3,13 @@ import { API_LOGIN, API_LOGOUT, BASE, API_REGISTER } from "./api";
 import * as actionTypes from "./actionTypes";
 
 export const login = (username, password) => {
+  axios.defaults.xsrfHeaderName = "X-CSRFToken";
+  axios.defaults.withCredentials = true;
   axios
     .post(`${BASE}/${API_LOGIN}`, {
       username,
       password,
+      xsrfHeaderName: "X-CSRFToken",
     })
     .then((res) => {
       const token = res.data.key;

@@ -1,7 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import defaultAvatar from "../../images/avatar.png";
+// import defaultAvatar from "../../images/avatar.png";
 
 function Navbar({ name = "Anon Müller" }) {
   return (
@@ -17,7 +17,10 @@ function Navbar({ name = "Anon Müller" }) {
         <Link to="/login">
           <div className="navbar-profile">
             <div className="navbar-profile__picture">
-              <img src={defaultAvatar} alt="Profile Picture" />
+              <img
+                src="static/frontend/images/avatar.png"
+                alt="Profile Picture"
+              />
             </div>
             <div className="navbar-profile__name">{name}</div>
           </div>

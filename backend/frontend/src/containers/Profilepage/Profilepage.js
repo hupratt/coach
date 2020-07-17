@@ -1,13 +1,5 @@
 import React from "react";
 import "./Profilepage.css";
-import defaultAvatar from "../../images/avatar.png";
-import Devlevel2 from "../../images/badges/Dev-level2.png";
-import MConsistencylevel2 from "../../images/badges/MConsistency-level2.png";
-import YConsistencylevel2 from "../../images/badges/YConsistency-level2.png";
-import Readinglevel2 from "../../images/badges/Reading-level2.png";
-import Sportslevel2 from "../../images/badges/Sports-level2.png";
-import Writinglevel2 from "../../images/badges/Writing-level2.png";
-import arrowleft from "../../images/long-arrow-pointing-to-left-white.svg";
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 
@@ -23,7 +15,7 @@ function renderBadges() {
       <a className="badge-level social-btn" href="#" data-tip="Devlevel2">
         <img
           className="home-icon"
-          src={Devlevel2}
+          src="static/frontend/images/badges/Dev-level2.png"
           width="60px"
           height="60px"
           alt="Home"
@@ -32,7 +24,7 @@ function renderBadges() {
       <a className="badge-level social-btn" href="#" data-tip="Sportslevel2">
         <img
           className="home-icon"
-          src={Sportslevel2}
+          src="static/frontend/images/badges/Dev-level2.png"
           width="60px"
           height="60px"
           alt="Home"
@@ -41,7 +33,7 @@ function renderBadges() {
       <a className="badge-level social-btn" href="#" data-tip="Writinglevel2">
         <img
           className="home-icon"
-          src={Writinglevel2}
+          src="static/frontend/images/badges/Dev-level2.png"
           width="60px"
           height="60px"
           alt="Home"
@@ -54,7 +46,7 @@ function renderBadges() {
       >
         <img
           className="home-icon"
-          src={MConsistencylevel2}
+          src="static/frontend/images/badges/Dev-level2.png"
           width="60px"
           height="60px"
           alt="Home"
@@ -67,7 +59,7 @@ function renderBadges() {
       >
         <img
           className="home-icon"
-          src={YConsistencylevel2}
+          src="static/frontend/images/badges/Dev-level2.png"
           width="60px"
           height="60px"
           alt="Home"
@@ -76,7 +68,7 @@ function renderBadges() {
       <a className="badge-level social-btn" href="#" data-tip="Readinglevel2">
         <img
           className="home-icon"
-          src={Readinglevel2}
+          src="static/frontend/images/badges/Dev-level2.png"
           width="60px"
           height="60px"
           alt="Home"
@@ -91,7 +83,7 @@ function ProfilePage({ name = "Anon Müller", title = "Web Developer" }) {
       <Link to="/" style={{ zIndex: 1, position: "relative" }}>
         <img
           className="home-icon"
-          src={arrowleft}
+          src="static/frontend/images/long-arrow-pointing-to-left-white.svg"
           width="60px"
           height="60px"
           alt="Home"
@@ -102,7 +94,7 @@ function ProfilePage({ name = "Anon Müller", title = "Web Developer" }) {
           <h1>{name}</h1>
           <h2></h2>
           <div className="profile-image">
-            <img src={defaultAvatar} />
+            <img src="static/frontend/images/avatar.png" />
             <div className="profile-status profile-status-online"></div>
           </div>
         </div>
