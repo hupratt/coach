@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BaseRouter from "./routes";
 import Navbar from "./components/navbar/Navbar";
+import BottomNavigation from "./components/navbar/BottomNav";
 import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 import { authCheckState } from "./actions/auth";
@@ -15,6 +16,7 @@ class App extends React.Component {
       <Router>
         <Navbar />
         <BaseRouter />
+        <BottomNavigation />
       </Router>
     );
   }
