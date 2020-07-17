@@ -25,7 +25,7 @@ const TermsOfUse = () => {
           shouldn’t try to translate the app into other languages, or make
           derivative versions. The app itself, and all the trade marks,
           copyright, database rights and other intellectual property rights
-          related to it, still belong to La petite portugaise ASBL.
+          related to it, still belong to Craft Studios.
         </p>
         <p>
           Craft Studios is committed to ensuring that the app is as useful and
@@ -99,14 +99,13 @@ const TermsOfUse = () => {
           notify you of any changes by posting the new Terms and Conditions on
           this page.
         </p>
-        <p>These terms and conditions are effective as of 2020-05-07</p>
+        <p>These terms and conditions are effective as of 2020-07-17</p>
         <p>
           <strong>Contact Us</strong>
         </p>
         <p>
           If you have any questions or suggestions about our Terms and
-          Conditions, do not hesitate to contact us at
-          admin@lapetiteportugaise.com .
+          Conditions, do not hesitate to contact us at hprattdo@gmail.com .
         </p>
       </div>
     </>

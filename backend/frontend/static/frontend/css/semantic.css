@@ -1577,7 +1577,7 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
 .ui.grey.button,
 .ui.grey.buttons .button {
   background-color: #767676;
-  color:var(--color-link);
+  color: var(--color-link);
   text-shadow: none;
   background-image: none;
 }
@@ -15551,7 +15551,7 @@ ol.ui.horizontal.list li:before {
   width: 100% !important;
   padding: 0;
   padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 10rem;
 }
 .ui.grid > .column:not(.row) {
   padding-top: 1rem;
@@ -23266,7 +23266,7 @@ select.ui.dropdown {
   right: 1em;
   z-index: 3;
   margin: 0rem;
-padding: 0.5rem;
+  padding: 0.5rem;
   opacity: 0.8;
   -webkit-transition: opacity 0.1s ease;
   transition: opacity 0.1s ease;
@@ -23888,16 +23888,15 @@ padding: 0.5rem;
 .ui.simple.visible.dropdown > .menu {
   display: block;
 }
-.ui.fluid.dropdown .default{
+.ui.fluid.dropdown .default {
   font-size: 1rem;
-padding: 1rem;
+  padding: 1rem;
 }
 .ui.fluid.dropdown {
   display: block;
   width: 100%;
   min-width: 0;
   padding: 0;
-  
 }
 .ui.fluid.dropdown > .dropdown.icon {
   float: right;
