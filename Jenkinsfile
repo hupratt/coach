@@ -41,15 +41,15 @@ for (x in labels) {
 					$PYTHON_P -m pip install -r backend/requirements/production.txt
 					echo 'pip install done'
 					
-					$PYTHON_P ./backend/coach/manage.py migrate                  
+					$PYTHON_P ./backend/manage.py migrate                  
 					echo 'manage.py migrate done'
 
-					$PYTHON_P ./backend/coach/manage.py compilemessages --settings=config.settings.production
+					$PYTHON_P ./backend/manage.py compilemessages --settings=config.settings.production
 
-					$PYTHON_P ./backend/coach/manage.py collectstatic --noinput --settings=config.settings.production
+					$PYTHON_P ./backend/manage.py collectstatic --noinput --settings=config.settings.production
 					echo 'manage.py collectstatic done'
 
-					$PYTHON_P ./backend/coach/manage.py check --deploy
+					$PYTHON_P ./backend/manage.py check --deploy
 
 					deactivate 
 
