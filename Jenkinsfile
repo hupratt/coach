@@ -32,7 +32,7 @@ for (x in labels) {
 					npm install
 					npm run build
 					sudo rm -rf node_modules
-					. bin/activate
+					. env/bin/activate
 					echo 'which python are you running?'
 					which python
 					

@@ -23,7 +23,7 @@ aws ec2 stop-instances --instance-ids i-049b26fc46b314be4
 
 sleep 360
 
-aws ec2 modify-instance-attribute --instance-id i-049b26fc46b314be4 --instance-type "{\"Value\": \"t2.micro\"}"
+aws ec2 modify-instance-attribute --instance-id i-049b26fc46b314be4 --instance-type "{\"Value\": \"t2.small\"}"
 
 sleep 5
 
