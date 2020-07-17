@@ -10,7 +10,12 @@ import {
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 import { authLogin } from "../../actions/auth";
-import { googleLogin, facebookLogin, githubLogin } from "../../actions/api";
+import {
+  googleLogin,
+  facebookLogin,
+  githubLogin,
+  BASE,
+} from "../../actions/api";
 import "./Login.css";
 // import arrowleft from "../../images/long-arrow-pointing-to-left-white.svg";
 import { Link } from "react-router-dom";
@@ -42,7 +47,7 @@ class LoginForm extends React.Component {
         <Link to="/" style={{ zIndex: 1, position: "relative" }}>
           <img
             className="home-icon"
-            src="static/frontend/images/long-arrow-pointing-to-left-white.svg"
+            src={`${BASE}/static/frontend/images/long-arrow-pointing-to-left-white.svg`}
             width="60px"
             height="60px"
             alt="Home"
@@ -97,7 +102,7 @@ class LoginForm extends React.Component {
                   </Segment>
                 </Form>
                 <Message>
-                  New to us? <NavLink to="/signup">Sign Up</NavLink>
+                  New to us? <NavLink to="/accounts/signup">Sign Up</NavLink>
                 </Message>
               </React.Fragment>
             </Grid.Column>

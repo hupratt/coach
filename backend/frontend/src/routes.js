@@ -12,9 +12,9 @@ const BaseRouter = (props) => {
   return (
     <Switch>
       <Route exact path="/" component={Homepage} />
-      <Route exact path="/login/" component={Login} />
-      <Route exact path="/signup/" component={SignUp} />
-      <Route exact path="/profile/" component={ProfilePage} />
+      <Route exact path="/accounts/login/" component={Login} />
+      <Route exact path="/accounts/signup/" component={SignUp} />
+      <Route exact path="/accounts/profile/" component={ProfilePage} />
       <Route exact path="/terms-of-use/" component={TermsOfUsePage} />
       <Route exact path="/privacy-policy/" component={PrivacyPolicyPage} />
       <Route component={FallBackPage} />

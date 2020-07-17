@@ -1,5 +1,6 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
+import { BASE } from "../../actions/api";
 // import YConsistencylevel4 from "../../images/badges/YConsistency-level4.png";
 // import Devlevel4 from "../../images/badges/Dev-level4.png";
 // import MConsistencylevel4 from "../../images/badges/MConsistency-level4.png";
@@ -14,7 +15,7 @@ const friendOptions = [
     value: "Reading",
     image: {
       avatar: true,
-      src: "static/frontend/images/badges/Dev-level2.png",
+      src: `${BASE}/static/frontend/images/badges/Dev-level2.png`,
     },
   },
   {
@@ -23,7 +24,7 @@ const friendOptions = [
     value: "Dev",
     image: {
       avatar: true,
-      src: "static/frontend/images/badges/Dev-level2.png",
+      src: `${BASE}/static/frontend/images/badges/Dev-level2.png`,
     },
   },
   {
@@ -32,7 +33,7 @@ const friendOptions = [
     value: "Sports",
     image: {
       avatar: true,
-      src: "static/frontend/images/badges/Dev-level2.png",
+      src: `${BASE}/static/frontend/images/badges/Dev-level2.png`,
     },
   },
   {
@@ -41,7 +42,7 @@ const friendOptions = [
     value: "Writing",
     image: {
       avatar: true,
-      src: "static/frontend/images/badges/Dev-level2.png",
+      src: `${BASE}/static/frontend/images/badges/Dev-level2.png`,
     },
   },
 ];

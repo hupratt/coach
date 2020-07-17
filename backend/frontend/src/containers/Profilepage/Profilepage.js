@@ -2,6 +2,7 @@ import React from "react";
 import "./Profilepage.css";
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
+import { BASE } from "../../actions/api";
 
 function renderBadges() {
   return (
@@ -15,7 +16,7 @@ function renderBadges() {
       <a className="badge-level social-btn" href="#" data-tip="Devlevel2">
         <img
           className="home-icon"
-          src="static/frontend/images/badges/Dev-level2.png"
+          src={`${BASE}/static/frontend/images/badges/Dev-level2.png`}
           width="60px"
           height="60px"
           alt="Home"
@@ -24,7 +25,7 @@ function renderBadges() {
       <a className="badge-level social-btn" href="#" data-tip="Sportslevel2">
         <img
           className="home-icon"
-          src="static/frontend/images/badges/Dev-level2.png"
+          src={`${BASE}/static/frontend/images/badges/Dev-level2.png`}
           width="60px"
           height="60px"
           alt="Home"
@@ -33,7 +34,7 @@ function renderBadges() {
       <a className="badge-level social-btn" href="#" data-tip="Writinglevel2">
         <img
           className="home-icon"
-          src="static/frontend/images/badges/Dev-level2.png"
+          src={`${BASE}/static/frontend/images/badges/Dev-level2.png`}
           width="60px"
           height="60px"
           alt="Home"
@@ -46,7 +47,7 @@ function renderBadges() {
       >
         <img
           className="home-icon"
-          src="static/frontend/images/badges/Dev-level2.png"
+          src={`${BASE}/static/frontend/images/badges/Dev-level2.png`}
           width="60px"
           height="60px"
           alt="Home"
@@ -59,7 +60,7 @@ function renderBadges() {
       >
         <img
           className="home-icon"
-          src="static/frontend/images/badges/Dev-level2.png"
+          src={`${BASE}/static/frontend/images/badges/Dev-level2.png`}
           width="60px"
           height="60px"
           alt="Home"
@@ -68,7 +69,7 @@ function renderBadges() {
       <a className="badge-level social-btn" href="#" data-tip="Readinglevel2">
         <img
           className="home-icon"
-          src="static/frontend/images/badges/Dev-level2.png"
+          src={`${BASE}/static/frontend/images/badges/Dev-level2.png`}
           width="60px"
           height="60px"
           alt="Home"
@@ -83,7 +84,7 @@ function ProfilePage({ name = "Anon Müller", title = "Web Developer" }) {
       <Link to="/" style={{ zIndex: 1, position: "relative" }}>
         <img
           className="home-icon"
-          src="static/frontend/images/long-arrow-pointing-to-left-white.svg"
+          src={`${BASE}/static/frontend/images/long-arrow-pointing-to-left-white.svg`}
           width="60px"
           height="60px"
           alt="Home"
@@ -94,7 +95,7 @@ function ProfilePage({ name = "Anon Müller", title = "Web Developer" }) {
           <h1>{name}</h1>
           <h2></h2>
           <div className="profile-image">
-            <img src="static/frontend/images/avatar.png" />
+            <img src={`${BASE}/static/frontend/images/avatar.png`} />
             <div className="profile-status profile-status-online"></div>
           </div>
         </div>

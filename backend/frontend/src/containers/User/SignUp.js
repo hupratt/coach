@@ -10,7 +10,12 @@ import {
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 import { authSignup } from "../../actions/auth";
-import { googleLogin, facebookLogin, githubLogin } from "../../actions/api";
+import {
+  googleLogin,
+  facebookLogin,
+  githubLogin,
+  BASE,
+} from "../../actions/api";
 // import arrowleft from "../../images/long-arrow-pointing-to-left-white.svg";
 import { Link } from "react-router-dom";
 
@@ -43,7 +48,7 @@ class RegistrationForm extends React.Component {
         <Link to="/" style={{ zIndex: 1, position: "relative" }}>
           <img
             className="home-icon"
-            src="static/frontend/images/long-arrow-pointing-to-left-white.svg"
+            src={`${BASE}/static/frontend/images/long-arrow-pointing-to-left-white.svg`}
             width="60px"
             height="60px"
             alt="Home"
@@ -117,7 +122,8 @@ class RegistrationForm extends React.Component {
                   </Segment>
                 </Form>
                 <Message>
-                  Already have an account? <NavLink to="/login">Login</NavLink>
+                  Already have an account?{" "}
+                  <NavLink to="/accounts/login">Login</NavLink>
                 </Message>
               </React.Fragment>
             </Grid.Column>

@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
-from .views import index
+from .views import index, ServiceWorkerView
 
 from accounts.api import (
     UserViewSet,
@@ -44,6 +44,8 @@ router.register(r"labels", LabelViewSet)
 router.register(r"tasks", TaskViewSet)
 
 urlpatterns = [
+    path("accounts/", include("allauth.urls")),
+    path("accounts/", include("socialaccounts.googleurls")),
     path("api/", include(router.urls)),
     path("api/u/search/", UserSearchView.as_view(), name="user-search"),
     path("api/events/", EventView.as_view(), name="event-list"),
@@ -54,6 +56,7 @@ urlpatterns = [
     path("auth/registration/", include("rest_auth.registration.urls")),
     # path("auth/guest/", GuestRegistration.as_view(), name="guest-registration"),
     path("backdoor/", admin.site.urls),
+    path("sw.js", ServiceWorkerView.as_view(), name=ServiceWorkerView.name),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # make sure this is always last

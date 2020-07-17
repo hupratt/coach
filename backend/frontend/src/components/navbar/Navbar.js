@@ -15,7 +15,7 @@ function Navbar({ name = "Anon Müller" }) {
               placeholder="Search"
             />
           </div> */}
-        <Link to="/login">
+        <Link to="/accounts/login">
           <div className="navbar-profile">
             <div className="navbar-profile__picture">
               <img

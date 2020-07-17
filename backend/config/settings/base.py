@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "accounts",
     "boards",
     "frontend",
+    "socialaccounts.apps.SocialAccountConfig",
     "adminsortable",
     "rest_framework",
     "rest_framework.authtoken",
