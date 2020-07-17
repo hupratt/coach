@@ -31,7 +31,7 @@ const BottomNavigation = () => {
             </ul>
           </div>
           <div className="footer-widget centermyitems">
-            <h2 className="bottom-nav-h2">Links</h2>
+            <h2 className="bottom-nav-h2">Legal</h2>
             <ul>
               <li>
                 <Link to="/privacy-policy/">{"Privacy Policy"}</Link>

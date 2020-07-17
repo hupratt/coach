@@ -174,3 +174,12 @@ body {
 .superblur {
   filter: blur(20px);
 }
+
+@media screen and (max-width: 840px) {
+  .sub-board {
+    flex-direction: column;
+  }
+  .add-another-list {
+    display: none;
+  }
+}

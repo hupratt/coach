@@ -16,7 +16,7 @@ const BaseRouter = (props) => {
       <Route exact path="/signup/" component={SignUp} />
       <Route exact path="/profile/" component={ProfilePage} />
       <Route exact path="/terms-of-use/" component={TermsOfUsePage} />
-      <Route exact path="/privacy-policy-2/" component={PrivacyPolicyPage} />
+      <Route exact path="/privacy-policy/" component={PrivacyPolicyPage} />
       <Route component={FallBackPage} />
     </Switch>
   );

@@ -93,7 +93,7 @@ a:focus {
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: calc(100vh - 13rem);
+  height: 100vh;
   position: relative;
   justify-content: flex-start;
   align-items: center;
