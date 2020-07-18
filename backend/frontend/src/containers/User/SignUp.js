@@ -41,7 +41,7 @@ class RegistrationForm extends React.Component {
     const { username, email, password1, password2 } = this.state;
     const { error, loading, token } = this.props;
     if (localStorage.getItem("token")) {
-      return <Redirect to="/profile" />;
+      return <Redirect to="/accounts/profile" />;
     }
     return (
       <>

@@ -88,6 +88,9 @@ export const apiTaskContentUpdate = (values, taskId, colId, boardid) => {
             dispatch(setColumns(transform(columns)));
             // dispatch(apiTitleUpdate(values.title));
           })
+          .then(() => {
+            dispatch(grabEvents());
+          })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });
           });

@@ -53,3 +53,7 @@ i.icon::before {
 i.icon.lock::before {
   content: "\f585";
 }
+
+.ui.stacked.segment .ui.message {
+  background-color: #2f2f2f00;
+}

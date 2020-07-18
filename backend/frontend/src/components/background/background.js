@@ -8,10 +8,7 @@ import "./background.css";
 
 const heroArea = (children, author, quote, blur, superblur) => {
   console.log("content blur");
-  let vis = "inherit";
-  if (blur) {
-    vis = "hidden";
-  }
+  const vis = blur ? "hidden" : "inherit";
   return (
     <React.Fragment>
       <div className="content">
@@ -48,14 +45,14 @@ function Background(props) {
   const superblur = visible ? "superblur" : "";
 
   // component did mount
-  useEffect(() => {
-    dispatch(grabQuoteOfTheDay());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(grabQuoteOfTheDay());
+  // }, [backgroundLoaded]);
   // component will unmount
   useEffect(() => {
     return () => {
-      var elem = document.getElementsByClassName("road-background");
-      elem.length === 1 && elem[0].remove();
+      var elem = document.getElementById("road-background");
+      elem && elem.remove();
     };
   }, []);
   // component did update
@@ -66,7 +63,7 @@ function Background(props) {
       setTimeout(() => {
         const script = document.createElement("script");
         script.async = "async";
-        script.className = "road-background";
+        script.id = "road-background";
         script.src = "static/frontend/js/init.js";
         document.body.appendChild(script);
       }, 1000);

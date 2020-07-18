@@ -50,23 +50,14 @@ export const grabEvents = () => {
       .then((res) => {
         const { data } = res.data;
         data.forEach((element) => {
-          const {
-            task__period,
+          const { week, clocked, year } = element;
+          EVENTS.push({
+            date_start: getDatefromYearAndWeek(week, year),
+            date_end: getDatefromYearAndWeek(week, year),
+            title: `${Math.floor((clocked / 7) * 100)}`,
+            color: getColorFromRate(clocked / 7),
             week,
-            clocked,
-            task__title,
-            year,
-            status,
-          } = element;
-          if (status === "DONE") {
-            EVENTS.push({
-              date_start: getDatefromYearAndWeek(week, year),
-              date_end: getDatefromYearAndWeek(week, year),
-              title: task__title,
-              color: getColorFromRate(clocked / task__period),
-              week,
-            });
-          }
+          });
         });
         dispatch(dispatch_events(EVENTS));
       })

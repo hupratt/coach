@@ -3,6 +3,13 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
 
+const computeTotalEventsClocked = (arr) => {
+  let total = 0;
+  arr.forEach(({ title }) => {
+    total += parseInt(title);
+  });
+  return total;
+};
 export default class ReactLifeTimeline extends React.Component {
   constructor(props) {
     super(props);
@@ -23,10 +30,11 @@ export default class ReactLifeTimeline extends React.Component {
 
   componentDidUpdate(nextProps) {
     if (
-      this.props.get_events === null &&
-      nextProps.events.length !== this.state.events.length
-    )
+      computeTotalEventsClocked(nextProps.events) !==
+      computeTotalEventsClocked(this.props.events)
+    ) {
       this.got_events(nextProps.events);
+    }
   }
 
   event_end_date(e) {
@@ -59,9 +67,9 @@ export default class ReactLifeTimeline extends React.Component {
         week_end
       );
     });
-    // this.setState({ lookup }, () => {
-    //   ReactTooltip.rebuild();
-    // });
+    this.setState({ lookup }, () => {
+      ReactTooltip.rebuild();
+    });
     return lookup;
   }
 
@@ -149,14 +157,14 @@ export default class ReactLifeTimeline extends React.Component {
     let color;
     let single = false;
     res && ({ events, color, single } = res);
+    let hasEvents = events.length > 0;
     let future = date_start > today;
     let st = {};
-    if (events.length > 0) st.backgroundColor = color || "#1AA9FF";
-    let tips = [`Week ${weekCounter}`].concat(
-      events.map((e) => {
-        return e.title;
-      })
-    );
+    if (hasEvents > 0) st.backgroundColor = color || "#1AA9FF";
+
+    let tips = hasEvents
+      ? [`Week ${weekCounter}: `].concat(events.map((e) => `${e.title}% done`))
+      : [`Week ${weekCounter}`];
     let cls = "week";
     if (future) cls += " future";
     if (single) _single = <span className="singleEvents"></span>;
@@ -172,7 +180,7 @@ export default class ReactLifeTimeline extends React.Component {
           className={cls}
           key={date}
           style={st}
-          data-tip={tips.join(", ")}
+          data-tip={`${tips.join(" ")}`}
           onClick={(tips) => this.props.show(tips)}
           weekvalue={weekCounter}
         >

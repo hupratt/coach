@@ -5,10 +5,12 @@ import BottomNavigation from "./components/navbar/BottomNav";
 import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 import { authCheckState } from "./actions/auth";
+import { grabQuoteOfTheDay } from "./actions/quote";
 
 class App extends React.Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
+    this.props.grabQuoteOfTheDay();
   }
 
   render() {
@@ -31,6 +33,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onTryAutoSignup: () => dispatch(authCheckState()),
+    grabQuoteOfTheDay: () => dispatch(grabQuoteOfTheDay()),
   };
 };
 

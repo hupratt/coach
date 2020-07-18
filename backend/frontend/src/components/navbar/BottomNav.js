@@ -17,7 +17,9 @@ const BottomNavigation = () => {
 
             <ul>
               <li>
-                <a href="https://tympanus.net/codrops/">Codrops</a>
+                <a href="https://tympanus.net/codrops/2019/11/13/high-speed-light-trails-in-three-js/">
+                  Codrops
+                </a>
               </li>
             </ul>
           </div>

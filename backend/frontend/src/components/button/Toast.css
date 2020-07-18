@@ -27,4 +27,10 @@
 }
 .close {
   font-size: 35px;
+  padding: 20px;
+  top: 15vh;
+  right: 5vw;
+  background: #ffffff40;
+  border-radius: 100px;
+  position: fixed;
 }

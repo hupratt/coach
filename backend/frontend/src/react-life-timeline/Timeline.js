@@ -29,10 +29,6 @@ class Timeline extends React.Component {
     };
   }
 
-  generate_events(cb) {
-    cb(this.props.events || []);
-  }
-
   componentDidMount() {
     localStorage.getItem("token") &&
       setTimeout(() => this.props.fetchEvents(), 2000);
@@ -64,8 +60,6 @@ class Timeline extends React.Component {
 
   render() {
     const blur = this.props.visible ? "blur" : "";
-    console.log("background blur");
-
     return (
       <div className={`container see-through ${blur}`}>
         <h2>2020</h2>
