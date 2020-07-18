@@ -52,10 +52,10 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         from boards.models import Board, Column
 
         board = Board.objects.create(
-            owner=instance, title=f"Board of {instance.username}"
+            owner=instance, name=f"Board of {instance.username}"
         )
-        column1 = Column.objects.create(title="To do 🚀", board=board)
-        column2 = Column.objects.create(title="Done 💎", board=board)
+        column1 = Column.objects.create(title="To do", board=board)
+        column2 = Column.objects.create(title="Done", board=board)
 
 
 @receiver(user_signed_up)
@@ -71,50 +71,57 @@ def populate_db(request, user, sociallogin=None, **kwargs):
  
     See the socialaccount_socialaccount table for more in the 'extra_data' field.
     """
-    if sociallogin.account.provider == "google":
-        picture_path = sociallogin.account.get_avatar_url()
-        if picture_path is not None and picture_path is not "None":
-            response = requests.get(picture_path)
-            name = urlparse(picture_path).path.split("/")[-1]
-            if response.status_code == 200:
-                new_avatar = Avatar()
-                new_avatar.photo.save(name=name, content=ContentFile(response.content))
-                user.avatar = new_avatar
+    if sociallogin:
+        if sociallogin.account.provider == "google":
+            picture_path = sociallogin.account.get_avatar_url()
+            if picture_path is not None and picture_path is not "None":
+                response = requests.get(picture_path)
+                name = urlparse(picture_path).path.split("/")[-1]
+                if response.status_code == 200:
+                    new_avatar = Avatar()
+                    new_avatar.photo.save(
+                        name=name, content=ContentFile(response.content)
+                    )
+                    user.avatar = new_avatar
+                    user.save()
+        if sociallogin.account.provider == "facebook":
+            picture_path = sociallogin.account.get_avatar_url()
+            if picture_path is not None and picture_path is not "None":
+                response = requests.get(picture_path)
+                name = urlparse(picture_path).path.split("/")[-1]
+                if response.status_code == 200:
+                    new_avatar = Avatar()
+                    new_avatar.photo.save(
+                        name=name, content=ContentFile(response.content)
+                    )
+                    user.avatar = new_avatar
+                    user.save()
+        if sociallogin.account.provider == "github":
+            new = ""
+            name = sociallogin.account.extra_data["name"]
+            if " " in name:
+                first_name, last_name = name.split(" ", 1)
+                user.first_name = first_name
+                user.last_name = last_name
                 user.save()
-    if sociallogin.account.provider == "facebook":
-        picture_path = sociallogin.account.get_avatar_url()
-        if picture_path is not None and picture_path is not "None":
-            response = requests.get(picture_path)
-            name = urlparse(picture_path).path.split("/")[-1]
-            if response.status_code == 200:
-                new_avatar = Avatar()
-                new_avatar.photo.save(name=name, content=ContentFile(response.content))
-                user.avatar = new_avatar
+            else:
+                user.name = first_name
                 user.save()
-    if sociallogin.account.provider == "github":
-        new = ""
-        name = sociallogin.account.extra_data["name"]
-        if " " in name:
-            first_name, last_name = name.split(" ", 1)
-            user.first_name = first_name
-            user.last_name = last_name
-            user.save()
-        else:
-            user.name = first_name
-            user.save()
-        if sociallogin.account.extra_data["email"] is not None:
-            user.email = sociallogin.account.extra_data["email"]
-            user.save()
-        if sociallogin.account.extra_data["login"] is not None:
-            user.username = f'gh-{sociallogin.account.extra_data["login"]}'
-            user.save()
+            if sociallogin.account.extra_data["email"] is not None:
+                user.email = sociallogin.account.extra_data["email"]
+                user.save()
+            if sociallogin.account.extra_data["login"] is not None:
+                user.username = f'gh-{sociallogin.account.extra_data["login"]}'
+                user.save()
 
-        picture_path = sociallogin.account.get_avatar_url()
-        if picture_path is not None and picture_path is not "None":
-            response = requests.get(picture_path)
-            name = urlparse(picture_path).path.split("/")[-1]
-            if response.status_code == 200:
-                new_avatar = Avatar()
-                new_avatar.photo.save(name=name, content=ContentFile(response.content))
-                user.avatar = new_avatar
-                user.save()
+            picture_path = sociallogin.account.get_avatar_url()
+            if picture_path is not None and picture_path is not "None":
+                response = requests.get(picture_path)
+                name = urlparse(picture_path).path.split("/")[-1]
+                if response.status_code == 200:
+                    new_avatar = Avatar()
+                    new_avatar.photo.save(
+                        name=name, content=ContentFile(response.content)
+                    )
+                    user.avatar = new_avatar
+                    user.save()
