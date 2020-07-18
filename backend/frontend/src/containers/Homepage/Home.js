@@ -21,11 +21,12 @@ import { useSelector, useDispatch } from "react-redux";
 import Background from "../../components/background/background";
 import MyWeekdayPicker from "../../components/button/WeekDayPicker";
 import { useDidUpdate } from "../../components/utils";
-
+import { useHistory } from "react-router-dom";
 const BackgroundWithErrorHandling = withError(Background);
 
 function Homepage() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const columns = useSelector((state) => state.columns.columns);
   const addColumn = useSelector((state) => state.columns.addColumn);
   const columnName = useSelector((state) => state.columns.columnName);
@@ -333,9 +334,13 @@ function Homepage() {
   };
   const toggleVisibility = (weekCounter) => {
     console.log("toggle triggered");
-    dispatch(triggerTogglePopUp());
-    weekCounter.currentTarget &&
-      setWeek(weekCounter.currentTarget.getAttribute("weekvalue"));
+    if (localStorage.getItem("token")) {
+      dispatch(triggerTogglePopUp());
+      weekCounter.currentTarget &&
+        setWeek(weekCounter.currentTarget.getAttribute("weekvalue"));
+    } else {
+      history.push("/accounts/login");
+    }
   };
   return (
     <React.Fragment>

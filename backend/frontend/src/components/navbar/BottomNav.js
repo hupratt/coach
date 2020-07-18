@@ -13,18 +13,36 @@ const BottomNavigation = () => {
       <footer className="footer-section">
         <div className="container footer-left footer-flex">
           <div className="centermyitems">
-            <h2 className="bottom-nav-h2"> {"Design"}</h2>
+            <h2 className="bottom-nav-h2"> {"Credits"}</h2>
 
             <ul>
               <li>
                 <a href="https://tympanus.net/codrops/2019/11/13/high-speed-light-trails-in-three-js/">
-                  Codrops
+                  Light effect
                 </a>
+              </li>
+              <li>
+                <a href="https://codepen.io/hendrasusanto/pen/vcAnd">
+                  Profile widget
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/onejgordon/react-life-timeline">
+                  React timeline
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/encode/django-rest-framework">
+                  Rest framework
+                </a>
+              </li>
+              <li>
+                <a href="https://codepen.io/hendrasusanto/pen/vcAnd">Navbar</a>
               </li>
             </ul>
           </div>
           <div className="centermyitems">
-            <h2 className="bottom-nav-h2"> {"Opening Times"}</h2>
+            <h2 className="bottom-nav-h2"> {"Opening Hours"}</h2>
 
             <ul>
               <li> {"Monday-Friday "}12:00 - 15:00</li>
@@ -33,7 +51,7 @@ const BottomNavigation = () => {
             </ul>
           </div>
           <div className="footer-widget centermyitems">
-            <h2 className="bottom-nav-h2">Legal</h2>
+            <h2 className="bottom-nav-h2">Links</h2>
             <ul>
               <li>
                 <Link to="/privacy-policy/">{"Privacy Policy"}</Link>
