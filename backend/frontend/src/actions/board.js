@@ -38,3 +38,10 @@ export const setBoardIds = (board) => {
     });
   };
 };
+export const toggleBackground = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.TOGGLE_BACKGROUND,
+    });
+  };
+};

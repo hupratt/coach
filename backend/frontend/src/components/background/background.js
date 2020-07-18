@@ -1,16 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useRef, useEffect, useState } from "react";
 import { grabQuoteOfTheDay } from "../../actions/quote";
+import { toggleBackground } from "../../actions/board";
 import { useDidUpdate } from "../utils";
 
 import "./background.css";
 
 const heroArea = (children, author, quote, blur, superblur) => {
   console.log("content blur");
+  let vis = "inherit";
+  if (blur) {
+    vis = "hidden";
+  }
   return (
     <React.Fragment>
       <div className="content">
-        <div id="app"></div>
+        <div id="app" style={{ visibility: vis }}></div>
         <div className="content__title-wrap">
           {/* <span className="content__pretitle"></span> */}
 
@@ -36,23 +41,38 @@ function Background(props) {
   const author = useSelector((state) => state.quote.author);
   const quote = useSelector((state) => state.quote.quote);
   const visible = useSelector((state) => state.columns.popUp);
+  const backgroundLoaded = useSelector(
+    (state) => state.columns.backgroundLoaded
+  );
   const blur = visible ? "blur" : "";
   const superblur = visible ? "superblur" : "";
 
+  // component did mount
   useEffect(() => {
     dispatch(grabQuoteOfTheDay());
   }, []);
+  // component will unmount
+  useEffect(() => {
+    return () => {
+      var elem = document.getElementsByClassName("road-background");
+      elem.length === 1 && elem[0].remove();
+    };
+  }, []);
+  // component did update
   useDidUpdate(() => {
     if (!didMount) {
       setDidMount(true);
+      dispatch(toggleBackground());
       setTimeout(() => {
         const script = document.createElement("script");
-        script.async = true;
+        script.async = "async";
+        script.className = "road-background";
         script.src = "static/frontend/js/init.js";
         document.body.appendChild(script);
       }, 1000);
     }
   });
+
   return heroArea(props.children, author, quote, blur, superblur);
 }
 

@@ -19199,7 +19199,7 @@ ol.ui.horizontal.list li:before {
   font-size: 0.92857143em;
 }
 .ui.message {
-  font-size: 1em;
+  font-size: 0.7rem;
 }
 .ui.large.message {
   font-size: 1.14285714em;

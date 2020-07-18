@@ -13,11 +13,18 @@ const initState = {
   },
   popUp: false,
   boards: [],
+  backgroundLoaded: false,
 };
 
 const togglePopUp = (state) => {
   return updateObject(state, {
     popUp: !state.popUp,
+  });
+};
+
+const toggleBackground = (state) => {
+  return updateObject(state, {
+    backgroundLoaded: !state.backgroundLoaded,
   });
 };
 
@@ -73,6 +80,8 @@ const reducer = (state = initState, action) => {
       return togglePopUp(state, action);
     case actionTypes.SET_BOARD_IDS:
       return setBoardIds(state, action);
+    case actionTypes.TOGGLE_BACKGROUND:
+      return toggleBackground(state, action);
     default:
       return state;
   }
