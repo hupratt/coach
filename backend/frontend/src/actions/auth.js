@@ -13,8 +13,8 @@ export const login = (username, password) => {
     })
     .then((res) => {
       const token = res.data.key;
-      // expire in 10 days
-      const expirationDate = new Date(new Date().getTime() + 3600 * 100000);
+      // expire in 7 days
+      const expirationDate = new Date(new Date().getTime() + 3600 * 24 * 7);
       localStorage.setItem("token", token);
       localStorage.setItem("expirationDate", expirationDate);
       axios.defaults.headers.common["Authorization"] = "Token " + token;
@@ -38,11 +38,16 @@ export const authCheckState = () => {
       axios
         .get(API_USER)
         .then((res) => {
-          console.log("res", res);
+          const { token } = res.data;
+          // expire in 7 days
+          const expirationDate = new Date(new Date().getTime() + 3600 * 24 * 7);
+          localStorage.setItem("token", token);
+          localStorage.setItem("expirationDate", expirationDate);
+          axios.defaults.headers.common["Authorization"] = "Token " + token;
+          dispatch(authSuccess(token));
         })
         .catch((err) => {
           dispatch(authFail(err));
-          console.log("err", err);
         });
     }
   };
