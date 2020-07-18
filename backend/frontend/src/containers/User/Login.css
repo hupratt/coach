@@ -57,3 +57,9 @@ i.icon.lock::before {
 .ui.stacked.segment .ui.message {
   background-color: #2f2f2f00;
 }
+
+@media screen and (max-width: 850px) {
+  .ui.grid > .row {
+    flex-direction: column;
+  }
+}
