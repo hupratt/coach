@@ -55,13 +55,13 @@ class BoardViewSet(
     def get_queryset(self):
         user = self.request.user
         qs = super().get_queryset().filter(members=user)
-        if len(qs) == 0:
-            # Adding members to the board
-            # >>> board.members.add(member1)
-            # https://docs.djangoproject.com/en/3.0/topics/db/examples/many_to_many/
-            board, _ = Board.objects.get_or_create(owner_id=user.id)
-            column1, _ = Column.objects.get_or_create(title="To do", board=board)
-            column2, _ = Column.objects.get_or_create(title="Done", board=board)
+        # if len(qs) == 0:
+        # Adding members to the board
+        # >>> board.members.add(member1)
+        # https://docs.djangoproject.com/en/3.0/topics/db/examples/many_to_many/
+        # board, _ = Board.objects.get_or_create(owner_id=user.id)
+        # column1, _ = Column.objects.get_or_create(title="To do", board=board)
+        # column2, _ = Column.objects.get_or_create(title="Done", board=board)
 
         if self.action == "retrieve":
             return qs.prefetch_related("columns__tasks")

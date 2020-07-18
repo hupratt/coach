@@ -49,6 +49,13 @@ class User(AbstractUser):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+        from boards.models import Board, Column
+
+        board = Board.objects.create(
+            owner=instance, title=f"Board of {instance.username}"
+        )
+        column1 = Column.objects.create(title="To do 🚀", board=board)
+        column2 = Column.objects.create(title="Done 💎", board=board)
 
 
 @receiver(user_signed_up)
