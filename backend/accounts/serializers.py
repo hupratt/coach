@@ -28,18 +28,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "email"]
 
 
-class UserDetailsSerializer(serializers.ModelSerializer):
-    token = serializers.SerializerMethodField()
-
-    class Meta:
-        model = User
-        fields = ("pk", "username", "email", "first_name", "last_name", "token")
-        read_only_fields = ("email",)
-
-    def get_token(self, user):
-        return TokenSerializer(TokenModel.objects.get(user=user)).data["key"]
-
-
 class UserSearchSerializer(serializers.ModelSerializer):
     avatar = AvatarSerializer(read_only=True)
 
@@ -49,28 +37,30 @@ class UserSearchSerializer(serializers.ModelSerializer):
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    avatar = AvatarSerializer(read_only=True)
+    token = serializers.SerializerMethodField()
+    avatar = serializers.SerializerMethodField()
     email = serializers.EmailField(
         validators=[UniqueValidator(queryset=User.objects.all())], required=False
     )
 
     class Meta:
         model = User
-        fields = [
-            "id",
+        fields = (
+            "pk",
             "username",
+            "email",
             "first_name",
             "last_name",
-            "email",
+            "token",
             "avatar",
-            "date_joined",
-            "is_guest",
-        ]
-        read_only_fields = [
-            "id",
-            "avatar",
-            "date_joined",
-        ]
+        )
+        read_only_fields = ("email", "token", "avatar")
+
+    def get_token(self, user):
+        return TokenSerializer(TokenModel.objects.get(user=user)).data["key"]
+
+    def get_avatar(self, user):
+        return Avatar.objects.get(id=user.avatar.id).photo.name
 
 
 class BoardOwnerSerializer(serializers.ModelSerializer):
@@ -86,19 +76,3 @@ class BoardMemberSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "username", "email", "first_name", "last_name", "avatar"]
 
-
-# class TokenSerializer(serializers.ModelSerializer):
-#     id = serializers.IntegerField(source="user.id", read_only=True)
-#     username = serializers.CharField(source="user.username", read_only=True)
-#     photo_url = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = TokenModel
-#         # Include field "key" once frontend actually uses token auth
-#         # instead of the current session auth
-#         fields = ("id", "username", "photo_url")
-
-#     def get_photo_url(self, obj):
-#         if not obj.user.avatar:
-#             return None
-#         return obj.user.avatar.photo.url

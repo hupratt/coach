@@ -10,6 +10,7 @@ const initialState = {
   distinct_id: null,
   email: null,
   cookieConsent: null,
+  avatar: null,
 };
 
 const authStart = (state, action) => {
@@ -31,6 +32,7 @@ const authSuccess = (state, action) => {
     user_name: action.user_name,
     error: null,
     loading: false,
+    avatar: action.avatar,
   });
 };
 

@@ -16,7 +16,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Navbar />
+        <Navbar avatar={this.props.avatar} />
         <BaseRouter />
         <BottomNavigation />
       </Router>
@@ -27,6 +27,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
+    avatar: state.auth.avatar,
   };
 };
 

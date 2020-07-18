@@ -23,14 +23,14 @@ from .serializers import (
     UserSearchSerializer,
 )
 from rest_auth.views import UserDetailsView
-from accounts.serializers import UserDetailsSerializer
+from accounts.serializers import UserDetailSerializer
 from rest_framework.generics import RetrieveUpdateAPIView
 
 User = get_user_model()
 
 
 class MyUserDetailsView(UserDetailsView):
-    serializer_class = UserDetailsSerializer
+    serializer_class = UserDetailSerializer
     permission_classes = (IsAuthenticated,)
 
 
@@ -87,6 +87,7 @@ class UserSearchView(ListAPIView):
         So there are some limits for this search endpoint.
         1) The search must have at least 3 characters
         2) A fixed low amount of users are returned at most
+        e.g. /api/u/search/?user=hugo9&board=2
         """
         params = request.query_params
         board_id = params.get("board", "")

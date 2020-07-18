@@ -38,13 +38,14 @@ export const authCheckState = () => {
       axios
         .get(API_USER)
         .then((res) => {
-          const { token } = res.data;
+          const { token, avatar, username } = res.data;
+          console.log("token, avatar, username", token, avatar, username);
           // expire in 7 days
           const expirationDate = new Date(new Date().getTime() + 3600 * 24 * 7);
           localStorage.setItem("token", token);
           localStorage.setItem("expirationDate", expirationDate);
           axios.defaults.headers.common["Authorization"] = "Token " + token;
-          dispatch(authSuccess(token));
+          dispatch(authSuccess(token, username, avatar));
         })
         .catch((err) => {
           dispatch(authFail(err));
@@ -59,11 +60,12 @@ export const authStart = () => {
   };
 };
 
-const authSuccess = (token, username = null) => {
+const authSuccess = (token, username = null, avatar = null) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     token: token,
     username: username,
+    avatar: avatar,
   };
 };
 

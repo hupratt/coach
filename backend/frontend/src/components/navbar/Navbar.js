@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { BASE } from "../../actions/api";
 // import defaultAvatar from "../../images/avatar.png";
 
-function Navbar({ name = "Anon Müller" }) {
+function Navbar({ name = "Anon Müller", avatar }) {
+  console.log("avatar", avatar);
+  const avatarFullPath = avatar
+    ? `${BASE}/media/${avatar}`
+    : `${BASE}/static/frontend/images/avatar.png`;
   return (
     <div className="navbar-wrapper">
       <div className="nav-container">
@@ -18,10 +22,7 @@ function Navbar({ name = "Anon Müller" }) {
         <Link to="/accounts/login">
           <div className="navbar-profile">
             <div className="navbar-profile__picture">
-              <img
-                src={`${BASE}/static/frontend/images/avatar.png`}
-                alt="Profile Picture"
-              />
+              <img src={avatarFullPath} alt="Profile Picture" />
             </div>
             <div className="navbar-profile__name">{name}</div>
           </div>
