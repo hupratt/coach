@@ -47,7 +47,7 @@ function Background(props) {
       setDidMount(true);
       setTimeout(() => {
         const script = document.createElement("script");
-        script.async = false;
+        script.async = true;
         script.src = "static/frontend/js/init.js";
         document.body.appendChild(script);
       }, 1000);

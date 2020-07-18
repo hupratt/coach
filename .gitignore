@@ -27,3 +27,4 @@ yarn-error.log*
 *.pyc
 *.sqlite3
 *.log
+/backend/frontend/static/frontend/main.js

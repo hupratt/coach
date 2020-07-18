@@ -119,6 +119,12 @@ class RegistrationForm extends React.Component {
                     >
                       Signup
                     </Button>
+                    <Message>
+                      By signing up you are agreeing to our{" "}
+                      <NavLink to="/terms-of-use/">
+                        Terms and Conditions
+                      </NavLink>
+                    </Message>
                   </Segment>
                 </Form>
                 <Message>
