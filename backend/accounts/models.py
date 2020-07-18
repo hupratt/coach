@@ -65,6 +65,19 @@ def populate_db(request, user, sociallogin=None, **kwargs):
                 new_avatar.photo.save(name=name, content=ContentFile(response.content))
                 user.avatar = new_avatar
                 user.save()
+                import pdb
+
+                pdb.set_trace()
+    if sociallogin.account.provider == "facebook":
+        picture_path = sociallogin.account.get_avatar_url()
+        if picture_path is not None and picture_path is not "None":
+            response = requests.get(picture_path)
+            name = urlparse(picture_path).path.split("/")[-1]
+            if response.status_code == 200:
+                new_avatar = Avatar()
+                new_avatar.photo.save(name=name, content=ContentFile(response.content))
+                user.avatar = new_avatar
+                user.save()
     if sociallogin.account.provider == "github":
         new = ""
         name = sociallogin.account.extra_data["name"]
