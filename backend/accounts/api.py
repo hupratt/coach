@@ -22,8 +22,16 @@ from .serializers import (
     UserDetailSerializer,
     UserSearchSerializer,
 )
+from rest_auth.views import UserDetailsView
+from accounts.serializers import UserDetailsSerializer
+from rest_framework.generics import RetrieveUpdateAPIView
 
 User = get_user_model()
+
+
+class MyUserDetailsView(UserDetailsView):
+    serializer_class = UserDetailsSerializer
+    permission_classes = (IsAuthenticated,)
 
 
 class ExcludeBoardMembersFilter(filters.BaseFilterBackend):

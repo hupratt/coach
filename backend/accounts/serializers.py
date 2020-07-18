@@ -3,6 +3,8 @@ from pathlib import Path
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+from rest_auth.serializers import TokenSerializer
+from rest_auth.models import TokenModel
 
 from .models import Avatar
 
@@ -24,6 +26,18 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "email"]
+
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ("pk", "username", "email", "first_name", "last_name", "token")
+        read_only_fields = ("email",)
+
+    def get_token(self, user):
+        return TokenSerializer(TokenModel.objects.get(user=user)).data["key"]
 
 
 class UserSearchSerializer(serializers.ModelSerializer):

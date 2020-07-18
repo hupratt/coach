@@ -29,6 +29,8 @@ export const BASE = process.env.REACT_APP_BASE_URL;
 // Available endpoints
 export const API_LOGIN = `${BASE}/auth/login/`;
 export const API_LOGOUT = `${BASE}/auth/logout/`;
+export const API_USER = `${BASE}/auth/user-with-token/`;
+export const API_TOKEN = `${BASE}/api-token-auth/`;
 export const API_REGISTER = `${BASE}/auth/registration/`;
 export const API_GUEST_REGISTER = "auth/guest/";
 

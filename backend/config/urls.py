@@ -20,10 +20,13 @@ from django.urls import path, include, re_path
 from rest_framework import routers
 from .views import index, ServiceWorkerView
 
+# from rest_framework.authtoken.views import obtain_auth_token
+
 from accounts.api import (
     UserViewSet,
     UserSearchView,
     AvatarViewSet,
+    MyUserDetailsView,
 )  # , GuestRegistration
 from boards.api import (
     BoardViewSet,
@@ -53,14 +56,16 @@ urlpatterns = [
     path("api/sort/task/", SortTask.as_view(), name="sort-task"),
     path("api-auth/", include("rest_framework.urls")),
     path("auth/", include("rest_auth.urls")),
+    path("auth/user-with-token/", MyUserDetailsView.as_view()),
+    # path("api-token-auth/", obtain_auth_token),
     path("auth/registration/", include("rest_auth.registration.urls")),
     # path("auth/guest/", GuestRegistration.as_view(), name="guest-registration"),
     path("backdoor/", admin.site.urls),
     path("sw.js", ServiceWorkerView.as_view(), name=ServiceWorkerView.name),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
 # make sure this is always last
-urlpatterns += [re_path(r"^.*", index, name="home")]
+# urlpatterns += [re_path(r"^.*", index, name="home")]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

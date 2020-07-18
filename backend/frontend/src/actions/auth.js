@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_LOGIN, API_LOGOUT, BASE, API_REGISTER } from "./api";
+import { API_LOGIN, API_LOGOUT, BASE, API_REGISTER, API_USER } from "./api";
 import * as actionTypes from "./actionTypes";
 
 export const login = (username, password) => {
@@ -34,6 +34,16 @@ export const authCheckState = () => {
       } else {
         dispatch(logout());
       }
+    } else {
+      axios
+        .get(API_USER)
+        .then((res) => {
+          console.log("res", res);
+        })
+        .catch((err) => {
+          dispatch(authFail(err));
+          console.log("err", err);
+        });
     }
   };
 };
@@ -76,16 +86,6 @@ const logout = () => {
 //     });
 //   };
 // };
-
-const checkAuthTimeout = (expirationTime) => {
-  return (dispatch) => {
-    axios.post(`${API_LOGOUT}`).then(
-      setTimeout(() => {
-        dispatch(logout());
-      }, expirationTime * 5000)
-    );
-  };
-};
 
 // const userIsStaff = () => {
 //   return (dispatch) => {

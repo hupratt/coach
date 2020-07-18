@@ -12,6 +12,9 @@ from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
 from urllib.parse import urlparse
 import requests
+from django.conf import settings
+from django.db.models.signals import post_save
+from rest_framework.authtoken.models import Token
 
 
 class Avatar(models.Model):
@@ -40,6 +43,12 @@ class User(AbstractUser):
 
     class Meta:
         ordering = ["-id"]
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 
 @receiver(user_signed_up)
