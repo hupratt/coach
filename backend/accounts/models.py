@@ -65,9 +65,6 @@ def populate_db(request, user, sociallogin=None, **kwargs):
                 new_avatar.photo.save(name=name, content=ContentFile(response.content))
                 user.avatar = new_avatar
                 user.save()
-                import pdb
-
-                pdb.set_trace()
     if sociallogin.account.provider == "facebook":
         picture_path = sociallogin.account.get_avatar_url()
         if picture_path is not None and picture_path is not "None":
