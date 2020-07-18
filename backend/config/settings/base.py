@@ -154,7 +154,7 @@ STATICFILES_DIRS = [
 ]
 
 # Media files
-MEDIA_ROOT = "./media"
+MEDIA_ROOT = os.environ.get("DJANGO_MEDIA_ROOT", os.path.join(BACKEND_DIR, "media"))
 MEDIA_URL = "/media/"
 
 # Fixtures
