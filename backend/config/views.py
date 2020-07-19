@@ -19,12 +19,12 @@ def index(request):
 class ServiceWorkerView(TemplateView):
     template_name = "sw.js"
     content_type = "application/javascript"
-    name = "sw.js"
+    name = "service_worker"
 
     def get_context_data(self, **kwargs):
         return {
             "icon_url": static("icons/logo.png"),
             "manifest_url": static("pwa/manifest.json"),
             "style_url": static("styles/style.css"),
-            "home_url": reverse("home"),
+            # "home_url": reverse("home"),
         }

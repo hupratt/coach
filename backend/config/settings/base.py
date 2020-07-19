@@ -33,10 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    "accounts",
-    "boards",
-    "frontend",
-    "socialaccounts.apps.SocialAccountConfig",
+    # external
     "adminsortable",
     "rest_framework",
     "rest_framework.authtoken",
@@ -50,6 +47,12 @@ INSTALLED_APPS = [
     "rest_auth.registration",
     "django_extensions",
     "corsheaders",
+    # "webpush",
+    # internal
+    "accounts",
+    "boards",
+    "frontend",
+    "socialaccounts.apps.SocialAccountConfig",
 ]
 
 CORS_ORIGIN_WHITELIST = (
@@ -82,7 +85,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BACKEND_DIR, "frontend/static/")],
+        "DIRS": "",
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -190,3 +193,9 @@ POSTHOG_DOMAIN = os.environ.get("POSTHOG_DOMAIN", "")
 
 
 CSRF_COOKIE_NAME = "XSRF-TOKEN"
+
+# WEBPUSH_SETTINGS = {
+#     "VAPID_PUBLIC_KEY": os.environ.get("VAPID_PUBLIC_KEY", ""),
+#     "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
+#     "VAPID_ADMIN_EMAIL": os.environ.get("VAPID_ADMIN_EMAIL", ""),
+# }

@@ -61,7 +61,12 @@ urlpatterns = [
     path("auth/registration/", include("rest_auth.registration.urls")),
     # path("auth/guest/", GuestRegistration.as_view(), name="guest-registration"),
     path("backdoor/", admin.site.urls),
-    path("sw.js", ServiceWorkerView.as_view(), name=ServiceWorkerView.name),
+    # path("webpush/", include("webpush.urls")),  # save_information
+    path(
+        "webpush/service_worker.js",
+        ServiceWorkerView.as_view(),
+        name=ServiceWorkerView.name,
+    ),
 ]
 
 # make sure this is always last
