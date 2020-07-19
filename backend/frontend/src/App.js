@@ -4,19 +4,23 @@ import Navbar from "./components/navbar/Navbar";
 import BottomNavigation from "./components/navbar/BottomNav";
 import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
-import { authCheckState } from "./actions/auth";
+import { authCheckState, checkAuthTimeout } from "./actions/auth";
+
 import { grabQuoteOfTheDay } from "./actions/quote";
 
 class App extends React.Component {
   componentDidMount() {
-    this.props.onTryAutoSignup();
+    console.log("user", this.props.user);
     this.props.grabQuoteOfTheDay();
+    if (!localStorage.getItem("token") || !this.props.user.token) {
+      this.props.checkAuthTimeout(10);
+    }
   }
 
   render() {
     return (
       <Router>
-        <Navbar avatar={this.props.avatar} />
+        <Navbar user={this.props.user} />
         <BaseRouter />
         <BottomNavigation />
       </Router>
@@ -26,8 +30,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.auth.token,
-    avatar: state.auth.avatar,
+    user: state.auth.user,
   };
 };
 
@@ -35,6 +38,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onTryAutoSignup: () => dispatch(authCheckState()),
     grabQuoteOfTheDay: () => dispatch(grabQuoteOfTheDay()),
+    checkAuthTimeout: (seconds) => dispatch(checkAuthTimeout(seconds)),
   };
 };
 

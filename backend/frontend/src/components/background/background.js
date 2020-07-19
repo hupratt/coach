@@ -7,7 +7,6 @@ import { useDidUpdate } from "../utils";
 import "./background.css";
 
 const heroArea = (children, author, quote, blur, superblur) => {
-  console.log("content blur");
   const vis = blur ? "hidden" : "inherit";
   return (
     <React.Fragment>

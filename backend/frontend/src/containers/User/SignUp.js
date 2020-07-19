@@ -9,7 +9,7 @@ import {
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
-import { authSignup } from "../../actions/auth";
+import { authSignup, sociallogin } from "../../actions/auth";
 import {
   googleLogin,
   facebookLogin,
@@ -18,6 +18,7 @@ import {
 } from "../../actions/api";
 // import arrowleft from "../../images/long-arrow-pointing-to-left-white.svg";
 import { Link } from "react-router-dom";
+import Social from "./Social";
 
 class RegistrationForm extends React.Component {
   state = {
@@ -26,7 +27,6 @@ class RegistrationForm extends React.Component {
     password1: "",
     password2: "",
   };
-
   handleSubmit = (e) => {
     e.preventDefault();
     const { username, email, password1, password2 } = this.state;
@@ -36,7 +36,6 @@ class RegistrationForm extends React.Component {
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
   render() {
     const { username, email, password1, password2 } = this.state;
     const { error, loading, token } = this.props;
@@ -133,35 +132,7 @@ class RegistrationForm extends React.Component {
                 </Message>
               </React.Fragment>
             </Grid.Column>
-            <Grid.Column style={{ maxWidth: 450, marginTop: 100 }}>
-              {error && <p>{this.props.error.message}</p>}
-              <Segment stacked style={{ minHeight: "285" }}>
-                <div className="social-box">
-                  <button
-                    className="social-login google"
-                    onClick={() => (window.location.href = googleLogin)}
-                  >
-                    <img src="https://bookshop-images-f1492f08-f236-4a55-afb7-70ded209cb24.s3.eu-west-2.amazonaws.com/resources/google-icon-logo-png-transparent.png" />
-                    Google
-                  </button>
-
-                  <button
-                    className="social-login facebook"
-                    onClick={() => (window.location.href = facebookLogin)}
-                  >
-                    <img src="https://bookshop-images-f1492f08-f236-4a55-afb7-70ded209cb24.s3.eu-west-2.amazonaws.com/resources/FB-Icon.png" />
-                    Facebook
-                  </button>
-                  <button
-                    className="social-login github"
-                    onClick={() => (window.location.href = githubLogin)}
-                  >
-                    <img src="https://bookshop-images-f1492f08-f236-4a55-afb7-70ded209cb24.s3.eu-west-2.amazonaws.com/resources/github.png" />
-                    Github
-                  </button>
-                </div>
-              </Segment>
-            </Grid.Column>
+            <Social error={error} onclicksocial={this.props.onclicksocial} />
           </Grid.Row>
         </Grid>
       </>
@@ -181,6 +152,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     signup: (username, email, password1, password2) =>
       dispatch(authSignup(username, email, password1, password2)),
+    onclicksocial: (platform) => dispatch(sociallogin(platform)),
   };
 };
 

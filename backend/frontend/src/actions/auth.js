@@ -21,22 +21,40 @@ export const login = (username, password) => {
     });
 };
 
-export const sociallogin = () => {
+export const sociallogin = (platformUrl = "") => {
   return (dispatch) => {
     axios
       .get(API_USER)
       .then((res) => {
-        const { token, avatar, username } = res.data;
+        const { token, avatar, username, first_name, last_name } = res.data;
+        const user = {
+          token,
+          avatar,
+          first_name,
+          last_name,
+          username,
+        };
         // expire in 7 days
         const expirationDate = new Date(new Date().getTime() + 3600 * 24 * 7);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
         axios.defaults.headers.common["Authorization"] = "Token " + token;
-        dispatch(authSuccess(token, username, avatar));
+        dispatch(authSuccess(user));
       })
       .catch((err) => {
         dispatch(authFail(err));
+        if (platformUrl.length > 0) {
+          window.location.href = platformUrl;
+        }
       });
+  };
+};
+
+export const checkAuthTimeout = (secondsDelay) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(sociallogin());
+    }, secondsDelay * 1000);
   };
 };
 
@@ -47,7 +65,7 @@ export const authCheckState = () => {
       const expirationDate = new Date(localStorage.getItem("expirationDate"));
       if (expirationDate > new Date()) {
         axios.defaults.headers.common["Authorization"] = "Token " + token;
-        dispatch(authSuccess(token));
+        dispatch(authSuccess({ user: { token } }));
       } else {
         dispatch(logout());
       }
@@ -63,12 +81,10 @@ export const authStart = () => {
   };
 };
 
-const authSuccess = (token, username = null, avatar = null) => {
+const authSuccess = (user) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    token: token,
-    username: username,
-    avatar: avatar,
+    user: user,
   };
 };
 
@@ -107,13 +123,15 @@ export const authLogin = (username, password) => {
       })
       .then((res) => {
         const token = res.data.key;
+        // grab all user data with another axios call
+        const user = {
+          user: { token, username },
+        };
         const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
         axios.defaults.headers.common["Authorization"] = "Token " + token;
-        // dispatch(userIsStaff());
-        dispatch(authSuccess(token, username));
-        // dispatch(checkAuthTimeout(36000));
+        dispatch(authSuccess(user));
       })
       .catch((err) => {
         dispatch(authFail(err));

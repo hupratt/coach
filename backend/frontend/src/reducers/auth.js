@@ -2,15 +2,18 @@ import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "./utility";
 
 const initialState = {
-  token: null,
   error: null,
   loading: false,
-  user_staff: null,
-  user_name: null,
   distinct_id: null,
-  email: null,
   cookieConsent: null,
-  avatar: null,
+  user: {
+    token: null,
+    avatar: null,
+    first_name: null,
+    last_name: null,
+    username: null,
+    email: null,
+  },
 };
 
 const authStart = (state, action) => {
@@ -27,12 +30,18 @@ const grabTokenDistinctId = (state, action) => {
 };
 
 const authSuccess = (state, action) => {
+  console.log("state", state);
+  console.log("action", action);
   return updateObject(state, {
-    token: action.token,
-    user_name: action.user_name,
     error: null,
     loading: false,
-    avatar: action.avatar,
+    user: {
+      token: action.user.token,
+      user_name: action.user.user_name,
+      first_name: action.user.first_name,
+      last_name: action.user.last_name,
+      avatar: action.user.avatar,
+    },
   });
 };
 
@@ -45,15 +54,19 @@ const authFail = (state, action) => {
 
 const authLogout = (state, action) => {
   return updateObject(state, {
-    token: null,
+    user: {
+      token: null,
+    },
   });
 };
 
 const authIsStaff = (state, action) => {
   return updateObject(state, {
-    user_staff: action.data.user_staff,
-    user_name: action.data.user_name,
-    email: action.data.email,
+    user: {
+      user_staff: action.data.user_staff,
+      user_name: action.data.user_name,
+      email: action.data.email,
+    },
   });
 };
 
