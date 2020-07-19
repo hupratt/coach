@@ -86,14 +86,6 @@ function ProfilePage({
     avatar && avatar.length > 3
       ? `${BASE}/media/${avatar}`
       : `${BASE}/static/frontend/images/avatar.png`;
-  const gifLoading = `${BASE}/static/loading-arrow.gif`;
-  const [loading, setLoading] = useState(true);
-  const img = loading ? gifLoading : avatarFullPath;
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 10 * 1000);
-  }, []);
 
   return (
     <React.Fragment>
@@ -111,7 +103,7 @@ function ProfilePage({
           <h1>{fullName}</h1>
           <h2></h2>
           <div className="profile-image">
-            <img src={img} />
+            <img src={avatarFullPath} />
             <div className="profile-status profile-status-online"></div>
           </div>
         </div>
