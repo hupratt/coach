@@ -5,9 +5,10 @@ import { BASE } from "../../actions/api";
 // import defaultAvatar from "../../images/avatar.png";
 
 function Navbar({ user: { token, avatar, username, first_name, last_name } }) {
-  const avatarFullPath = avatar
-    ? `${BASE}/media/${avatar}`
-    : `${BASE}/static/frontend/images/avatar.png`;
+  const avatarFullPath =
+    avatar && avatar.length > 3
+      ? `${BASE}/media/${avatar}`
+      : `${BASE}/static/frontend/images/avatar.png`;
   const fullName = last_name
     ? `${first_name} ${last_name.charAt(0)}.`
     : `Anonymous`;

@@ -82,9 +82,10 @@ function ProfilePage({
   user: { token, avatar, username, first_name, last_name },
 }) {
   const fullName = last_name ? `${first_name} ${last_name}` : `Anonymous`;
-  const avatarFullPath = avatar
-    ? `${BASE}/media/${avatar}`
-    : `${BASE}/static/frontend/images/avatar.png`;
+  const avatarFullPath =
+    avatar && avatar.length > 3
+      ? `${BASE}/media/${avatar}`
+      : `${BASE}/static/frontend/images/avatar.png`;
   const gifLoading = `${BASE}/static/loading-arrow.gif`;
   const [loading, setLoading] = useState(true);
   const img = loading ? gifLoading : avatarFullPath;

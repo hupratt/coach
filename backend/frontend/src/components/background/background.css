@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-:root {
-  font-size: 18px;
-}
-
 body {
   margin: 0;
   --color-text: #fff;
@@ -20,6 +16,8 @@ body {
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 18px;
 }
 
 @keyframes loaderAnim {
@@ -116,7 +114,7 @@ a:focus {
 .content__pretitle {
   color: var(--color-text);
   font-style: italic;
-  font-size: 1.35rem;
+  font-size: 1.7rem;
 }
 
 .content__title {
