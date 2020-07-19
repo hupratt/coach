@@ -203,3 +203,4 @@ CSRF_COOKIE_NAME = "XSRF-TOKEN"
 #     "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
 #     "VAPID_ADMIN_EMAIL": os.environ.get("VAPID_ADMIN_EMAIL", ""),
 # }
+
