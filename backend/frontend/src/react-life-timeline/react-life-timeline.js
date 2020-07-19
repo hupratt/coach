@@ -168,13 +168,15 @@ export default class ReactLifeTimeline extends React.Component {
     let cls = "week";
     if (future) cls += " future";
     if (single) _single = <span className="singleEvents"></span>;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     return (
       <React.Fragment key={weekCounter}>
         <ReactTooltip
           place="top"
           effect="solid"
           delayHide={1000}
-          data-event="click"
+          style={{ cursor: "pointer" }}
+          globalEventOff={isMobile ? "click" : undefined}
         />
         <div
           className={cls}

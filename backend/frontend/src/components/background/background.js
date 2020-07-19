@@ -43,10 +43,6 @@ function Background(props) {
   const blur = visible ? "blur" : "";
   const superblur = visible ? "superblur" : "";
 
-  // component did mount
-  // useEffect(() => {
-  //   dispatch(grabQuoteOfTheDay());
-  // }, [backgroundLoaded]);
   // component will unmount
   useEffect(() => {
     return () => {
