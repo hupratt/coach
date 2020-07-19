@@ -30,8 +30,6 @@ const grabTokenDistinctId = (state, action) => {
 };
 
 const authSuccess = (state, action) => {
-  console.log("state", state);
-  console.log("action", action);
   return updateObject(state, {
     error: null,
     loading: false,

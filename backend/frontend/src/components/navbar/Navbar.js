@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { BASE } from "../../actions/api";
@@ -11,6 +11,14 @@ function Navbar({ user: { token, avatar, username, first_name, last_name } }) {
   const fullName = last_name
     ? `${first_name} ${last_name.charAt(0)}.`
     : `Anonymous`;
+  const gifLoading = `${BASE}/static/loading-arrow.gif`;
+  const [loading, setLoading] = useState(true);
+  const img = loading ? gifLoading : avatarFullPath;
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 10 * 1000);
+  }, []);
   return (
     <div className="navbar-wrapper">
       <div className="nav-container">
@@ -24,7 +32,7 @@ function Navbar({ user: { token, avatar, username, first_name, last_name } }) {
         <Link to="/accounts/login">
           <div className="navbar-profile">
             <div className="navbar-profile__picture">
-              <img src={avatarFullPath} alt="Profile Picture" />
+              <img src={img} alt="Profile Picture" />
             </div>
             <div className="navbar-profile__name">{fullName}</div>
           </div>

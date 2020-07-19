@@ -60,7 +60,9 @@ class UserDetailSerializer(serializers.ModelSerializer):
         return TokenSerializer(TokenModel.objects.get(user=user)).data["key"]
 
     def get_avatar(self, user):
-        return Avatar.objects.get(id=user.avatar.id).thumbnail.name
+        if user.avatar:
+            return Avatar.objects.get(id=user.avatar.id).thumbnail.name
+        return ""
 
 
 class BoardOwnerSerializer(serializers.ModelSerializer):

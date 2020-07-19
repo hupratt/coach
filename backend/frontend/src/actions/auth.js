@@ -13,8 +13,10 @@ export const login = (username, password) => {
     })
     .then((res) => {
       const token = res.data.key;
-      // expire in 7 days
-      const expirationDate = new Date(new Date().getTime() + 3600 * 24 * 7);
+      // expire in 10 days
+      const expirationDate = new Date(
+        Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10
+      );
       localStorage.setItem("token", token);
       localStorage.setItem("expirationDate", expirationDate);
       axios.defaults.headers.common["Authorization"] = "Token " + token;
@@ -34,15 +36,17 @@ export const sociallogin = (platformUrl = "") => {
           last_name,
           username,
         };
-        // expire in 7 days
-        const expirationDate = new Date(new Date().getTime() + 3600 * 24 * 7);
+        // expire in 10 days
+        const expirationDate = new Date(
+          Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10
+        );
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
         axios.defaults.headers.common["Authorization"] = "Token " + token;
         dispatch(authSuccess(user));
       })
       .catch((err) => {
-        dispatch(authFail(err));
+        !err.toString().includes("401") && dispatch(authFail(err));
         if (platformUrl.length > 0) {
           window.location.href = platformUrl;
         }

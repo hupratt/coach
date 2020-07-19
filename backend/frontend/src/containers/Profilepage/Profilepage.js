@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Profilepage.css";
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
@@ -81,10 +81,19 @@ function renderBadges() {
 function ProfilePage({
   user: { token, avatar, username, first_name, last_name },
 }) {
+  const fullName = last_name ? `${first_name} ${last_name}` : `Anonymous`;
   const avatarFullPath = avatar
     ? `${BASE}/media/${avatar}`
     : `${BASE}/static/frontend/images/avatar.png`;
-  const fullName = last_name ? `${first_name} ${last_name}` : `Anonymous`;
+  const gifLoading = `${BASE}/static/loading-arrow.gif`;
+  const [loading, setLoading] = useState(true);
+  const img = loading ? gifLoading : avatarFullPath;
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 10 * 1000);
+  }, []);
+
   return (
     <React.Fragment>
       <Link to="/" style={{ zIndex: 1, position: "relative" }}>
@@ -101,7 +110,7 @@ function ProfilePage({
           <h1>{fullName}</h1>
           <h2></h2>
           <div className="profile-image">
-            <img src={avatarFullPath} />
+            <img src={img} />
             <div className="profile-status profile-status-online"></div>
           </div>
         </div>
