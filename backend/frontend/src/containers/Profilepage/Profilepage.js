@@ -78,7 +78,13 @@ function renderBadges() {
     </div>
   );
 }
-function ProfilePage({ name = "Anon Müller", title = "Web Developer" }) {
+function ProfilePage({
+  user: { token, avatar, username, first_name, last_name },
+}) {
+  const avatarFullPath = avatar
+    ? `${BASE}/media/${avatar}`
+    : `${BASE}/static/frontend/images/avatar.png`;
+  const fullName = last_name ? `${first_name} ${last_name}` : `Anonymous`;
   return (
     <React.Fragment>
       <Link to="/" style={{ zIndex: 1, position: "relative" }}>
@@ -92,10 +98,10 @@ function ProfilePage({ name = "Anon Müller", title = "Web Developer" }) {
       </Link>
       <div className="profile-panel profile-panel-orange">
         <div className="profile-header">
-          <h1>{name}</h1>
+          <h1>{fullName}</h1>
           <h2></h2>
           <div className="profile-image">
-            <img src={`${BASE}/static/frontend/images/avatar.png`} />
+            <img src={avatarFullPath} />
             <div className="profile-status profile-status-online"></div>
           </div>
         </div>

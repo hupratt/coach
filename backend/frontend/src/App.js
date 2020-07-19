@@ -21,7 +21,7 @@ class App extends React.Component {
     return (
       <Router>
         <Navbar user={this.props.user} />
-        <BaseRouter />
+        <BaseRouter user={this.props.user} />
         <BottomNavigation />
       </Router>
     );
