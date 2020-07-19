@@ -11,7 +11,7 @@ User = get_user_model()
 class Board(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="owned_boards"
+        User, on_delete=models.CASCADE, related_name="owned_boards"
     )
     members = models.ManyToManyField(User, related_name="boards")
 
@@ -120,6 +120,6 @@ class Event(TimeStampedModel):
     done = models.DateTimeField(help_text="date for the task_done_at")
     objects = EventManager()
     creator = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="event_creator"
+        User, on_delete=models.CASCADE, related_name="event_creator"
     )
 
