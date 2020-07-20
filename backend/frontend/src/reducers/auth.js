@@ -35,7 +35,7 @@ const authSuccess = (state, action) => {
     loading: false,
     user: {
       token: action.user.token,
-      user_name: action.user.user_name,
+      username: action.user.username,
       first_name: action.user.first_name,
       last_name: action.user.last_name,
       avatar: action.user.avatar,

@@ -81,7 +81,8 @@ function renderBadges() {
 function ProfilePage({
   user: { token, avatar, username, first_name, last_name },
 }) {
-  const fullName = last_name ? `${first_name} ${last_name}` : `Anonymous`;
+  let fullName = last_name ? `${first_name} ${last_name}` : `Anonymous`;
+  fullName = username && fullName === "Anonymous" ? `${username}` : `Anonymous`;
   const avatarFullPath =
     avatar && avatar.length > 3
       ? `${BASE}/media/${avatar}`

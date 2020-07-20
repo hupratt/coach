@@ -3,13 +3,10 @@ import { API_LOGIN, API_LOGOUT, BASE, API_REGISTER, API_USER } from "./api";
 import * as actionTypes from "./actionTypes";
 
 export const login = (username, password) => {
-  axios.defaults.xsrfHeaderName = "X-CSRFToken";
-  axios.defaults.withCredentials = true;
   axios
     .post(`${BASE}/${API_LOGIN}`, {
       username,
       password,
-      xsrfHeaderName: "X-CSRFToken",
     })
     .then((res) => {
       const token = res.data.key;
@@ -126,11 +123,8 @@ export const authLogin = (username, password) => {
         password: password,
       })
       .then((res) => {
-        const token = res.data.key;
         // grab all user data with another axios call
-        const user = {
-          user: { token, username },
-        };
+        const user = { token, username };
         const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
@@ -154,12 +148,21 @@ export const authSignup = (username, email, password1, password2) => {
         password2: password2,
       })
       .then((res) => {
-        const token = res.data.key;
+        // const { token, avatar, username, first_name, last_name } = res.data;
+        const { token, username } = res.data;
+        const user = { token, username };
+        // const user = {
+        //   token,
+        //   avatar,
+        //   first_name,
+        //   last_name,
+        //   username,
+        // };
         const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
         axios.defaults.headers.common["Authorization"] = "Token " + token;
-        dispatch(authSuccess(token, username));
+        dispatch(authSuccess(user));
         // dispatch(checkAuthTimeout(3600));
       })
       .catch((err) => {

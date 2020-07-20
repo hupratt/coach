@@ -111,21 +111,21 @@ export default class ReactLifeTimeline extends React.Component {
         }
         week_start.setDate(week_start.getDate() + 1);
       }
-      if (bd_in_week) {
-        color = this.props.birthday_color;
-        let me = subject_name === null;
-        let title;
-        let subj = me ? "I" : subject_name;
-        if (age === 0) {
-          let verb = me ? "am" : "is";
-          title = `${subj} ${verb} born!`;
-        } else {
-          let verb = me ? "turn" : "turns";
-          title = `${subj} ${verb} ${age} on ${birthday.getMonth() +
-            1}/${birthday.getDate()}`;
-        }
-        _events.push({ title: title, color: color });
-      }
+      // if (bd_in_week) {
+      //   color = this.props.birthday_color;
+      //   let me = subject_name === null;
+      //   let title;
+      //   let subj = me ? "I" : subject_name;
+      //   if (age === 0) {
+      //     let verb = me ? "am" : "is";
+      //     title = `${subj} ${verb} born!`;
+      //   } else {
+      //     let verb = me ? "turn" : "turns";
+      //     title = `${subj} ${verb} ${age} on ${birthday.getMonth() +
+      //       1}/${birthday.getDate()}`;
+      //   }
+      //   _events.push({ title: title, color: color });
+      // }
     }
     // if (this_week) {
     //   color = "white";

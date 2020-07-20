@@ -139,6 +139,7 @@ class EventView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
+        # event data is broken, check serializer
         qs_events = (
             Event.objects.annotate(week=ExtractWeek("done"))
             .annotate(year=ExtractYear("done"))
