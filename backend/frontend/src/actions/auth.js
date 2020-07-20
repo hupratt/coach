@@ -2,24 +2,6 @@ import axios from "axios";
 import { API_LOGIN, API_LOGOUT, BASE, API_REGISTER, API_USER } from "./api";
 import * as actionTypes from "./actionTypes";
 
-export const login = (username, password) => {
-  axios
-    .post(`${BASE}/${API_LOGIN}`, {
-      username,
-      password,
-    })
-    .then((res) => {
-      const token = res.data.key;
-      // expire in 10 days
-      const expirationDate = new Date(
-        Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10
-      );
-      localStorage.setItem("token", token);
-      localStorage.setItem("expirationDate", expirationDate);
-      axios.defaults.headers.common["Authorization"] = "Token " + token;
-    });
-};
-
 export const sociallogin = (platformUrl = "") => {
   return (dispatch) => {
     axios
@@ -124,11 +106,14 @@ export const authLogin = (username, password) => {
       })
       .then((res) => {
         // grab all user data with another axios call
-        const user = { token, username };
-        const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
-        localStorage.setItem("token", token);
+        const { key } = res.data;
+        const user = { token: key, username };
+        const expirationDate = new Date(
+          Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10
+        );
+        localStorage.setItem("token", key);
         localStorage.setItem("expirationDate", expirationDate);
-        axios.defaults.headers.common["Authorization"] = "Token " + token;
+        axios.defaults.headers.common["Authorization"] = "Token " + key;
         dispatch(authSuccess(user));
       })
       .catch((err) => {
@@ -149,8 +134,8 @@ export const authSignup = (username, email, password1, password2) => {
       })
       .then((res) => {
         // const { token, avatar, username, first_name, last_name } = res.data;
-        const { token, username } = res.data;
-        const user = { token, username };
+        const { key } = res.data;
+        const user = { token: key, username };
         // const user = {
         //   token,
         //   avatar,
@@ -158,10 +143,13 @@ export const authSignup = (username, email, password1, password2) => {
         //   last_name,
         //   username,
         // };
-        const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
-        localStorage.setItem("token", token);
+        // expire in 10 days
+        const expirationDate = new Date(
+          Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10
+        );
+        localStorage.setItem("token", key);
         localStorage.setItem("expirationDate", expirationDate);
-        axios.defaults.headers.common["Authorization"] = "Token " + token;
+        axios.defaults.headers.common["Authorization"] = "Token " + key;
         dispatch(authSuccess(user));
         // dispatch(checkAuthTimeout(3600));
       })

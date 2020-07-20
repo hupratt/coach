@@ -4,7 +4,6 @@ import "./Home.css";
 import CardColumn from "../../containers/CardColumn/CardColumn";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { withError } from "../../containers/hoc/Hoc";
-import { login } from "../../actions/auth";
 import {
   setColumns,
   setColumnName,
