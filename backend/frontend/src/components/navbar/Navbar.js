@@ -12,7 +12,9 @@ function Navbar({ user: { token, avatar, username, first_name, last_name } }) {
   let fullName = last_name
     ? `${first_name} ${last_name.charAt(0)}.`
     : `Anonymous`;
-  fullName = username && fullName === "Anonymous" ? `${username}` : `Anonymous`;
+  if (username && fullName === "Anonymous") {
+    fullName = username ? `${username}` : `Anonymous`;
+  }
   const gifLoading = `${BASE}/static/loading-arrow.gif`;
   const [loading, setLoading] = useState(true);
   const img = loading ? gifLoading : avatarFullPath;
