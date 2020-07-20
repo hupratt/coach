@@ -3,7 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 import { transform } from "./etl";
 import { setColumns } from "./columns";
 import axios from "axios";
-import { grabEvents } from "./events";
+import { grabEvents, successBroadcast } from "./events";
 
 export const apiTaskCreate = (card, colID, columnData) => {
   console.log("init a new card");
@@ -60,6 +60,9 @@ export const apiTaskStatusUpdate = (taskId, newColumnId, week, boardid) => {
           .then((_) => {
             dispatch(grabEvents());
           })
+          .then((_) => {
+            dispatch(successBroadcast("Event created successfully"));
+          })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });
           });
@@ -90,6 +93,9 @@ export const apiTaskContentUpdate = (values, taskId, colId, boardid) => {
           })
           .then(() => {
             dispatch(grabEvents());
+          })
+          .then((_) => {
+            dispatch(successBroadcast("Task created successfully"));
           })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });
@@ -122,6 +128,9 @@ export const apiTaskDelete = (id, boardid) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;
             dispatch(setColumns(transform(columns)));
+          })
+          .then((_) => {
+            dispatch(successBroadcast("Task deleted successfully"));
           })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });

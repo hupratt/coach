@@ -87,7 +87,7 @@ a:focus {
   color: var(--color-info);
 }
 
-.content {
+#root > .content {
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -185,7 +185,7 @@ canvas {
   .frame a {
     pointer-events: auto;
   }
-  .content {
+  #root > .content {
     height: 100vh;
     justify-content: center;
   }

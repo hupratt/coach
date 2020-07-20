@@ -2,6 +2,7 @@ import axios from "axios";
 import { api, API_BOARDS, API_COLUMNS, BASE } from "./api";
 import * as actionTypes from "../actions/actionTypes";
 import { transform } from "./etl";
+import { successBroadcast } from "./events";
 
 export const setColumns = (columns) => {
   console.log("set column action");
@@ -31,6 +32,9 @@ export const deleteColumnById = (id, boardid) => {
             // columns, labels, members, name, owner
             const { columns } = res.data;
             dispatch(setColumns(transform(columns)));
+          })
+          .then((_) => {
+            dispatch(successBroadcast("Column deleted successfully"));
           })
           .catch((err) => {
             dispatch({ type: actionTypes.FAIL, error: err });
@@ -70,6 +74,9 @@ export const apiColumnCreate = (data, boardid) => {
           type: actionTypes.SET_COLUMN_NAME,
           data,
         });
+      })
+      .then((_) => {
+        dispatch(successBroadcast("Column created successfully"));
       })
       .catch((err) => {
         dispatch({ type: actionTypes.FAIL, error: err });

@@ -42,6 +42,19 @@ const dispatch_events = (events) => {
   };
 };
 
+export const successBroadcast = (message) => {
+  setTimeout(() => resetSuccessMessage(), 5000);
+  return {
+    type: actionTypes.SUCCESS_EVENT_CREATED,
+    message,
+  };
+};
+const resetSuccessMessage = () => {
+  return {
+    type: actionTypes.SUCCESS_EVENT_CREATED,
+    message: null,
+  };
+};
 export const grabEvents = () => {
   let EVENTS = [];
   return (dispatch) => {

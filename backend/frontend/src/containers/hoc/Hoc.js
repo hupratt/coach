@@ -37,9 +37,17 @@ export const withLoading = (WrappedComponent) => {
 
 export const withError = (WrappedComponent) => {
   class HOC extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { show: true };
+    }
+    timeOut = () => {
+      setTimeout(() => this.setState({ show: false }), 5000);
+    };
     render() {
       const { error, success } = this.props;
-      if (error !== null) {
+      if (error !== null && this.state.show) {
+        // this.timeOut();
         return (
           <React.Fragment>
             <Toast
@@ -51,10 +59,11 @@ export const withError = (WrappedComponent) => {
           </React.Fragment>
         );
       }
-      if (success === true) {
+      if (success && this.state.show) {
+        // this.timeOut();
         return (
           <React.Fragment>
-            <Toast positive header="All good" content="Update succeeded" />
+            <Toast positive header="All good" content={success} />
             <WrappedComponent {...this.props} />
           </React.Fragment>
         );

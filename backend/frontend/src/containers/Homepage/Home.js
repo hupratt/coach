@@ -31,6 +31,7 @@ function Homepage() {
   const columnName = useSelector((state) => state.columns.columnName);
   const error = useSelector((state) => state.columns.error);
   const events = useSelector((state) => state.events.events);
+  const success = useSelector((state) => state.events.success);
   const boards = useSelector((state) => state.columns.boards);
   const title = useSelector((state) => state.tasks.values.title);
   const [week, setWeek] = useState(27);
@@ -343,7 +344,7 @@ function Homepage() {
   };
   return (
     <React.Fragment>
-      <BackgroundWithErrorHandling error={error}>
+      <BackgroundWithErrorHandling error={error} success={success}>
         <Timeline show={toggleVisibility} />
         <PopUpModal onClickAway={toggleVisibility}>
           {renderBoard(events)}
