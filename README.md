@@ -1,4 +1,4 @@
-# Coach: time tracking with React
+# Coach: calendar app with React
 
 # Local development
 
