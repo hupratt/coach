@@ -18,7 +18,7 @@ from rest_framework.authtoken.models import Token
 from PIL import Image as Img
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
-
+from datetime import date
 
 class Avatar(models.Model):
     photo = models.ImageField(upload_to="avatars")
@@ -125,7 +125,11 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         )
         column1 = Column.objects.create(title="To do", board=board)
         column2 = Column.objects.create(title="Done", board=board)
-
+        # today = date.today()
+        # year, weekNum, day_of_week = today.isocalendar()
+        task1, _ = Task.objects.get_or_create(title="This week", column=column1, week=27)
+        task2, _ = Task.objects.get_or_create(title="Wake up @8:00", column=column1, week=27)
+        # e = Event.objects.create(task=task1, status="DONE", creator=user)
 
 @receiver(user_signed_up)
 def scrape_social_login_on_signup(request, user, sociallogin=None, **kwargs):

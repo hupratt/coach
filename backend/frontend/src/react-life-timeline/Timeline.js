@@ -16,6 +16,20 @@ const daysLeftEndOfYear = (date1, date2) => {
   return 365 - diffDays(date1, date2);
 };
 
+function getWeekNumber(d) {
+  // Copy date so don't modify original
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  // Set to nearest Thursday: current date + 4 - current day number
+  // Make Sunday's day number 7
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+  // Get first day of year
+  var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  // Calculate full weeks to nearest Thursday
+  var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+  // Return array of year and week number
+  return [d.getUTCFullYear(), weekNo];
+}
+
 class Timeline extends React.Component {
   constructor(props) {
     super(props);
@@ -60,14 +74,16 @@ class Timeline extends React.Component {
 
   render() {
     const blur = this.props.visible ? "blur" : "";
+    var weekNum = getWeekNumber(new Date());
+
     return (
       <div className={`container see-through ${blur}`}>
-        <h2>2020</h2>
+        <h2>{'week ' + weekNum[1]}</h2>
         <ReactLifeTimeline
           subject_name="Hugo"
           birthday={new Date("1990-04-17")}
           events={this.props.events}
-          project_days={daysLeftEndOfYear(new Date("2020-01-01"), new Date())}
+          project_days={daysLeftEndOfYear(new Date("2021-01-01"), new Date())}
           show={this.props.show}
         />
       </div>
@@ -77,7 +93,7 @@ class Timeline extends React.Component {
 
 ReactLifeTimeline.defaultProps = {
   birthday: null, // Date object
-  birthday_color: "white",
+  birthday_color: "#F89542",
   events: [],
   project_days: 365, // Days into future to project,
   subject_name: null, // Person's name (otherwise 'I')
