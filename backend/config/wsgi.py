@@ -14,7 +14,7 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 
 
-if os.environ.get("DJANGO_DEVELOPMENT") == "true":
+if os.environ.get("DJANGO_DEVELOPMENT") == "True":
     dotenv.read_dotenv(
         os.path.join(
             os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
@@ -28,6 +28,6 @@ else:
         )
     )
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "home.settings")
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "home.settings")
 
 application = get_wsgi_application()

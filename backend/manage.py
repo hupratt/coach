@@ -5,15 +5,16 @@ import sys
 
 
 def main():
-    if os.environ.get("DJANGO_DEVELOPMENT") == "true":
+    if os.environ.get("DJANGO_DEVELOPMENT") == "True":
         dotenv.read_dotenv(
             os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env.development")
         )
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
     else:
         dotenv.read_dotenv(
             os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
         )
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
