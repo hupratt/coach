@@ -30,3 +30,4 @@ yarn-error.log*
 /backend/frontend/static/frontend/main.js
 
 /static/*
+sqlite3.db
