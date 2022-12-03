@@ -20,7 +20,7 @@ BACKEND_DIR = os.path.dirname(
 # SECURITY WARNING: don't run with debug turned on in production!
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
 DEBUG = os.environ.get("DEBUG", False)
-ALLOWED_HOSTS = ["coach.craftstudios.eu", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["coach.craftstudios.shop", "127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -62,7 +62,7 @@ CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:8000",
-    "https://coach.craftstudios.eu",
+    "https://coach.craftstudios.shop",
 )
 
 
