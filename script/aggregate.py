@@ -14,9 +14,11 @@ another_date = tz.localize(datetime(2020, 5, 21))
 another_date2 = tz.localize(datetime(2020, 8, 1))
 
 User = get_user_model()
-user, _ = User.objects.get_or_create(owner_id=1)
+# user, _ = User.objects.get_or_create(owner_id=1)
+user, _ = User.objects.get_or_create(id=1)
 
-board, _ = Board.objects.get_or_create(owner_id=user.id)
+
+board, _ = Board.objects.get_or_create(owner_id=user.id, id=1)
 column1, _ = Column.objects.get_or_create(title="To do", board=board)
 column2, _ = Column.objects.get_or_create(title="Done", board=board)
 task1, _ = Task.objects.get_or_create(title="Do push-ups", column=column1, week=27)

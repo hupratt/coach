@@ -2,7 +2,7 @@ from .base import *
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+DEBUG=True
 DEBUG_TOOLBAR = False
 
 if DEBUG_TOOLBAR:

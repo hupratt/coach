@@ -106,6 +106,7 @@ export const authLogin = (username, password) => {
       })
       .then((res) => {
         // grab all user data with another axios call
+
         const { key } = res.data;
         const user = { token: key, username };
         const expirationDate = new Date(

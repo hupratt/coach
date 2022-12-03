@@ -333,7 +333,6 @@ function Homepage() {
     );
   };
   const toggleVisibility = (weekCounter) => {
-    console.log("toggle triggered");
     if (localStorage.getItem("token")) {
       dispatch(triggerTogglePopUp());
       weekCounter.currentTarget &&

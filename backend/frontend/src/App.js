@@ -10,6 +10,7 @@ import { grabQuoteOfTheDay } from "./actions/quote";
 
 class App extends React.Component {
   componentDidMount() {
+    // console.log("hello");
     this.props.grabQuoteOfTheDay();
     if (!localStorage.getItem("token") || !this.props.user.token) {
       this.props.checkAuthTimeout(10);

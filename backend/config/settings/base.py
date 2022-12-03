@@ -57,10 +57,12 @@ INSTALLED_APPS = [
 
 CORS_ORIGIN_WHITELIST = (
     "http://localhost:8000",
+    "http://localhost:7000",
+    "http://localhost:6500",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:8000",
-    "https://coach.craftstudios.eu/",
+    "https://coach.craftstudios.eu",
 )
 
 
@@ -74,12 +76,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    "http://localhost:8000",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:8000",
-)
+
 
 ROOT_URLCONF = "config.urls"
 

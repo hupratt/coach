@@ -55,13 +55,6 @@ function Background(props) {
     if (!didMount) {
       setDidMount(true);
       dispatch(toggleBackground());
-      setTimeout(() => {
-        const script = document.createElement("script");
-        script.async = "async";
-        script.id = "road-background";
-        script.src = "static/frontend/js/init.js";
-        document.body.appendChild(script);
-      }, 1000);
     }
   });
 
