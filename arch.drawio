@@ -1,6 +1,6 @@
-<mxfile modified="2022-12-13T15:04:59.419Z" host="app.diagrams.net" agent="5.0 (X11)" etag="5a4q7V1twYWluC0WYP35" version="20.6.2" type="github">
+<mxfile modified="2022-12-13T15:08:17.389Z" host="app.diagrams.net" agent="5.0 (X11)" etag="qfev-w2LM3hayj7kdwAO" version="20.6.2" type="github">
   <diagram id="Ht1M8jgEwFfnCIfOTk4-" name="Page-1">
-    <mxGraphModel dx="3555" dy="2725" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1138" dy="1434" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -109,6 +109,15 @@
         </mxCell>
         <mxCell id="xgc6DM9Copx6KXdF2zNQ-43" value="&lt;div&gt;the backend connects to&lt;/div&gt;&lt;div&gt;posthog and google analytics&lt;/div&gt;&lt;div&gt;to send user activity to the cloud&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=30;fontColor=#FF6E42;labelBackgroundColor=default;" parent="1" vertex="1">
           <mxGeometry x="1635" y="-434" width="450" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="KZmOVOS_1VvU0_s_CrrF-1" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn1.iconfinder.com/data/icons/bootstrap-vol-3/16/filetype-jsx-128.png" vertex="1" parent="1">
+          <mxGeometry x="680" y="249" width="46" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="KZmOVOS_1VvU0_s_CrrF-3" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn1.iconfinder.com/data/icons/bootstrap-vol-3/16/filetype-jsx-128.png" vertex="1" parent="1">
+          <mxGeometry x="774.25" y="249" width="46" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="KZmOVOS_1VvU0_s_CrrF-6" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn1.iconfinder.com/data/icons/bootstrap-vol-3/16/filetype-scss-128.png" vertex="1" parent="1">
+          <mxGeometry x="634" y="249" width="46" height="46" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
