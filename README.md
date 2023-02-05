@@ -29,5 +29,5 @@ black --exclude .venv .
 
 ## Database UML
 <p align="center" width="100%">
-    <img width="90%" src="https://github.com/hupratt/booking/blob/master/db.png?raw=true">
+    <img width="90%" src="https://github.com/hupratt/coach/blob/master/db.png?raw=true">
 </p>
