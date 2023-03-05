@@ -2,7 +2,9 @@
 
 ![Banner](https://github.com/hupratt/coach/blob/master/coach.jpg?raw=true)
 
-## RTCMultiConnectionFork is a serverless WebRTC app
+## Architecture
+
+RTCMultiConnectionFork is an expressjs WebRTC app
 
 <p align="center" width="100%">
     <img width="90%" src="https://github.com/hupratt/coach/blob/master/arch.drawio.png?raw=true">
