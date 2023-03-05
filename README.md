@@ -1,6 +1,8 @@
 # Coach: calendar app with React
 
-## Architecture
+![Banner](https://github.com/hupratt/coach/blob/master/coach.jpg?raw=true)
+
+## RTCMultiConnectionFork is a serverless WebRTC app
 
 <p align="center" width="100%">
     <img width="90%" src="https://github.com/hupratt/coach/blob/master/arch.drawio.png?raw=true">
@@ -31,3 +33,6 @@ black --exclude .venv .
 <p align="center" width="100%">
     <img width="90%" src="https://github.com/hupratt/coach/blob/master/db.png?raw=true">
 </p>
+
+## Preview
+![ui-demo](https://github.com/hupratt/coach/blob/master/coach-2.gif?raw=true)
