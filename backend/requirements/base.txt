@@ -7,7 +7,7 @@ django-model-utils==4.0.0
 django-admin-sortable==2.2.3
 markdown==3.2.2
 PyYAML==5.3.1
-Pillow==7.1.2
+Pillow==10.0.1
 shortuuid==1.0.1
 django-dotenv==1.4.2
 django-cors-headers==3.3.0
