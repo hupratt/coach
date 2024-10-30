@@ -11,7 +11,7 @@ networks:
 
 services:
   backend:
-    container_name: backend
+    container_name: coach-backend
     build: .
     restart: always
     ports:
@@ -28,7 +28,7 @@ services:
 #                    python manage.py runserver 0.0.0.0:9924"
   nginx:
     restart: always
-    container_name: nginx
+    container_name: coach-nginx
     build: ./nginx/
     ports:
       - "8089:80"
