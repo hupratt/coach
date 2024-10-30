@@ -17,14 +17,14 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 if os.environ.get("DJANGO_DEVELOPMENT") == "True":
     dotenv.read_dotenv(
         os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+            "/hdd/Dev/coach/backend",
             ".env.development",
         )
     )
 else:
     dotenv.read_dotenv(
         os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))), ".env"
+            "/hdd/Dev/coach/backend", ".env"
         )
     )
 
