@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 
 # Copy the current directory contents into the container at /app
-WORKDIR /hdd/Dev/coach
+WORKDIR /hdd/Dev/coach/backend
 COPY . .
 RUN pip install -r requirements/production.txt
 RUN python manage.py collectstatic -v 2 --noinput

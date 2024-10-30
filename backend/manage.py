@@ -7,12 +7,12 @@ import sys
 def main():
     if os.environ.get("DJANGO_DEVELOPMENT") == "True":
         dotenv.read_dotenv(
-            os.path.join(os.path.dirname(__file__), ".env.development")
+            os.path.join("/hdd/Dev/coach/backend", ".env.development")
         )
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
     else:
         dotenv.read_dotenv(
-            os.path.join(os.path.dirname(__file__), ".env")
+            os.path.join("/hdd/Dev/coach/backend", ".env")
         )
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
     try:

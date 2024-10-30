@@ -17,7 +17,7 @@ services:
     ports:
       - "9125:9125"
     volumes:
-      - ./:/hdd/Dev/coach
+      - ./:/hdd/Dev/coach/backend
     networks:
       - coach-network
     env_file:
