@@ -1,0 +1,39 @@
+name: coach
+networks:
+  coach-network:
+    driver: bridge
+    ipam:
+     driver: default
+     config:
+       - subnet: 172.190.3.0/24
+    driver_opts:
+      com.docker.network.bridge.name: br_coach
+
+services:
+  backend:
+    container_name: backend
+    build: .
+    restart: always
+    ports:
+      - "9125:9125"
+    volumes:
+      - ./:/hdd/Dev/coach
+    networks:
+      - coach-network
+    env_file:
+      - .env
+    command: sh -c "python manage.py makemigrations &&
+                    python manage.py migrate &&
+                    gunicorn config.wsgi:application -w 2 --bind 0.0.0.0:9125"
+#                    python manage.py runserver 0.0.0.0:9924"
+  nginx:
+    restart: always
+    container_name: nginx
+    build: ./nginx/
+    ports:
+      - "8089:80"
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
+    networks:
+      - coach-network

@@ -21,10 +21,10 @@ BACKEND_DIR = os.path.dirname(
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
 DEBUG = os.environ.get("DEBUG", False)
 ALLOWED_HOSTS = [
-    "coach.craftstudios.shop",
+    "coach.thekor.eu",
     "127.0.0.1",
     "localhost",
-    "coach.bitwcmd.duckdns.org",
+    "10.10.85.100"
 ]
 
 
@@ -67,7 +67,7 @@ CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:8000",
-    "https://coach.craftstudios.shop",
+    "https://posthog.thekor.eu",
 )
 
 
